@@ -1,9 +1,9 @@
 from flask import Blueprint, request, jsonify
 
-app_route6 = Blueprint("auth_cookie", __name__)
+check_status_auth_cookie = Blueprint("auth_cookie", __name__)
 
 
-@app_route6.route("check-status")
+@check_status_auth_cookie.route("check-status")
 def check_status():
     token = request.cookies.get("user_token")
     if token:

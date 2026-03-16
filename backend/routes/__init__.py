@@ -1,10 +1,10 @@
 # import file nội bộ
-from routes.group_password.input_pass import app_route
-from routes.group_password.create_a_password import app_route2
-from routes.group_password.forgot_password.forgot_password import app_route4
-from routes.group_password.forgot_password.forgot_pass2 import app_route3
-from routes.group_password.forgot_password.forgot_password3 import app_route5
-from routes.check_test.cookie import app_route6
+from routes.group_password.input_pass import login_route
+from routes.group_password.create_a_password import signup_route
+from routes.group_password.forgot_password.forgot_password import findpassword_route
+from routes.group_password.forgot_password.forgot_pass2 import findpassword_route_2
+from routes.group_password.forgot_password.forgot_password3 import findpassword_route_3
+from routes.check_test.cookie import check_status_auth_cookie
 from routes.group_chuc_nang.kiem_tra_dang_nhap.upload_fist_login import app_route7
 from routes.group_chuc_nang.upload.upload_main import app_route8
 from routes.group_chuc_nang.upload.chuc_nang.lay_file import app_route9
@@ -33,12 +33,12 @@ from routes.group_admin.group_chuc_nang.kill_switch import lenh_tu_huy
 
 blueprint_groups = {
     "/auth": [
-        app_route,
-        app_route2,
-        app_route3,
-        app_route4,
-        app_route5,
-        app_route6,
+        login_route,
+        signup_route,
+        findpassword_route_2,
+        findpassword_route,
+        findpassword_route_3,
+        check_status_auth_cookie,
         app_route19,
         app_route20,
         app_route21,
