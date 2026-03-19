@@ -4,4 +4,4 @@ from backend.utils.make_token import tao_token_10_so
 token_new = tao_token_10_so()
 token_new_hash = hash(token_new)
 
-print(token_new_hash)
+logger(token_new_hash)

@@ -2,7 +2,6 @@ from configs.db import db
 from logs.logger import logger
 from utils.hash_password import hash_password, make_salt
 
-
 def kiem_tra_de_doi_mat_khau(token, gmail, new_password):
     thu_muc_can_kiem_tra = db["token"]
     thu_muc_nguoi_dung = db["users"]
@@ -26,8 +25,6 @@ def kiem_tra_de_doi_mat_khau(token, gmail, new_password):
 
         salt = make_salt()
         new_hash_pass = hash_password(new_password, salt)
-
-        print("đến đoạn này rồi bạn ơi, forgot_password3.py")
 
         ket_qua_up_date = thu_muc_nguoi_dung.update_one(
             {"gmail": gmail}, {"$set": {"password": new_hash_pass, "salt": salt}}

@@ -11,11 +11,11 @@ def clean_project():
         for d in dirs:
             if d in trash_folders:
                 path = os.path.join(root, d)
-                print(f"--- Đang dọn dẹp rác của bạn: {path} ---")
+                logger(f"--- Đang dọn dẹp rác của bạn: {path} ---")
                 shutil.rmtree(path)
                 count += 1
     
-    print(f"Đã dọn xong {count} chỗ rác trong code của bạn. Project sạch bóng!")
+    logger(f"Đã dọn xong {count} chỗ rác trong code của bạn. Project sạch bóng!")
 
 if __name__ == "__main__":
     clean_project()

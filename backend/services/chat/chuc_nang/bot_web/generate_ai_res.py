@@ -2,7 +2,7 @@ from services.chat.chuc_nang.bot_web.buid_chat_context import build_chat_context
 from google.genai import types
 from configs.AI_clinet import client
 from services.chat.chuc_nang.bot_web.get_fallback_res import get_fallback_response
-
+from logs.logger import logger
 
 def generate_ai_response(user_id, user_message):
     try:
@@ -19,5 +19,5 @@ def generate_ai_response(user_id, user_message):
         return bot_response
 
     except Exception as e:
-        print(f"[ERROR] Gemini API error: {e}")
+        logger.error(f"[ERROR] Gemini API error: {e}")
         return get_fallback_response(user_message)

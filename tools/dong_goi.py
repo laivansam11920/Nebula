@@ -20,4 +20,4 @@ def collect_code(target_dir, output_file):
 
 if __name__ == "__main__":
     collect_code('.', 'project_for_ai.md')
-    print("Xong rồi og! File 'project_for_ai.md' đã sẵn sàng.")
+    logger("Xong rồi og! File 'project_for_ai.md' đã sẵn sàng.")

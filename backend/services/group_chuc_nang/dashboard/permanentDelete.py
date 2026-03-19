@@ -1,6 +1,6 @@
 from configs.db import db
 import datetime
-
+from logs.logger import logger
 
 def permanentdelete_file_services(ma_dinh_danh_file, collection):
     try:
@@ -15,7 +15,7 @@ def permanentdelete_file_services(ma_dinh_danh_file, collection):
             },
         )
         if res.matched_count == 0:
-            print(f"Không tìm thấy file có ID: {ma_dinh_danh_file}")
+            logger.error(f"Không tìm thấy file có ID: {ma_dinh_danh_file}")
             return {"trang_thai": False, "mes": "khong tim thay id"}
         return {"trang_thai": True, "mes": "khôi phục thành công"}
     except Exception as e:

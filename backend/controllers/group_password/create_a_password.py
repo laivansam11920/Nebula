@@ -1,6 +1,6 @@
 from flask import request, jsonify
 from services.group_mk.create_a_password import kiem_tra_mat_khau
-
+from logs.logger import logger
 
 def kiem_tra2():
     dulieu = request.get_json()
@@ -23,8 +23,8 @@ def kiem_tra2():
     if ket_qua.get("status") == "error":
         loi = ket_qua.get("error_type")
         code = bang_ma_loi.get(loi, 400)
-        print(f"Lỗi: {loi} - Trả về code: {code}")
+        logger.error(f"Lỗi: {loi} - Trả về code: {code}")
     else:
-        print("Gửi lên ok! Tạo tài khoản thành công.")
+        logger.log("Gửi lên ok! Tạo tài khoản thành công.")
 
     return jsonify(ket_qua), code

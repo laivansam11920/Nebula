@@ -2,7 +2,7 @@ import requests
 from utils.tinh_thoi_gian import thoi_gian_tuong_doi
 from datetime import datetime
 from utils.kiem_tra_thong_tin import lam_dep_thiet_bi
-
+from logs.logger import logger
 
 def gui_mail_reset(email_nguoi_nhan, token, thoi_gian, dia_chi_ip, thiet_bi):
 
@@ -40,14 +40,14 @@ def gui_mail_reset(email_nguoi_nhan, token, thoi_gian, dia_chi_ip, thiet_bi):
         #
         response = requests.post(url, json=data)
 
-        print(f"EmailJS Response: {response.status_code} - {response.text}")
+        logger.log(f"EmailJS Response: {response.status_code} - {response.text}")
 
         if response.status_code == 200:
-            print(f"Gửi mail cho {email_nguoi_nhan} thành công rồi og ơi! 🎉")
+            logger.log(f"Gửi mail cho {email_nguoi_nhan} thành công rồi og ơi! 🎉")
             return {"success": True}
         else:
-            print(f"EmailJS báo lỗi: {response.text}")
+            logger.error(f"EmailJS báo lỗi: {response.text}")
             return {"success": False, "error": response.text}
     except Exception as e:
-        print(f"Có lỗi bất ngờ rồi og ơi: {e}")
+        logger.error(f"Có lỗi bất ngờ rồi og ơi: {e}")
         return {"success": False, "error": str(e)}

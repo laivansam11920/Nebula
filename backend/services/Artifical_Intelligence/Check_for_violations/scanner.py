@@ -190,7 +190,7 @@ if __name__ == "__main__":
     )
 
     caption = response.text.strip()
-    print(caption)
+    logger(caption)
 
     # 3. Lưu câu mới vào lịch sử
     with open(history_file, "a", encoding="utf-8") as f:

@@ -8,7 +8,7 @@ def test_web_online():
         page = browser.new_page()
 
         # 2. Đi tới link web (Thay bằng link thật của ông)
-        print("Đang mở trang web...")
+        logger("Đang mở trang web...")
         page.goto(
             "https://gemini-dot.github.io/learnpythonsever-sm/frontend/view/group_password/input_pass.html",
             wait_until="networkidle",
@@ -18,14 +18,14 @@ def test_web_online():
         # Đợi cho đến khi ô #firstname xuất hiện trên màn hình
         try:
             page.wait_for_selector("#firstname", timeout=10000)  # Đợi tối đa 10s
-            print("Đã thấy ô nhập tên, bắt đầu điền...")
+            logger("Đã thấy ô nhập tên, bắt đầu điền...")
 
             page.fill("#firstname", "Sam")
             page.fill("#lastname", "Lai Van")
             # ... các lệnh fill khác ...
 
         except Exception as e:
-            print("Lỗi rồi: Không tìm thấy ô nhập liệu. Kiểm tra lại link web nhé!")
+            logger("Lỗi rồi: Không tìm thấy ô nhập liệu. Kiểm tra lại link web nhé!")
             page.screenshot(
                 path="error_screen.png"
             )  # Chụp ảnh lại xem lúc đó web hiện gì

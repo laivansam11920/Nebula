@@ -2,7 +2,7 @@ from google.genai import types
 from configs.AI_clinet import client
 from configs.prompt import system_prompt, thong_tin_web
 import numpy as np
-
+from logs.logger import logger
 
 def ask_gemini(user_text, doan_chat_truoc):
     try:
@@ -57,11 +57,11 @@ def get_embedding(text):
         )
         return res.embeddings[0].values
     except Exception as e:
-        print(f"Lỗi: {e}")
-        print("Đang quét danh sách model khả dụng...")
+        logger.error(f"Lỗi: {e}")
+        logger.log("Đang quét danh sách model khả dụng...")
         for m in client.models.list():
             if "embed" in m.name.lower():
-                print(f"-> Model bạn nên dùng là: {m.name}")
+                logger.log(f"-> Model bạn nên dùng là: {m.name}")
         return None
 
 
@@ -83,5 +83,5 @@ def find_relevant_doc(query):
 
         return best_doc
     except Exception as e:
-        print(f"Lỗi Embedding: {e}")
+        logger.error(f"Lỗi Embedding: {e}")
         return "Không tìm thấy thông tin liên quan."

@@ -1,3 +1,5 @@
+from logs.logger import logger
+
 def parse_size_to_bytes(size_data):
     """
     Chuyển đổi chuỗi dung lượng (VD: '178.0 KB') thành số Byte.
@@ -27,5 +29,5 @@ def parse_size_to_bytes(size_data):
         return num # Mặc định Bytes
         
     except Exception as e:
-        print(f"[DEBUG] Lỗi parse file size: {size_data} -> {e}")
+        logger.debug(f"[DEBUG] Lỗi parse file size: {size_data} -> {e}")
         return 0

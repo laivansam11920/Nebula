@@ -1,6 +1,7 @@
 from configs.db import db
 from utils.tinh_toan_file import parse_size_to_bytes
 import traceback
+from logs.logger import logger
 
 def get_user_storage_info(user_gmail):
     try:
@@ -53,6 +54,6 @@ def get_user_storage_info(user_gmail):
             }
         }
     except Exception as e:
-        print("[DEBUG] CHI TIẾT LỖI:", flush=True)
-        print(traceback.format_exc(), flush=True) 
+        logger.debug("[DEBUG] CHI TIẾT LỖI:", flush=True)
+        logger.log(traceback.format_exc(), flush=True) 
         return {"error": f"Lỗi máy chủ: {str(e)}"}, 500

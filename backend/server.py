@@ -17,12 +17,12 @@ from logs.logger import logger
 from utils.trang_thai_db_503 import get_maintenance_status
 from routes import register_routes
 import secrets
-
+from logs.logger import logger
 
 os.environ["OAUTHLIB_INSECURE_TRANSPORT"] = "1"
 
 sentry_sdk.init(
-    dsn="https://a5ad9555164abda45436dbd6d09fd251@o4510918588301312.ingest.us.sentry.io/4510918591905792",
+    dsn=str(os.getenv("SENTRY_KEY")),
     send_default_pii=True,
     traces_sample_rate=1.0,
 )
@@ -96,7 +96,7 @@ admin_pass_on, admin_pass_off = str(os.getenv("BAOTRI_KEY_ON")), str(
 
 @socketio.on("admin_broadcast")
 def handle_broadcast(data):
-    print(f"Đang phát tin: {data['msg']}", flush=True)
+    logger.log(f"Đang phát tin: {data['msg']}", flush=True)
     emit("global_notification", {"message": data["msg"]}, broadcast=True)
 
 

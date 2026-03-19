@@ -3,6 +3,7 @@ from pymongo import MongoClient
 from dotenv import load_dotenv
 from logs.logger import logger
 from pathlib import Path
+from logs.logger import logger
 
 env_path = Path(__file__).resolve().parent.parent.parent / ".env"
 load_dotenv(dotenv_path=env_path, override=True)
@@ -27,6 +28,6 @@ db = get_database()
 if db is not None:
     try:
         db["users"].drop_index("key_1")
-        print("Đã xóa Index lỗi 'key_1' thành công!")
+        logger.log("Đã xóa Index lỗi 'key_1' thành công!")
     except Exception as e:
         pass

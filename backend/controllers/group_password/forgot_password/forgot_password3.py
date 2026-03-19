@@ -1,11 +1,8 @@
 from flask import request, jsonify
 from services.group_mk.forgot_password.forgot_password3 import kiem_tra_de_doi_mat_khau
-
+from logs.logger import logger
 
 def doi_mat_khau_moi():
-
-    print("đến đoạn này rồi bạn ơi, forgot_password3.py - controller")
-
     data = request.get_json()
     token = data.get("token")
     gmail = data.get("gmail")
@@ -13,8 +10,6 @@ def doi_mat_khau_moi():
 
     if not all([token, gmail, new_password]):
         return jsonify({"success": False, "message": "Thiếu thông tin cần thiết!"}), 400
-
-    print("đến đoạn này rồi bạn ơi, forgot_password3.py - controller")
 
     try:
         kiem_tra = kiem_tra_de_doi_mat_khau(token, gmail, new_password)

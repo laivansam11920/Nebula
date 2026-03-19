@@ -421,16 +421,16 @@
 <polygon fill="blue" stroke="black" points="1263.07,-906.54 1263.27,-917.13 1269.72,-908.73 1263.07,-906.54"/>
 <polygon fill="blue" stroke="black" points="1337.82,-504.67 1334.08,-494.76 1330.82,-504.84 1337.82,-504.67"/>
 </g>
-<!-- flask_blueprints -->
+<!-- flask_blueloggers -->
 <g id="node16" class="node">
-<title>flask_blueprints</title><style>.edge>path:hover{stroke-width:8}</style>
+<title>flask_blueloggers</title><style>.edge>path:hover{stroke-width:8}</style>
 <polygon fill="blue" stroke="black" points="1490.05,-494.38 1425.05,-494.38 1425.05,-458.38 1490.05,-458.38 1490.05,-494.38"/>
 <text text-anchor="middle" x="1457.55" y="-479.38" font-family="Helvetica,sans-Serif" font-size="10.00" fill="white">flask.</text>
-<text text-anchor="middle" x="1457.55" y="-468.38" font-family="Helvetica,sans-Serif" font-size="10.00" fill="white">blueprints</text>
+<text text-anchor="middle" x="1457.55" y="-468.38" font-family="Helvetica,sans-Serif" font-size="10.00" fill="white">blueloggers</text>
 </g>
-<!-- flask_blueprints&#45;&gt;flask -->
+<!-- flask_blueloggers&#45;&gt;flask -->
 <g id="edge43" class="edge">
-<title>flask_blueprints&#45;&gt;flask</title><style>.edge>path:hover{stroke-width:8}</style>
+<title>flask_blueloggers&#45;&gt;flask</title><style>.edge>path:hover{stroke-width:8}</style>
 <path fill="none" stroke="black" d="M1439.87,-458.08C1425.43,-443.95 1404.84,-423.8 1388.68,-407.99"/>
 <polygon fill="blue" stroke="black" points="1390.75,-405.12 1381.16,-400.62 1385.85,-410.12 1390.75,-405.12"/>
 </g>
@@ -467,9 +467,9 @@
 <path fill="none" stroke="black" d="M1396.55,-569.37C1396.35,-512.07 1381.05,-446.34 1371.35,-410.39"/>
 <polygon fill="blue" stroke="black" points="1374.7,-409.36 1368.67,-400.65 1367.95,-411.22 1374.7,-409.36"/>
 </g>
-<!-- flask_globals&#45;&gt;flask_blueprints -->
+<!-- flask_globals&#45;&gt;flask_blueloggers -->
 <g id="edge50" class="edge">
-<title>flask_globals&#45;&gt;flask_blueprints</title><style>.edge>path:hover{stroke-width:8}</style>
+<title>flask_globals&#45;&gt;flask_blueloggers</title><style>.edge>path:hover{stroke-width:8}</style>
 <path fill="none" stroke="black" d="M1396.55,-569.37C1396.46,-543.28 1413.72,-518.92 1429.9,-501.83"/>
 <polygon fill="blue" stroke="black" points="1432.62,-504.07 1437.19,-494.52 1427.66,-499.13 1432.62,-504.07"/>
 </g>
@@ -530,9 +530,9 @@
 <path fill="none" stroke="black" d="M1465.39,-588.5C1466.51,-626.64 1465.12,-720.41 1429.55,-787.32 1399.47,-843.91 1337.87,-888.07 1297.14,-912.66"/>
 <polygon fill="blue" stroke="black" points="1295.11,-909.8 1288.28,-917.9 1298.67,-915.82 1295.11,-909.8"/>
 </g>
-<!-- flask_helpers&#45;&gt;flask_blueprints -->
+<!-- flask_helpers&#45;&gt;flask_blueloggers -->
 <g id="edge58" class="edge">
-<title>flask_helpers&#45;&gt;flask_blueprints</title><style>.edge>path:hover{stroke-width:8}</style>
+<title>flask_helpers&#45;&gt;flask_blueloggers</title><style>.edge>path:hover{stroke-width:8}</style>
 <path fill="none" stroke="black" d="M1463.24,-552.06C1462.22,-538.7 1460.79,-519.96 1459.62,-504.6"/>
 <polygon fill="blue" stroke="black" points="1463.11,-504.31 1458.86,-494.61 1456.13,-504.84 1463.11,-504.31"/>
 </g>
@@ -631,9 +631,9 @@
 <path fill="none" stroke="black" d="M1271.85,-682.58C1268.58,-695.37 1264.49,-713.31 1262.55,-729.34 1254.93,-792.65 1255.53,-867.73 1256.57,-907.1"/>
 <polygon fill="blue" stroke="black" points="1253.08,-907.33 1256.87,-917.22 1260.08,-907.12 1253.08,-907.33"/>
 </g>
-<!-- flask_wrappers&#45;&gt;flask_blueprints -->
+<!-- flask_wrappers&#45;&gt;flask_blueloggers -->
 <g id="edge78" class="edge">
-<title>flask_wrappers&#45;&gt;flask_blueprints</title><style>.edge>path:hover{stroke-width:8}</style>
+<title>flask_wrappers&#45;&gt;flask_blueloggers</title><style>.edge>path:hover{stroke-width:8}</style>
 <path fill="none" stroke="black" d="M1320.55,-569.37C1336.15,-528.99 1381.05,-504.23 1415.24,-490.72"/>
 <polygon fill="blue" stroke="black" points="1416.89,-493.84 1425.01,-487.05 1414.42,-487.29 1416.89,-493.84"/>
 </g>

@@ -7,6 +7,7 @@ from services.chat.chuc_nang.send_mes import (
     send_button_message,
 )
 from services.chat.chuc_nang.AI_core import find_relevant_doc
+from logs.logger import logger
 
 limits_col = db["user_limits"]
 
@@ -22,7 +23,7 @@ def handle_ai_logic(sender_id, message_text):
     search_context = ""
 
     if any(word in message_text.lower() for word in keywords):
-        print(f"--- Đang tìm tin tức cho: {message_text} ---")
+        logger.log(f"--- Đang tìm tin tức cho: {message_text} ---")
         search_context = get_realtime_info(message_text)
         message_text = (
             f"(Bối cảnh thực tế: {search_context})\nCâu hỏi khách: {message_text}"
@@ -51,7 +52,7 @@ def handle_ai_logic(sender_id, message_text):
                 sender_id,
                 "Tui đang 'reset' lại não xíu, og nhắn lại câu vừa nãy nha! 🧠",
             )
-            print(f"Bỏ qua lưu vì lỗi API: {ai_reply}", flush=True)
+            logger.warning(f"Bỏ qua lưu vì lỗi API: {ai_reply}", flush=True)
             return
         msg_to_send = (
             ai_reply.split("|||")[0].strip() if "|||" in ai_reply else ai_reply

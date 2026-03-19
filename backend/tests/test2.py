@@ -18,4 +18,4 @@ def test_full_signup_flow():
 
     response = requests.post("http://localhost:5000/auth/create-a-pass", json=payload)
     assert response.status_code == 201
-    print(f"\n✅ Đăng ký thành công email: {test_email}")
+    logger(f"\n✅ Đăng ký thành công email: {test_email}")

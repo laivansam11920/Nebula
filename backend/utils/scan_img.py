@@ -1,6 +1,7 @@
 import os
 from nudenet import NudeDetector
 from utils.image_compressor import compress_image_for_ai
+from logs.logger import logger
 
 detector = NudeDetector()
 
@@ -67,4 +68,4 @@ def check_image_sensitivity(image_path: str) -> dict:
             try:
                 os.remove(compressed_path)
             except Exception as e:
-                print(f"Lỗi khi xóa file ảnh tạm: {e}")
+                logger.error(f"Lỗi khi xóa file ảnh tạm: {e}")

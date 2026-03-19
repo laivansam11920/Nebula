@@ -29,7 +29,7 @@ def generate_project_structure(root_dir, output_file):
         # Lưu dưới dạng list các object để dễ tra cứu
         json.dump(project_structure, json_file, ensure_ascii=False, indent=2)
     
-    print(f"Xong rồi og ơi! Đã lập xong bản đồ vị trí file tại: {output_file} :)")
+    logger(f"Xong rồi og ơi! Đã lập xong bản đồ vị trí file tại: {output_file} :)")
 
 if __name__ == "__main__":
     # Lấy đường dẫn gốc của dự án (thư mục cha của folder tools)

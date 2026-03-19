@@ -1,5 +1,6 @@
 from github import Github
 from os import getenv
+from logs.logger import logger
 
 GITHUB_TOKEN = getenv("GITHUB_TOKEN")
 REPO_NAME = "gemini-dot/html_upload"
@@ -8,7 +9,7 @@ REPO_NAME = "gemini-dot/html_upload"
 def upload_html_to_github(file, filename, user_email):
     try:
         if not GITHUB_TOKEN:
-            print("Chưa cấu hình GITHUB_TOKEN trên Render!")
+            logger.error("Chưa cấu hình GITHUB_TOKEN trên Render!")
             return None
 
         g = Github(GITHUB_TOKEN)
@@ -33,5 +34,5 @@ def upload_html_to_github(file, filename, user_email):
         return f"https://gemini-dot.github.io/html_upload/{path_in_repo}?username={user_email}"
 
     except Exception as e:
-        print(f"Lỗi xử lý GitHub: {e}")
+        logger.error(f"Lỗi xử lý GitHub: {e}")
         return None

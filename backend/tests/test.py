@@ -8,7 +8,7 @@ def test_dang_nhap_thanh_cong():
 
     response = requests.post(BASE_URL, json=payload)
     assert response.status_code == 200
-    print("\n✅ Test Đăng nhập thành công: PASS")
+    logger("\n✅ Test Đăng nhập thành công: PASS")
 
 
 def test_dang_nhap_sai_pass():
@@ -17,7 +17,7 @@ def test_dang_nhap_sai_pass():
     response = requests.post(BASE_URL, json=payload)
 
     assert response.status_code == 401
-    print("\n✅ Test Sai mật khẩu: PASS (Bị chặn đúng)")
+    logger("\n✅ Test Sai mật khẩu: PASS (Bị chặn đúng)")
 
 
 def test_dang_nhap_khong_ton_tai():
@@ -26,4 +26,4 @@ def test_dang_nhap_khong_ton_tai():
     response = requests.post(BASE_URL, json=payload)
 
     assert response.status_code == 401
-    print("\n✅ Test Email không tồn tại: PASS (Bị chặn đúng)")
+    logger("\n✅ Test Email không tồn tại: PASS (Bị chặn đúng)")

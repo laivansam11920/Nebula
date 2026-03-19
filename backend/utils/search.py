@@ -1,5 +1,5 @@
 from configs.db import db
-
+from logs.logger import logger
 
 def tim_only(collection, find_name, variable, find_item):
     try:
@@ -10,5 +10,5 @@ def tim_only(collection, find_name, variable, find_item):
         res = user.get(str(find_item))
         return res
     except Exception as e:
-        print(f"Lỗi ADMIN-ROOT ơi: {e}")
+        logger.error(f"Lỗi ADMIN-ROOT ơi: {e}")
         return None
