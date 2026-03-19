@@ -148,4 +148,4 @@ if __name__ == "__main__":
 # nếu bro gặp lỗi và đang cố gắng fix lỗi(90% là vậy)
 # thì xin lỗi...
 # chỉ có chúa với tui là hiểu nó chạy thế nào
-# và giờ chỉ còn chúa thôi.
+# và giờ chỉ còn chúa thôi.:))
