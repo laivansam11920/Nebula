@@ -3,7 +3,7 @@ import eventlet
 eventlet.monkey_patch() #debug
 import newrelic.agent
 newrelic.agent.initialize()
-from flask import Flask, abort, request
+from flask import Flask, abort, request, send_from_directory
 from flask_cors import CORS
 import os
 import sys
@@ -16,6 +16,7 @@ from configs.settings import ip_allow
 from utils.trang_thai_db_503 import get_maintenance_status
 from routes import register_routes
 import secrets
+from configs.duong_dan_thu_muc import thu_muc_chinh
 
 os.environ["OAUTHLIB_INSECURE_TRANSPORT"] = "1"
 
@@ -130,8 +131,8 @@ def unlock():
 
 @app.route("/")
 def home():
-    return "Server đang chạy cực mượt rồi bạn ơi!"
-
+    thu_muc = thu_muc_chinh()
+    return send_from_directory(thu_muc, "index.html")
 
 port = int(os.environ.get("PORT", 8000))
 
