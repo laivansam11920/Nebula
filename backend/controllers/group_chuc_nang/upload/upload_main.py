@@ -97,11 +97,6 @@ def process_single_file(file_data, user_email, folder_name):
 
 
 def upload_to_cloud():
-
-    hop_le, loi_nhan = check_storage_user_services(user_email)
-    if not hop_le:
-        return jsonify({"error": loi_nhan}), 507 
-
     user_email = request.cookies.get("user_gmail")
     trang_thai = request.cookies.get("trang_thai")
 
@@ -110,6 +105,10 @@ def upload_to_cloud():
 
     if not user_email:
         return jsonify({"loi": "nguoi_dung"}), 401
+    
+    hop_le, loi_nhan = check_storage_user_services(user_email)
+    if not hop_le:
+        return jsonify({"error": loi_nhan}), 507 
 
     folder_name = f"my_project/users/{user_email.replace('@', '_').replace('.', '_')}"
 
