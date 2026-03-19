@@ -6,6 +6,7 @@ from utils.luu_du_lieu_vao_db import luu
 from utils.scan_img import check_image_sensitivity
 from services.upload.chuc_nang.upload_html import upload_html_to_github
 from services.upload.chuc_nang.save_metadata import save_metadata_html
+from services.upload.chuc_nang.kiem_tra_gioi_han_dung_luong_user import check_storage_user_services
 import os
 import uuid
 import concurrent.futures #debug
@@ -96,6 +97,11 @@ def process_single_file(file_data, user_email, folder_name):
 
 
 def upload_to_cloud():
+
+    hop_le, loi_nhan = check_storage_user_services(user_email)
+    if not hop_le:
+        return jsonify({"error": loi_nhan}), 507 
+
     user_email = request.cookies.get("user_gmail")
     trang_thai = request.cookies.get("trang_thai")
 
