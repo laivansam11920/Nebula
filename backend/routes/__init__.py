@@ -30,7 +30,8 @@ from routes.group_chuc_nang.upload.chuc_nang.get_avatar import app_route28
 from routes.group_chuc_nang.upload.chuc_nang.check_storage import check_storage
 from routes.ping.ping import khoi_dong
 from routes.group_admin.group_chuc_nang.kill_switch import lenh_tu_huy
-from routes.group_password.main.login import login
+from routes.group_password.chuyen_huong.login import login
+from routes.group_password.chuyen_huong.signup import signup
 blueprint_groups = {
     "/auth": [
         login_route,
@@ -44,6 +45,7 @@ blueprint_groups = {
         app_route21,
         app_route27,
         login,
+        signup,
     ],
     "/profile": [
         app_route10,
