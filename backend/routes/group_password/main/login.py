@@ -9,4 +9,4 @@ login = Blueprint("login route user",__name__)
 @limit_requests(max_requests=MAX_REQUESTS, period=PERIOD)
 
 def login_user_route():
-    return send_from_directory(thu_muc_chinh("/frontend/view/group_password"), "input_pass.html")
+    return send_from_directory(thu_muc_chinh("frontend/view/group_password"), "input_pass.html")

@@ -64,8 +64,10 @@ blueprint_groups = {
     "/api": [app_route23],
 }
 
-
-def register_routes(app):
-    for prefix, blueprints in blueprint_groups.items():
-        for bp in blueprints:
-            app.register_blueprint(bp, url_prefix=prefix)
+try:
+    def register_routes(app):
+        for prefix, blueprints in blueprint_groups.items():
+            for bp in blueprints:
+                app.register_blueprint(bp, url_prefix=prefix)
+except Exception as e:
+    print(f'[ERROR] {e}')
