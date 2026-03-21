@@ -1,4 +1,4 @@
-import { showToast } from '../../popup/popup.js';
+import { showToast } from 'https://cdn.jsdelivr.net/gh//gemini-dot/learnpythonserver-sm@main/frontend/javascript/popup/popup.js';
 
 (function () {
   const socket = io(
