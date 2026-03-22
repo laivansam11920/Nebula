@@ -28,12 +28,12 @@ graph LR
 
 ## Tech Stack
 
-| Technology                                                                                                                                | Role in Project   | Percentage |
-| :---------------------------------------------------------------------------------------------------------------------------------------- | :---------------- | :--------- |
-| <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg" width="25" height="25" /> **HTML5**                | Web Structure     | 38.2%      |
-| <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg" width="25" height="25" /> **JavaScript** | Client-side Logic | 28.5%      |
-| <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" width="25" height="25" /> **Python**             | Server & Backend  | 17.9%      |
-| <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg" width="25" height="25" /> **CSS3**                   | Styling & UI      | 15.4%      |
+| Technology                                                                                                                                  | Role in Project   | Percentage |
+| :------------------------------------------------------------------------------------------------------------------------------------------ | :---------------- | :--------- |
+| <img src="https://purge.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg" width="25" height="25" /> **HTML5**                | Web Structure     | 38.2%      |
+| <img src="https://purge.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg" width="25" height="25" /> **JavaScript** | Client-side Logic | 28.5%      |
+| <img src="https://purge.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" width="25" height="25" /> **Python**             | Server & Backend  | 17.9%      |
+| <img src="https://purge.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg" width="25" height="25" /> **CSS3**                   | Styling & UI      | 15.4%      |
 
 ## Project Details
 
