@@ -5,7 +5,7 @@ from middleware.rate_limiting import limit_requests
 
 signup = Blueprint("signup route user",__name__)
 
-@signup.route("/login",methods=['GET','POST'])
+@signup.route("/signup",methods=['GET','POST'])
 @limit_requests(max_requests=MAX_REQUESTS, period=PERIOD)
 
 def signup_user_route():

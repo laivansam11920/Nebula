@@ -5,7 +5,7 @@ from middleware.rate_limiting import limit_requests
 
 send_mail_reset_password = Blueprint("send_mail_reset_password route user",__name__)
 
-@send_mail_reset_password.route("/login",methods=['GET','POST'])
+@send_mail_reset_password.route("/reset_password",methods=['GET','POST'])
 @limit_requests(max_requests=MAX_REQUESTS, period=PERIOD)
 
 def send_mail_reset_password_user_route():
