@@ -95,7 +95,7 @@ if (formDangNhap) {
               } else {
                 window.location.href = `https://vault-storage.me/dashboard?useraccount=${lay_gia_tri_user}`;
               }
-            }, 2000); //
+            }, 2000);
           });
         } else if (response.status === 401) {
           return response.json().then((data) => {
