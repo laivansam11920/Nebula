@@ -38,7 +38,8 @@ from routes.group_chuc_nang.upload.chuyen_huong.dashboard import user_dashboard
 from routes.chuyen_huong.error.e401 import e401
 from routes.chuyen_huong.error.e403 import e403
 from routes.chuyen_huong.error.e500 import e500
-from backend.routes.chuyen_huong.error.e503 import e503
+from routes.chuyen_huong.error.e503 import e503
+from routes.chuyen_huong.dieukhoan_dichvu.dieukhoandichvu import privacy_policy
 blueprint_groups = {
     "/auth": [
         login_route,
@@ -77,7 +78,8 @@ blueprint_groups = {
         e401,
         e403,
         e500,
-        e503
+        e503,
+        privacy_policy
     ]
 }
 
