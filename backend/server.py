@@ -132,7 +132,7 @@ def unlock():
         tim_kiem.update_one({"id": "config"}, {"$set": {"status": "website_on"}})
         return "Đã mở cửa server!", 200
     return "Sai mật khẩu!", 403
-
+#
 
 @app.route("/")
 def home():
