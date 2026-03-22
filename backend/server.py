@@ -72,19 +72,23 @@ google = oauth.register(
 register_routes(app)
 
 
+@app.errorhandler(404)
+def page_not_found(e):
+    return send_from_directory(thu_muc_chinh(),"404.html")
+
 @app.errorhandler(500)
 def internal_server_error(e):
-    return "error_server", 500
+    return send_from_directory(thu_muc_chinh("frontend/view/error"),"500.html"), 500
 
 
 @app.errorhandler(401)
 def unauthorized_error(e):
-    return "error_sai_mk", 401
+    return send_from_directory(thu_muc_chinh("frontend/view/error"),"401.html"), 401
 
 
 @app.errorhandler(503)
 def service_unavailable_error(e):
-    return "error_bao_tri", 503
+    return send_from_directory(thu_muc_chinh("frontend/view/error"),"503.html"), 503
 
 
 tim_kiem = db["trang_thai_web"]
