@@ -3,7 +3,7 @@ from validators.kiem_tra_do_bao_mat_pass import check_password_strength
 from configs.db import db
 from utils.hash_password import hash_password, make_salt
 from datetime import datetime, timedelta
-
+from configs.duong_dan_thu_muc import duong_dan_hien_tai
 
 def kiem_tra_mat_khau(user_name_input, gmail_input, password_input):
 
@@ -16,7 +16,7 @@ def kiem_tra_mat_khau(user_name_input, gmail_input, password_input):
         print(f"system: error connect {e}")
 
     if luu_tru.find_one({"gmail": gmail_input}):
-        print(f"Email {gmail_input} đã tồn tại.")
+        print(f"[LOG] Email {gmail_input} đã tồn tại.")
         return {
             "status": "error",
             "error_type": "loi_trung_email",
@@ -60,7 +60,7 @@ def kiem_tra_mat_khau(user_name_input, gmail_input, password_input):
 
         return {"status": "good", "message": "Tạo tài khoản thành công rồi nhé!"}
     except Exception as e:
-        print(f"Lỗi database: {e}")
+        print(f"Lỗi database: {e} in ",duong_dan_hien_tai())
         return {
             "status": "error",
             "error_type": "loi_luu_tru_database",

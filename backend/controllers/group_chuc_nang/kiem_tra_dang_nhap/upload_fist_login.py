@@ -21,5 +21,6 @@ def kiem_tra_token():
         if ket_qua["success"]:
             return jsonify(ket_qua), 200
         return jsonify(ket_qua), 401
-    except Exception:
+    except Exception as e:
+        print(f"[LOG]: error {e}")
         return jsonify({"success": False, "message": "Lỗi hệ thống nghiêm trọng!"}), 500

@@ -12,16 +12,10 @@ def kiem_tra(email_gui_len, pass_gui_len):
 
     log_login = db["log_login"]
     
-    try:
-        db.command("ping")
-        print("system: find to connect mongodb ")
-    except Exception as e:
-        print(f"system: error connect {e}")
-
     kiem_tra_1 = noi_tim_kiem.find_one({"gmail": email_gui_len})
 
     if kiem_tra_1 is None:
-        return {"success": False, "message": "Người dùng không tồn tại!"}
+        return {"success": False, "message": "Sai người dùng hoặc mật khẩu!"}
 
     role = kiem_tra_1["role"]
     salt = kiem_tra_1.get("salt")
@@ -71,4 +65,4 @@ def kiem_tra(email_gui_len, pass_gui_len):
             },
             "login_with":"password"
         })
-        return {"success": False, "message": "Sai mật khẩu rồi kìa!"}
+        return {"success": False, "message": "Sai người dùng hoặc mật khẩu!"}
