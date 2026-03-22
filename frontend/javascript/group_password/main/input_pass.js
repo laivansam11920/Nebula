@@ -1,13 +1,10 @@
 import { showToast } from 'https://cdn.jsdelivr.net/gh//gemini-dot/learnpythonserver-sm@main/frontend/javascript/popup/popup.js';
 
 (function () {
-  const socket = io(
-    'https://vault-server-laivansam-gnfdcsgthfhraahe.eastasia-01.azurewebsites.net',
-    {
-      transports: ['polling', 'websocket'], // Cho phép cả hai
-      withCredentials: true,
-    }
-  );
+  const socket = io('https://vault-storage.me', {
+    transports: ['polling', 'websocket'], // Cho phép cả hai
+    withCredentials: true,
+  });
 
   socket.on('global_notification', (data) => {
     pass();
@@ -29,11 +26,9 @@ import { showToast } from 'https://cdn.jsdelivr.net/gh//gemini-dot/learnpythonse
 const pass = () => {};
 async function secretMaintenanceCheck() {
   try {
-    const response = await fetch(
-      'https://vault-server-laivansam-gnfdcsgthfhraahe.eastasia-01.azurewebsites.net/ping/khoi-dong'
-    );
+    const response = await fetch('https://vault-storage.me/ping/khoi-dong');
     if (response.status === 503) {
-      window.location.href = 'https://vault-storage.me/503'; // Chuyển hướng sang trang bảo trì
+      window.location.href = 'https://vault-storage.me503'; // Chuyển hướng sang trang bảo trì
     }
   } catch (error) {
     pass();
@@ -71,7 +66,7 @@ if (formDangNhap) {
       window.location.hostname === 'localhost' ||
       window.location.hostname === '127.0.0.1'
         ? 'http://localhost:5000' //server test ở nhà:)
-        : 'https://vault-server-laivansam-gnfdcsgthfhraahe.eastasia-01.azurewebsites.net'; //
+        : 'https://vault-storage.me'; //
 
     fetch(`${API_URL}/auth/input-pass`, {
       method: 'POST',
@@ -89,9 +84,9 @@ if (formDangNhap) {
             localStorage.setItem('user_email', lay_gia_tri_user);
             setTimeout(() => {
               if (isMobileDevice()) {
-                window.location.href = `https://vault-storage.me/frontend/view/upload/dashboard/dashboard-mobile.html?useraccount=${lay_gia_tri_user}`;
+                window.location.href = `https://vault-storage.mefrontend/view/upload/dashboard/dashboard-mobile.html?useraccount=${lay_gia_tri_user}`;
               } else {
-                window.location.href = `https://vault-storage.me/dashboard?useraccount=${lay_gia_tri_user}`;
+                window.location.href = `https://vault-storage.medashboard?useraccount=${lay_gia_tri_user}`;
               }
             }, 2000);
           });

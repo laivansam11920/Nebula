@@ -108,8 +108,7 @@ const StorageManager = {
    */
   async fetchAndRefreshStorage() {
     try {
-      const apiUrl =
-        'https://vault-server-laivansam-gnfdcsgthfhraahe.eastasia-01.azurewebsites.net/upload_sv/check_storage_user';
+      const apiUrl = 'https://vault-storage.me/upload_sv/check_storage_user';
 
       const response = await fetch(apiUrl, {
         method: 'POST',

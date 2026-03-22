@@ -1,13 +1,10 @@
 import { showToast } from '../../../javascript/popup/popup.js';
 
 (function () {
-  const socket = io(
-    'https://vault-server-laivansam-gnfdcsgthfhraahe.eastasia-01.azurewebsites.net',
-    {
-      transports: ['polling', 'websocket'], // Cho phép cả hai
-      withCredentials: true,
-    }
-  );
+  const socket = io('https://vault-storage.me', {
+    transports: ['polling', 'websocket'], // Cho phép cả hai
+    withCredentials: true,
+  });
 
   socket.on('global_notification', (data) => {
     console.log('[LOG] Đã nhận thông báo hệ thống:', data.message);
@@ -35,11 +32,9 @@ if (userName) {
 }
 async function secretMaintenanceCheck() {
   try {
-    const response = await fetch(
-      'https://vault-server-laivansam-gnfdcsgthfhraahe.eastasia-01.azurewebsites.net/ping/khoi-dong'
-    );
+    const response = await fetch('https://vault-storage.me/ping/khoi-dong');
     if (response.status === 503) {
-      window.location.replace('https://vault-storage.me/503'); // Chuyển hướng sang trang bảo trì
+      window.location.replace('https://vault-storage.me503'); // Chuyển hướng sang trang bảo trì
     }
   } catch (error) {
     console.log('Server đang khởi động hoặc gặp sự cố kết nối.');
@@ -50,23 +45,20 @@ secretMaintenanceCheck();
 
 async function checkAccess() {
   try {
-    const response = await fetch(
-      'https://vault-server-laivansam-gnfdcsgthfhraahe.eastasia-01.azurewebsites.net/security/upload',
-      {
-        method: 'POST',
-        credentials: 'include',
-      }
-    );
+    const response = await fetch('https://vault-storage.me/security/upload', {
+      method: 'POST',
+      credentials: 'include',
+    });
 
     const data = await response.json();
 
     if (response.status === 200) {
       showToast('success', 'thành công! Chào mừng bạn quay trở lại.');
     } else {
-      window.location.replace('https://vault-storage.me/401');
+      window.location.replace('https://vault-storage.me401');
     }
   } catch (error) {
-    window.location.replace('https://vault-storage.me/500');
+    window.location.replace('https://vault-storage.me500');
   }
 }
 
@@ -239,17 +231,14 @@ function uploadFiles() {
     formData.append('files[]', file);
   });
 
-  fetch(
-    'https://vault-server-laivansam-gnfdcsgthfhraahe.eastasia-01.azurewebsites.net/upload_sv/upload',
-    {
-      method: 'POST',
-      body: formData,
-      credentials: 'include',
-    }
-  )
+  fetch('https://vault-storage.me/upload_sv/upload', {
+    method: 'POST',
+    body: formData,
+    credentials: 'include',
+  })
     .then((response) => {
       if (response.status === 401) {
-        window.location.replace('https://vault-storage.me/401');
+        window.location.replace('https://vault-storage.me401');
         return;
       }
       if (response.ok) {

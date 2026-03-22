@@ -1,6 +1,5 @@
 document.getElementById('google-login-btn').addEventListener('click', () => {
-  window.location.href =
-    'https://vault-server-laivansam-gnfdcsgthfhraahe.eastasia-01.azurewebsites.net/auth/login_google';
+  window.location.href = 'https://vault-storage.me/auth/login_google';
 });
 const pass = () => {};
 window.addEventListener('DOMContentLoaded', async () => {
@@ -16,7 +15,7 @@ window.addEventListener('DOMContentLoaded', async () => {
   async function handleVerifyUID(uidVal, emailVal) {
     try {
       const response = await fetch(
-        'https://vault-server-laivansam-gnfdcsgthfhraahe.eastasia-01.azurewebsites.net/auth/google/verify_uid',
+        'https://vault-storage.me/auth/google/verify_uid',
         {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
@@ -31,10 +30,10 @@ window.addEventListener('DOMContentLoaded', async () => {
 
       if (response.status === 200 && data.trang_thai) {
         alert(data.mes);
-        window.location.href = 'https://vault-storage.me/dashboard';
+        window.location.href = 'https://vault-storage.medashboard';
       } else {
         alert('Lỗi: ' + data.mes);
-        window.location.href = 'https://vault-storage.me/auth/login';
+        window.location.href = 'https://vault-storage.meauth/login';
       }
     } catch (error) {
       pass();

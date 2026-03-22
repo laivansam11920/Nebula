@@ -1,6 +1,5 @@
 async function fetchUserPower() {
-  const API_URL =
-    'https://vault-server-laivansam-gnfdcsgthfhraahe.eastasia-01.azurewebsites.net/profile/get_power';
+  const API_URL = 'https://vault-storage.me/profile/get_power';
 
   try {
     const response = await fetch(API_URL, {

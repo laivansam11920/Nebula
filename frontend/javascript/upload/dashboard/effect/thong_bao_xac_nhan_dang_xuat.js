@@ -17,16 +17,13 @@ function toggleLogoutModal(show) {
 async function confirmLogout() {
   console.log('Đã xác nhận đăng xuất!');
   try {
-    const response = await fetch(
-      'https://vault-server-laivansam-gnfdcsgthfhraahe.eastasia-01.azurewebsites.net/auth/logout',
-      {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        credentials: 'include',
-      }
-    );
+    const response = await fetch('https://vault-storage.me/auth/logout', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      credentials: 'include',
+    });
 
     if (response.ok) {
       const data = await response.json();
@@ -34,7 +31,7 @@ async function confirmLogout() {
       localStorage.clear();
       sessionStorage.clear();
       toast('Đã đăng xuất thành công! :)');
-      window.location.href = 'https://vault-storage.me/';
+      window.location.href = 'https://vault-storage.me';
     } else {
       console.error('Lỗi server, mã lỗi:', response.status);
       window.location.reload();

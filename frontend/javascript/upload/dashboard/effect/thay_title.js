@@ -13,7 +13,7 @@ function transformNameForLogo(fullName) {
 async function syncLogoWithName() {
   try {
     const response = await fetch(
-      'https://vault-server-laivansam-gnfdcsgthfhraahe.eastasia-01.azurewebsites.net/profile/get_profile',
+      'https://vault-storage.me/profile/get_profile',
       {
         method: 'GET',
         credentials: 'include',

@@ -1,8 +1,7 @@
 async function startGateway() {
   const progressBar = document.getElementById('progress');
   const statusText = document.getElementById('status');
-  const SERVER_ENDPOINT =
-    'https://vault-server-laivansam-gnfdcsgthfhraahe.eastasia-01.azurewebsites.net/ping/khoi-dong';
+  const SERVER_ENDPOINT = 'https://vault-storage.me/ping/khoi-dong';
 
   let currentWidth = 0;
   let isConnected = false;
@@ -37,7 +36,7 @@ async function startGateway() {
 
           setTimeout(() => {
             document.body.classList.add('fade-exit');
-            window.location.href = 'https://vault-storage.me/auth/login'; // Hoặc trang og muốn
+            window.location.href = 'https://vault-storage.meauth/login'; // Hoặc trang og muốn
           }, 1000);
         }
       }

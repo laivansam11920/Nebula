@@ -1,11 +1,8 @@
 (function () {
-  const socket = io(
-    'https://vault-server-laivansam-gnfdcsgthfhraahe.eastasia-01.azurewebsites.net',
-    {
-      transports: ['polling', 'websocket'], // Cho phép cả hai
-      withCredentials: true,
-    }
-  );
+  const socket = io('https://vault-storage.me', {
+    transports: ['polling', 'websocket'], // Cho phép cả hai
+    withCredentials: true,
+  });
 
   socket.on('global_notification', (data) => {
     pass();
@@ -33,11 +30,9 @@ if (userName) {
 }
 async function secretMaintenanceCheck() {
   try {
-    const response = await fetch(
-      'https://vault-server-laivansam-gnfdcsgthfhraahe.eastasia-01.azurewebsites.net/ping/khoi-dong'
-    );
+    const response = await fetch('https://vault-storage.me/ping/khoi-dong');
     if (response.status === 503) {
-      window.location.replace('https://vault-storage.me/503');
+      window.location.replace('https://vault-storage.me503');
     }
   } catch (error) {
     pass();
@@ -69,7 +64,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   try {
     const response = await fetch(
-      'https://vault-server-laivansam-gnfdcsgthfhraahe.eastasia-01.azurewebsites.net/profile/get_avatar',
+      'https://vault-storage.me/profile/get_avatar',
       {
         credentials: 'include',
       }
@@ -90,33 +85,27 @@ document.addEventListener('DOMContentLoaded', async () => {
 
 async function checkAccess() {
   try {
-    const response = await fetch(
-      'https://vault-server-laivansam-gnfdcsgthfhraahe.eastasia-01.azurewebsites.net/security/upload',
-      {
-        method: 'POST',
-        credentials: 'include',
-      }
-    );
+    const response = await fetch('https://vault-storage.me/security/upload', {
+      method: 'POST',
+      credentials: 'include',
+    });
 
     const data = await response.json();
 
     if (response.status === 200) {
       toast('thành công! Chào mừng bạn quay trở lại.');
     } else {
-      window.location.replace('https://vault-storage.me/401');
+      window.location.replace('https://vault-storage.me401');
     }
   } catch (error) {
-    window.location.replace('https://vault-storage.me/500');
+    window.location.replace('https://vault-storage.me500');
   }
 }
 function chayLenhQuet() {
-  fetch(
-    'https://vault-server-laivansam-gnfdcsgthfhraahe.eastasia-01.azurewebsites.net/security/scan_malware',
-    {
-      method: 'GET',
-      credentials: 'include',
-    }
-  ).catch((err) => pass());
+  fetch('https://vault-storage.me/security/scan_malware', {
+    method: 'GET',
+    credentials: 'include',
+  }).catch((err) => pass());
   pass();
 }
 checkAccess();
@@ -616,7 +605,7 @@ async function deleteSelected() {
     const ma_de_xoa = deletedFile.ma_dinh_danh;
     try {
       const response = await fetch(
-        'https://vault-server-laivansam-gnfdcsgthfhraahe.eastasia-01.azurewebsites.net/profile/deletefile_user',
+        'https://vault-storage.me/profile/deletefile_user',
         {
           method: 'POST',
           credentials: 'include',
@@ -656,7 +645,7 @@ async function restoreFile() {
 
     try {
       const response = await fetch(
-        'https://vault-server-laivansam-gnfdcsgthfhraahe.eastasia-01.azurewebsites.net/profile/restorefile_user',
+        'https://vault-storage.me/profile/restorefile_user',
         {
           method: 'POST',
           credentials: 'include',
@@ -696,7 +685,7 @@ async function permanentDelete() {
 
   try {
     const response = await fetch(
-      'https://vault-server-laivansam-gnfdcsgthfhraahe.eastasia-01.azurewebsites.net/profile/permanent_delete_user',
+      'https://vault-storage.me/profile/permanent_delete_user',
       {
         method: 'POST',
         credentials: 'include',
@@ -889,7 +878,7 @@ async function loadFilesFromServer() {
   try {
     // 2. Gọi API (THAY ĐỔI URL NÀY THEO SERVER CỦA BẠN)
     const response = await fetch(
-      'https://vault-server-laivansam-gnfdcsgthfhraahe.eastasia-01.azurewebsites.net/upload_sv/upload_get_file',
+      'https://vault-storage.me/upload_sv/upload_get_file',
       {
         method: 'GET',
         credentials: 'include', // Gửi cookies (session/auth)
@@ -905,7 +894,7 @@ async function loadFilesFromServer() {
         // Chưa đăng nhập → Chuyển sang trang login
         toast('Phiên đăng nhập hết hạn');
         setTimeout(() => {
-          window.location.href = 'https://vault-storage.me/401';
+          window.location.href = 'https://vault-storage.me401';
         }, 1500);
         return;
       }
@@ -1195,23 +1184,20 @@ async function downloadCurrentFile() {
       isProcessing = true;
       const kinh_do_user = localStorage.getItem('lon') ?? null;
       const vi_do_user = localStorage.getItem('lat') ?? null;
-      fetch(
-        'https://vault-server-laivansam-gnfdcsgthfhraahe.eastasia-01.azurewebsites.net/upload_sv/log-download',
-        {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          credentials: 'include',
-          body: JSON.stringify({
-            fileId: selectedId,
-            fileName: fileToDownload.name,
-            location_user: {
-              kinh_do: kinh_do_user,
-              vi_do: vi_do_user,
-            },
-            timestamp: new Date().toISOString(),
-          }),
-        }
-      ).catch((err) => console.error('Lỗi ghi log'));
+      fetch('https://vault-storage.me/upload_sv/log-download', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        credentials: 'include',
+        body: JSON.stringify({
+          fileId: selectedId,
+          fileName: fileToDownload.name,
+          location_user: {
+            kinh_do: kinh_do_user,
+            vi_do: vi_do_user,
+          },
+          timestamp: new Date().toISOString(),
+        }),
+      }).catch((err) => console.error('Lỗi ghi log'));
 
       const response = await fetch(fileToDownload.url);
       if (!response.ok) throw new Error('Không thể kết nối server');

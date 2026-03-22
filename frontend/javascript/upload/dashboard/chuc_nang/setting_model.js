@@ -821,7 +821,7 @@
     async function get_bio_from_server() {
       try {
         const resp = await fetch(
-          'https://vault-server-laivansam-gnfdcsgthfhraahe.eastasia-01.azurewebsites.net/profile/setting/get_bio',
+          'https://vault-storage.me/profile/setting/get_bio',
           {
             method: 'GET',
             credentials: 'include',
@@ -875,7 +875,7 @@
     async function uploadAvatar() {
       try {
         const res = await fetch(
-          'https://vault-server-laivansam-gnfdcsgthfhraahe.eastasia-01.azurewebsites.net/profile/setting/avatar',
+          'https://vault-storage.me/profile/setting/avatar',
           {
             method: 'POST',
             body: formData,
@@ -981,7 +981,7 @@
     async function bio_server() {
       try {
         const res = await fetch(
-          'https://vault-server-laivansam-gnfdcsgthfhraahe.eastasia-01.azurewebsites.net/profile/setting/bio',
+          'https://vault-storage.me/profile/setting/bio',
           {
             method: 'POST',
             headers: {

@@ -1,13 +1,10 @@
 import { showToast } from 'https://cdn.jsdelivr.net/gh//gemini-dot/learnpythonserver-sm@main/frontend/javascript/popup/popup.js';
 
 (function () {
-  const socket = io(
-    'https://vault-server-laivansam-gnfdcsgthfhraahe.eastasia-01.azurewebsites.net',
-    {
-      transports: ['polling', 'websocket'], // Cho phép cả hai
-      withCredentials: true,
-    }
-  );
+  const socket = io('https://vault-storage.me', {
+    transports: ['polling', 'websocket'], // Cho phép cả hai
+    withCredentials: true,
+  });
 
   socket.on('global_notification', (data) => {
     console.log('📡 Đã nhận thông báo hệ thống:', data.message);
@@ -29,11 +26,9 @@ import { showToast } from 'https://cdn.jsdelivr.net/gh//gemini-dot/learnpythonse
 
 async function secretMaintenanceCheck() {
   try {
-    const response = await fetch(
-      'https://vault-server-laivansam-gnfdcsgthfhraahe.eastasia-01.azurewebsites.net/ping/khoi-dong'
-    );
+    const response = await fetch('https://vault-storage.me/ping/khoi-dong');
     if (response.status === 503) {
-      window.location.href = 'https://vault-storage.me/503';
+      window.location.href = 'https://vault-storage.me503';
     }
   } catch (error) {
     console.log('Server đang khởi động hoặc gặp sự cố kết nối.');
@@ -91,7 +86,7 @@ function handleSignup(event) {
     window.location.hostname === 'localhost' ||
     window.location.hostname === '127.0.0.1'
       ? 'http://localhost:5000' //server test ở nhà:)
-      : 'https://vault-server-laivansam-gnfdcsgthfhraahe.eastasia-01.azurewebsites.net';
+      : 'https://vault-storage.me';
 
   fetch(`${API_URL}/auth/create-a-pass`, {
     method: 'POST',
