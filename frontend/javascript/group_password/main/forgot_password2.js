@@ -1,7 +1,7 @@
 import { showToast } from 'https://cdn.jsdelivr.net/gh//gemini-dot/learnpythonserver-sm@main/frontend/javascript/popup/popup.js';
 
 (function () {
-  const socket = io('https://vault-storage.me', {
+  const socket = io('https://vault-storage.me/', {
     transports: ['polling', 'websocket'], // Cho phép cả hai
     withCredentials: true,
   });
@@ -28,7 +28,7 @@ async function secretMaintenanceCheck() {
   try {
     const response = await fetch('https://vault-storage.me/ping/khoi-dong');
     if (response.status === 503) {
-      window.location.href = 'https://vault-storage.me503';
+      window.location.href = 'https://vault-storage.me/503';
     }
   } catch (error) {
     console.log('Server đang khởi động hoặc gặp sự cố kết nối.');
@@ -62,7 +62,7 @@ async function verifyToken() {
     window.location.hostname === 'localhost' ||
     window.location.hostname === '127.0.0.1'
       ? 'http://localhost:5000' //server test ở nhà:)
-      : 'https://vault-storage.me';
+      : 'https://vault-storage.me/';
 
   try {
     const response = await fetch(
@@ -77,7 +77,7 @@ async function verifyToken() {
     if (response.ok && data.success) {
       console.log('Xác thực token thành công! Giờ cho phép đổi pass.');
       window.location.href =
-        'auth/reset_site?gmail=' +
+        'https://vault-storage.me/auth/reset_site?gmail=' +
         encodeURIComponent(gmail) +
         '&token=' +
         encodeURIComponent(token);

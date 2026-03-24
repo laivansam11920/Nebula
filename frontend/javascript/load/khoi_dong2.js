@@ -36,7 +36,7 @@ async function startGateway() {
 
           setTimeout(() => {
             document.body.classList.add('fade-exit');
-            window.location.href = 'https://vault-storage.meauth/login'; // Hoặc trang og muốn
+            window.location.href = 'https://vault-storage.me/auth/login'; // Hoặc trang og muốn
           }, 1000);
         }
       }

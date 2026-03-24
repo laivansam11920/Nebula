@@ -31,7 +31,7 @@ async function confirmLogout() {
       localStorage.clear();
       sessionStorage.clear();
       toast('Đã đăng xuất thành công! :)');
-      window.location.href = 'https://vault-storage.me';
+      window.location.href = 'https://vault-storage.me/';
     } else {
       console.error('Lỗi server, mã lỗi:', response.status);
       window.location.reload();

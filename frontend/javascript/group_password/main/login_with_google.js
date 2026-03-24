@@ -30,10 +30,10 @@ window.addEventListener('DOMContentLoaded', async () => {
 
       if (response.status === 200 && data.trang_thai) {
         alert(data.mes);
-        window.location.href = 'https://vault-storage.medashboard';
+        window.location.href = 'https://vault-storage.me/dashboard';
       } else {
         alert('Lỗi: ' + data.mes);
-        window.location.href = 'https://vault-storage.meauth/login';
+        window.location.href = 'https://vault-storage.me/auth/login';
       }
     } catch (error) {
       pass();

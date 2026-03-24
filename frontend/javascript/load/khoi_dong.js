@@ -17,7 +17,7 @@ const API_URL =
   window.location.hostname === 'localhost' ||
   window.location.hostname === '127.0.0.1'
     ? 'http://localhost:5000'
-    : 'https://vault-storage.me';
+    : 'https://vault-storage.me/';
 
 async function wakeUpServer() {
   try {
@@ -52,7 +52,7 @@ function updateProgress() {
     setTimeout(updateProgress, delay);
   } else {
     setTimeout(() => {
-      window.location.href = 'https://vault-storage.meauth/login';
+      window.location.href = 'https://vault-storage.me/auth/login';
     }, 800);
   }
 }

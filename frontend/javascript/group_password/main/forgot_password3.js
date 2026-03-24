@@ -1,7 +1,7 @@
 import { showToast } from 'https://cdn.jsdelivr.net/gh//gemini-dot/learnpythonserver-sm@main/frontend/javascript/popup/popup.js';
 
 (function () {
-  const socket = io('https://vault-storage.me', {
+  const socket = io('https://vault-storage.me/', {
     transports: ['polling', 'websocket'], // Cho phép cả hai
     withCredentials: true,
   });
@@ -28,7 +28,7 @@ async function secretMaintenanceCheck() {
   try {
     const response = await fetch('https://vault-storage.me/ping/khoi-dong');
     if (response.status === 503) {
-      window.location.href = 'https://vault-storage.me503';
+      window.location.href = 'https://vault-storage.me/503';
     }
   } catch (error) {
     console.log('Server đang khởi động hoặc gặp sự cố kết nối.');
@@ -69,7 +69,7 @@ nut_bam_reset.addEventListener('submit', async function (event) {
     window.location.hostname === 'localhost' ||
     window.location.hostname === '127.0.0.1'
       ? 'http://localhost:5000' //server test ở nhà:)
-      : 'https://vault-storage.me';
+      : 'https://vault-storage.me/';
 
   try {
     const response = await fetch(`${API_URL}/auth/tim-mat-khau3`, {
@@ -90,7 +90,7 @@ nut_bam_reset.addEventListener('submit', async function (event) {
         'Đổi mật khẩu thành công! Bây giờ bạn có thể đăng nhập với mật khẩu mới.'
       );
       setTimeout(() => {
-        window.location.href = 'input_pass.html';
+        window.location.href = 'https://vault-storage.me/auth/login';
       }, 3000);
     } else {
       const data = await response.json();
@@ -98,7 +98,7 @@ nut_bam_reset.addEventListener('submit', async function (event) {
         'error',
         'Lỗi rồi: ' + (data.message || data.error || 'Không thể đổi mật khẩu!')
       );
-      window.location.href = '../error/404.html';
+      window.location.href = 'https://vault-storage.me/404';
     } //
   } catch (error) {
     console.error('Lỗi:', error);
