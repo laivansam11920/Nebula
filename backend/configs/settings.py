@@ -14,15 +14,16 @@ csp = {
         "https://www.gstatic.com",
         "'unsafe-inline'",  # Cần thiết nếu og có viết JS trực tiếp trong HTML
     ],
-    "style-src": ["'self'", "'unsafe-inline'", "https://fonts.googleapis.com","https://cdn.statically.io"],
+    "style-src": ["'self'", "'unsafe-inline'", "https://fonts.googleapis.com","https://cdn.statically.io","https://res.cloudinary.com"],
     "connect-src": [
         "'self'",
         "ws://*",  # Cho phép SocketIO kết nối
         "wss://*",
         "https://vault-storage.me",
         "https://accounts.google.com",
-        "https://cdn.statically.io"
+        "https://cdn.statically.io",
+        "https://res.cloudinary.com"
     ],
-    "frame-src": ["'self'", "https://accounts.google.com","https://cdn.statically.io"],
-    "img-src": ["'self'", "data:", "https:","https://cdn.statically.io"],
+    "frame-src": ["'self'", "https://accounts.google.com","https://cdn.statically.io","https://res.cloudinary.com"],
+    "img-src": ["'self'", "data:", "https:","https://cdn.statically.io","https://res.cloudinary.com"],
 }
