@@ -31,7 +31,7 @@ def kiem_tra(email_gui_len, pass_gui_len):
         }
     }
 
-    if kiem_tra_1["password"] == pass_hash:
+    if kiem_tra_1["password"] == pass_hash:#
         
         token_new = tao_token_10_so()
         token_new_hash = hash(str(token_new))
