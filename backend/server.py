@@ -18,8 +18,6 @@ from utils.trang_thai_db_503 import get_maintenance_status
 from routes import register_routes
 import secrets
 from configs.duong_dan_thu_muc import thu_muc_chinh
-from flask_talisman import Talisman
-from configs.settings import csp
 
 os.environ["OAUTHLIB_INSECURE_TRANSPORT"] = "1"
 
@@ -32,8 +30,6 @@ sentry_sdk.init(
 sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding="utf-8")
 
 app = Flask(__name__)
-
-Talisman(app, content_security_policy=csp, force_https=True)
 
 app.secret_key = "og_thich_ghi_gi_vao_day_cung_duoc_mien_la_bi_mat"
 
