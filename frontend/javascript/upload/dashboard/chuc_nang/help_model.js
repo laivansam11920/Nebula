@@ -3,8 +3,8 @@
 
   // ─── CONFIGURATION ─────────────────────────────────────────────
   const CONFIG = {
-    API_URL: 'https://learnpythonserver-sm.onrender.com/api/support/chat',
-    WS_URL: 'wss://learnpythonserver-sm.onrender.com/ws/support',
+    API_URL: 'https://vault-storage.me/api/support/chat',
+    WS_URL: 'wss://vault-storage.me/ws/support',
     BOT_NAME: 'VAULT Support',
     BOT_AVATAR:
       'https://res.cloudinary.com/dshgtuy8f/image/upload/v1771402917/main_logo_2_bkgj5f.png',

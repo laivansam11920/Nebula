@@ -357,7 +357,7 @@ thong_tin_web = [
     "Gói Enterprise không giới hạn dung lượng và hỗ trợ quản lý team.",
     "VAULT hỗ trợ khôi phục file đã xóa: 7 ngày cho gói Free và 30 ngày cho gói Pro.",
     "Hệ thống chạy trên nền tảng Ubuntu và sử dụng mô hình Gemini AI để xử lý tin nhắn.",
-    "Địa chỉ truy cập server chính thức là learnpythonserver-sm.onrender.com."
+    "Địa chỉ truy cập server chính thức là vault-storage.me."
     """,
     "Gói Enterprise được tùy chỉnh theo nhu cầu doanh nghiệp: dung lượng không giới hạn, số user không giới hạn, SSO/SAML, API tùy chỉnh, SLA 99.99%, dedicated support manager, và training cho team. Liên hệ samvasang1192011@gmail.com để được tư vấn chi tiết.",
     "Có. Bạn có thể hủy bất cứ lúc nào mà không mất phí phạt. Dữ liệu của bạn sẽ được giữ trong 30 ngày sau khi hủy để bạn có thể tải về. Sau 30 ngày, dữ liệu sẽ bị xóa vĩnh viễn.",
