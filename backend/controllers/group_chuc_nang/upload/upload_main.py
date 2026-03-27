@@ -6,10 +6,12 @@ from utils.luu_du_lieu_vao_db import luu
 from utils.scan_img import check_image_sensitivity
 from services.upload.chuc_nang.upload_html import upload_html_to_github
 from services.upload.chuc_nang.save_metadata import save_metadata_html
-from services.upload.chuc_nang.kiem_tra_gioi_han_dung_luong_user import check_storage_user_services
+from services.upload.chuc_nang.kiem_tra_gioi_han_dung_luong_user import (
+    check_storage_user_services,
+)
 import os
 import uuid
-import concurrent.futures 
+import concurrent.futures
 import configs.cloudinary
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
@@ -24,16 +26,16 @@ else:
 
 def process_single_file(file_data, user_email, folder_name):
     file_bytes, ten_file_goc, content_type = file_data
-    
+
     unique_filename = f"{uuid.uuid4()}_{ten_file_goc}"
     temp_path = os.path.abspath(os.path.join(TEMP_DIR, unique_filename))
-    
+
     result = {"url": None, "error": None}
-    
+
     try:
         with open(temp_path, "wb") as f:
             f.write(file_bytes)
-            
+
         print(f"--- Đã lưu tạm: {temp_path} ---")
 
         if not ten_file_goc:
@@ -73,9 +75,7 @@ def process_single_file(file_data, user_email, folder_name):
         )
         print(f"--- Upload Cloudinary xong: {ten_file_goc} ---")
 
-        file_info = make_json_cloud(
-            upload_result, user_email, ten_file_goc, "upload"
-        )
+        file_info = make_json_cloud(upload_result, user_email, ten_file_goc, "upload")
         luu(file_info, "file_info")
 
         result["url"] = file_info["url"]
@@ -86,7 +86,7 @@ def process_single_file(file_data, user_email, folder_name):
     finally:
         if os.path.exists(temp_path):
             os.remove(temp_path)
-            
+
     return result
 
 
@@ -99,10 +99,10 @@ def upload_to_cloud():
 
     if not user_email:
         return jsonify({"loi": "nguoi_dung"}), 401
-    
+
     hop_le, loi_nhan = check_storage_user_services(user_email)
     if not hop_le:
-        return jsonify({"error": loi_nhan}), 507 
+        return jsonify({"error": loi_nhan}), 507
 
     folder_name = f"my_project/users/{user_email.replace('@', '_').replace('.', '_')}"
 
@@ -110,7 +110,7 @@ def upload_to_cloud():
         return jsonify({"error": "Không có file"}), 400
 
     files_list = request.files.getlist("files[]")
-    if not files_list or all(f.filename == '' for f in files_list):
+    if not files_list or all(f.filename == "" for f in files_list):
         return jsonify({"error": "Danh sách file rỗng"}), 400
 
     print("--- KIỂM TRA ĐẦU VÀO ---")
@@ -118,7 +118,7 @@ def upload_to_cloud():
 
     urls = []
     errors = []
-    
+
     prepared_files = []
     for file in files_list:
         if file.filename:
@@ -126,13 +126,13 @@ def upload_to_cloud():
             prepared_files.append((file_bytes, file.filename, file.content_type))
 
     max_workers = min(5, len(prepared_files))
-    
+
     with concurrent.futures.ThreadPoolExecutor(max_workers=max_workers) as executor:
         futures = [
             executor.submit(process_single_file, file_data, user_email, folder_name)
             for file_data in prepared_files
         ]
-        
+
         for future in concurrent.futures.as_completed(futures):
             res = future.result()
             if res.get("url"):

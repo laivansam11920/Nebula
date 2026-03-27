@@ -76,12 +76,12 @@ def upload_to_cloud_avt():
 
             db["file_info"].update_many(
                 {
-                    "user_gmail": user_email, 
-                    "loai_file": "avatar", 
+                    "user_gmail": user_email,
+                    "loai_file": "avatar",
                     "trang_thai": {"$ne": "da_xoa"},
-                    "url":{"$ne": file_info.get("secure_url", "")}
+                    "url": {"$ne": file_info.get("secure_url", "")},
                 },
-                {"$set": {"trang_thai": "da_xoa"}}
+                {"$set": {"trang_thai": "da_xoa"}},
             )
 
             luu(file_info, "file_info")

@@ -3,6 +3,7 @@ from utils.tinh_thoi_gian import thoi_gian_tuong_doi
 from datetime import datetime
 from utils.kiem_tra_thong_tin import lam_dep_thiet_bi
 
+
 def gui_mail_reset(email_nguoi_nhan, token, thoi_gian, dia_chi_ip, thiet_bi):
 
     service_id = "service_xszjius"

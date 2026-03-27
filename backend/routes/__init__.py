@@ -33,14 +33,19 @@ from routes.ping.ping import khoi_dong
 from routes.group_admin.group_chuc_nang.kill_switch import lenh_tu_huy
 from routes.group_password.chuyen_huong.login import login
 from routes.group_password.chuyen_huong.signup import signup
-from routes.group_password.chuyen_huong.reset_password.send_mail import send_mail_reset_password
-from routes.group_password.chuyen_huong.reset_password.repass import send_mail_reset_password_main
+from routes.group_password.chuyen_huong.reset_password.send_mail import (
+    send_mail_reset_password,
+)
+from routes.group_password.chuyen_huong.reset_password.repass import (
+    send_mail_reset_password_main,
+)
 from routes.group_chuc_nang.upload.chuyen_huong.dashboard import user_dashboard
 from routes.chuyen_huong.error.e401 import e401
 from routes.chuyen_huong.error.e403 import e403
 from routes.chuyen_huong.error.e500 import e500
 from routes.chuyen_huong.error.e503 import e503
 from routes.chuyen_huong.dieukhoan_dichvu.dieukhoandichvu import privacy_policy
+
 blueprint_groups = {
     "/auth": [
         login_route,
@@ -75,22 +80,16 @@ blueprint_groups = {
     "/admin": [lenh_tu_huy],
     "/fac": [app_route22],
     "/api": [app_route23],
-    "":[
-        user_dashboard,
-        e401,
-        e403,
-        e500,
-        e503,
-        privacy_policy
-    ]
+    "": [user_dashboard, e401, e403, e500, e503, privacy_policy],
 }
+
 
 def register_routes(app):
     try:
         for prefix, blueprints in blueprint_groups.items():
             if not isinstance(blueprints, list):
                 blueprints = [blueprints]
-                
+
             for bp in blueprints:
                 if prefix == "":
                     app.register_blueprint(bp)
@@ -98,4 +97,4 @@ def register_routes(app):
                     app.register_blueprint(bp, url_prefix=prefix)
         print("[SUCCESS]: Đã đăng ký toàn bộ route thành công! :)")
     except Exception as e:
-        print(f'[ERROR] Lỗi khi đăng ký Blueprint: {e}')
+        print(f"[ERROR] Lỗi khi đăng ký Blueprint: {e}")

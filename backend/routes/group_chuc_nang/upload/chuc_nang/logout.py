@@ -1,7 +1,7 @@
 from controllers.group_chuc_nang.upload.chuc_nang.logout import logout_controller
 from flask import Blueprint
 from middleware.rate_limiting import limit_requests
-from configs.settings import MAX_REQUESTS,PERIOD
+from configs.settings import MAX_REQUESTS, PERIOD
 
 app_route27 = Blueprint("logout", __name__)
 

@@ -5,6 +5,7 @@ from utils.hash_password import hash_password, make_salt
 from datetime import datetime, timedelta
 from configs.duong_dan_thu_muc import duong_dan_hien_tai
 
+
 def kiem_tra_mat_khau(user_name_input, gmail_input, password_input):
 
     luu_tru = db["users"]
@@ -53,14 +54,14 @@ def kiem_tra_mat_khau(user_name_input, gmail_input, password_input):
             },
             "luu_tru": {"khong_gian_luu_tru": "128", "don_vi": "mb"},
             "role": "user",
-            "trang_thai":"chua_dang_nhap"
+            "trang_thai": "chua_dang_nhap",
         }
 
         luu_tru.insert_one(user_data)
 
         return {"status": "good", "message": "Tạo tài khoản thành công rồi nhé!"}
     except Exception as e:
-        print(f"Lỗi database: {e} in ",duong_dan_hien_tai())
+        print(f"Lỗi database: {e} in ", duong_dan_hien_tai())
         return {
             "status": "error",
             "error_type": "loi_luu_tru_database",

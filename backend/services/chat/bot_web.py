@@ -5,6 +5,7 @@ from services.chat.chuc_nang.bot_web.save_message import save_message
 from services.chat.chuc_nang.bot_web.generate_ai_res import generate_ai_response
 from datetime import datetime
 
+
 def support_chat():
     try:
         # Get request data

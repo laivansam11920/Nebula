@@ -3,6 +3,7 @@ from configs.AI_clinet import client
 from configs.prompt import system_prompt, thong_tin_web
 import numpy as np
 
+
 def ask_gemini(user_text, doan_chat_truoc):
     try:
         if doan_chat_truoc is None:

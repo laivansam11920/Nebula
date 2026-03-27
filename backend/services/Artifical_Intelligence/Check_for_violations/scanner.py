@@ -3,7 +3,7 @@ from google import genai
 client = genai.Client(api_key="...3daLw")
 
 
-a= str(input("nhap: "))
+a = str(input("nhap: "))
 
 system_prompt2 = f"""
 Bạn là AI đại diện trả lời tin nhắn thay cho chủ tài khoản (Sam).

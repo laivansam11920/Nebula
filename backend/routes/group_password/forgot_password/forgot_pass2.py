@@ -10,6 +10,7 @@ findpassword_route_2 = Blueprint("auth_xac_thuc_mk", __name__)
 
 CORS(findpassword_route_2)
 
+
 @findpassword_route_2.route("/tim-mat-khau2", methods=["GET"])
 @cross_origin()
 @limit_requests(max_requests=MAX_REQUESTS, period=PERIOD)

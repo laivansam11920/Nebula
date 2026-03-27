@@ -3,17 +3,18 @@ from datetime import datetime, timedelta, timezone
 from utils.get_ip import get_real_ip
 from flask import request
 
+
 def kiem_tra_db(nguoi_dung, gmail_nguoi_dung, pic, uid):
     collection = db["users"]
     log_login = db["log_login"]
 
     client_info = {
         "ip_address": get_real_ip(),
-        "user_agent_raw": request.headers.get('User-Agent'),
+        "user_agent_raw": request.headers.get("User-Agent"),
         "device": {
             "os": request.user_agent.platform,
-            "browser": request.user_agent.browser
-        }
+            "browser": request.user_agent.browser,
+        },
     }
 
     ket_qua = collection.find_one({"gmail": str(gmail_nguoi_dung)})
@@ -22,28 +23,29 @@ def kiem_tra_db(nguoi_dung, gmail_nguoi_dung, pic, uid):
 
     if ket_qua:
         collection.update_one({"gmail": str(gmail_nguoi_dung)}, {"$set": {"uid": uid}})
-        log_login.insert_one({
-            "timestamp": thoi_gian_hien_tai,
-            "user_info": {"gmail": gmail_nguoi_dung, "username": ket_qua.get("username")},
-            "network": client_info,
-            "security": {
-                "status": "success",
-                "session_id": "True"
-            },
-            "login_with":"google"
-        })
+        log_login.insert_one(
+            {
+                "timestamp": thoi_gian_hien_tai,
+                "user_info": {
+                    "gmail": gmail_nguoi_dung,
+                    "username": ket_qua.get("username"),
+                },
+                "network": client_info,
+                "security": {"status": "success", "session_id": "True"},
+                "login_with": "google",
+            }
+        )
         return {"trang_thai": True, "mes": "ban da dang nhap"}
-    
-    log_login.insert_one({
+
+    log_login.insert_one(
+        {
             "timestamp": thoi_gian_hien_tai,
             "user_info": {"gmail": gmail_nguoi_dung, "username": str(nguoi_dung)},
             "network": client_info,
-            "security": {
-                "status": "success",
-                "session_id": "True"
-            },
-            "login_with":"google"
-    })
+            "security": {"status": "success", "session_id": "True"},
+            "login_with": "google",
+        }
+    )
     cap_nhat = {
         "username": str(nguoi_dung),
         "gmail": str(gmail_nguoi_dung),

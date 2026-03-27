@@ -2,22 +2,20 @@ from configs.db import db
 from utils.tinh_toan_file import parse_size_to_bytes
 import traceback
 
+
 def get_user_storage_info(user_gmail):
     try:
-        col_file_info = db['file_info']
-        col_users = db['users']
+        col_file_info = db["file_info"]
+        col_users = db["users"]
 
         user = col_users.find_one({"gmail": user_gmail})
-        
+
         if not user:
             return {"error": "Người dùng không tồn tại!"}, 404
 
         files = col_file_info.find(
-            {
-                "user_gmail": user_gmail,
-                "trang_thai": {"$ne": "xoa_vinh_vien"} 
-            },
-            {"size": 1, "_id": 0} 
+            {"user_gmail": user_gmail, "trang_thai": {"$ne": "xoa_vinh_vien"}},
+            {"size": 1, "_id": 0},
         )
 
         total_used_bytes = 0
@@ -26,8 +24,8 @@ def get_user_storage_info(user_gmail):
             total_used_bytes += parse_size_to_bytes(size_str)
 
         user_storage = user.get("luu_tru") or {}
-        
-        don_vi_tinh = user_storage.get("khong_gian_luu_tru", 128) 
+
+        don_vi_tinh = user_storage.get("khong_gian_luu_tru", 128)
         user_plan = str(user.get("cap_nguoi_dung", "BASIC"))
 
         try:
@@ -49,10 +47,10 @@ def get_user_storage_info(user_gmail):
                 "used_mb": round(total_used_bytes / (1024 * 1024), 2),
                 "max_bytes": max_storage_bytes,
                 "max_mb": max_storage_mb,
-                "percent_used": percent_used
-            }
+                "percent_used": percent_used,
+            },
         }
     except Exception as e:
         print("[DEBUG] CHI TIẾT LỖI:")
-        print(traceback.format_exc()) 
+        print(traceback.format_exc())
         return {"error": f"Lỗi máy chủ: {str(e)}"}, 500

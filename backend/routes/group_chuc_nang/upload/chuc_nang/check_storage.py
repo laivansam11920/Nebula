@@ -1,6 +1,8 @@
 from flask import Blueprint
 from middleware.rate_limiting import limit_requests
-from controllers.group_chuc_nang.upload.chuc_nang.check_storage import check_storage_controller
+from controllers.group_chuc_nang.upload.chuc_nang.check_storage import (
+    check_storage_controller,
+)
 from configs.settings import MAX_REQUESTS, PERIOD
 
 check_storage = Blueprint("check storage", __name__)

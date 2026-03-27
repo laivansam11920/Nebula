@@ -1,5 +1,7 @@
 from flask import Blueprint
-from controllers.group_chuc_nang.upload.chuc_nang.get_avatar import get_avatar_controller
+from controllers.group_chuc_nang.upload.chuc_nang.get_avatar import (
+    get_avatar_controller,
+)
 from middleware.rate_limiting import limit_requests
 from configs.settings import MAX_REQUESTS, PERIOD
 

@@ -39,3 +39,4 @@ ddgs
 PyGithub
 newrelic
 Pillow
+flask-talisman

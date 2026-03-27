@@ -1,6 +1,7 @@
 from flask import request, jsonify
 from services.group_mk.forgot_password.forgot_password3 import kiem_tra_de_doi_mat_khau
 
+
 def doi_mat_khau_moi():
     data = request.get_json()
     token = data.get("token")

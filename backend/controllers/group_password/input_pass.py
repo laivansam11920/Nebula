@@ -4,6 +4,7 @@ from validators.kiem_tra_cap_bac import kiem_tra_cap_bac
 from utils.search import tim_only
 from configs.duong_dan_thu_muc import duong_dan_hien_tai
 
+
 def kiem_tra1():
     du_lieu = request.get_json()
 
@@ -37,7 +38,7 @@ def kiem_tra1():
             )
             return res_res_res, 200
     except Exception as e:
-        print(f"[ERROR]: {e} in ",duong_dan_hien_tai())
+        print(f"[ERROR]: {e} in ", duong_dan_hien_tai())
         return jsonify({"error": "server error"}), 500
 
     ket_qua = kiem_tra(nguoi_dung, mat_khau)

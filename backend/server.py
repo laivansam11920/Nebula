@@ -1,7 +1,8 @@
 import eventlet
 
-eventlet.monkey_patch() #debug
+eventlet.monkey_patch()  # debug
 import newrelic.agent
+
 newrelic.agent.initialize()
 from flask import Flask, abort, request, send_from_directory
 from flask_cors import CORS
@@ -17,6 +18,8 @@ from utils.trang_thai_db_503 import get_maintenance_status
 from routes import register_routes
 import secrets
 from configs.duong_dan_thu_muc import thu_muc_chinh
+from flask_talisman import Talisman
+from configs.settings import csp
 
 os.environ["OAUTHLIB_INSECURE_TRANSPORT"] = "1"
 
@@ -29,6 +32,8 @@ sentry_sdk.init(
 sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding="utf-8")
 
 app = Flask(__name__)
+
+Talisman(app, content_security_policy=csp, force_https=True)
 
 app.secret_key = "og_thich_ghi_gi_vao_day_cung_duoc_mien_la_bi_mat"
 
@@ -74,21 +79,22 @@ register_routes(app)
 
 @app.errorhandler(404)
 def page_not_found(e):
-    return send_from_directory(thu_muc_chinh(),"404.html")
+    return send_from_directory(thu_muc_chinh(), "404.html")
+
 
 @app.errorhandler(500)
 def internal_server_error(e):
-    return send_from_directory(thu_muc_chinh("frontend/view/error"),"500.html"), 500
+    return send_from_directory(thu_muc_chinh("frontend/view/error"), "500.html"), 500
 
 
 @app.errorhandler(401)
 def unauthorized_error(e):
-    return send_from_directory(thu_muc_chinh("frontend/view/error"),"401.html"), 401
+    return send_from_directory(thu_muc_chinh("frontend/view/error"), "401.html"), 401
 
 
 @app.errorhandler(503)
 def service_unavailable_error(e):
-    return send_from_directory(thu_muc_chinh("frontend/view/error"),"503.html"), 503
+    return send_from_directory(thu_muc_chinh("frontend/view/error"), "503.html"), 503
 
 
 tim_kiem = db["trang_thai_web"]
@@ -118,8 +124,8 @@ def check_for_maintenance():
 
 @app.route("/lock-server")
 def lock():
-    pw = request.args.get("key",'')
-    if admin_pass_on and secrets.compare_digest(pw,admin_pass_on):
+    pw = request.args.get("key", "")
+    if admin_pass_on and secrets.compare_digest(pw, admin_pass_on):
         tim_kiem.update_one({"id": "config"}, {"$set": {"status": "website_off"}})
         return "Đã bật chế độ bảo trì!", 200
     return "Sai mật khẩu!", 403
@@ -127,11 +133,12 @@ def lock():
 
 @app.route("/unlock-server")
 def unlock():
-    pw = request.args.get("key",'')
-    if admin_pass_off and secrets.compare_digest(pw,admin_pass_off):
+    pw = request.args.get("key", "")
+    if admin_pass_off and secrets.compare_digest(pw, admin_pass_off):
         tim_kiem.update_one({"id": "config"}, {"$set": {"status": "website_on"}})
         return "Đã mở cửa server!", 200
     return "Sai mật khẩu!", 403
+
 
 @app.route("/")
 def home():
@@ -140,6 +147,7 @@ def home():
         return send_from_directory(thu_muc, "index.html")
     except Exception as e:
         return f"Lỗi rách việc rồi og ơi, thư mục này không tồn tại: {e}"
+
 
 port = int(os.environ.get("PORT", 8000))
 

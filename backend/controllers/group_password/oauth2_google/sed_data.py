@@ -11,10 +11,6 @@ def kiem_tra_goole(dulieu):
     sid = str(uuid.uuid4())
     ket_qua = kiem_tra_db(full_name, email, avatar, sid)
     if ket_qua.get("trang_thai") == True:
-        return redirect(
-            f"https://vault-storage.me/auth/login?sid={sid}&gmail={email}"
-        )
+        return redirect(f"https://vault-storage.me/auth/login?sid={sid}&gmail={email}")
 
-    return redirect(
-        "https://vault-storage.me/500"
-    )
+    return redirect("https://vault-storage.me/500")

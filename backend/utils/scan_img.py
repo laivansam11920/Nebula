@@ -4,6 +4,7 @@ from utils.image_compressor import compress_image_for_ai
 
 detector = NudeDetector()
 
+
 def check_image_sensitivity(image_path: str) -> dict:
     compressed_path = compress_image_for_ai(image_path)
 
@@ -42,7 +43,9 @@ def check_image_sensitivity(image_path: str) -> dict:
 
         if explicit_score > 0:
             score = max(min(round(explicit_score * 10), 10), 5)
-            level = "explicit" if score >= 9 else "sensitive" if score >= 7 else "moderate"
+            level = (
+                "explicit" if score >= 9 else "sensitive" if score >= 7 else "moderate"
+            )
             safe_for_work = False
         elif mild_score > 0:
             score = max(min(round(mild_score * 6), 6), 1)
@@ -61,7 +64,7 @@ def check_image_sensitivity(image_path: str) -> dict:
             "safe_for_work": safe_for_work,
             "raw_detections": detections,
         }
-        
+
     finally:
         if compressed_path != image_path and os.path.exists(compressed_path):
             try:

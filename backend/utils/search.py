@@ -1,5 +1,6 @@
 from configs.db import db
 
+
 def tim_only(collection, find_name, variable, find_item):
     try:
         collection_find = db[str(collection)]

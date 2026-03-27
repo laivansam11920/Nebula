@@ -1,6 +1,7 @@
 from flask import request, jsonify
 from services.group_mk.create_a_password import kiem_tra_mat_khau
 
+
 def kiem_tra2():
     dulieu = request.get_json()
     gmail = dulieu.get("gmail", "")

@@ -1,5 +1,6 @@
 from ddgs import DDGS
 
+
 def get_realtime_info(query):
     try:
         with DDGS() as ddgs:

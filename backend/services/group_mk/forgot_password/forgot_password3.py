@@ -1,6 +1,7 @@
 from configs.db import db
 from utils.hash_password import hash_password, make_salt
 
+
 def kiem_tra_de_doi_mat_khau(token, gmail, new_password):
     thu_muc_can_kiem_tra = db["token"]
     thu_muc_nguoi_dung = db["users"]

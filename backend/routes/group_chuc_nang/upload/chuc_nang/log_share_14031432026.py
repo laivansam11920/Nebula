@@ -1,7 +1,9 @@
-from controllers.group_chuc_nang.upload.chuc_nang.log_share_135914032026 import log_sh_con
+from controllers.group_chuc_nang.upload.chuc_nang.log_share_135914032026 import (
+    log_sh_con,
+)
 from flask import Blueprint
 from middleware.rate_limiting import limit_requests
-from configs.settings import MAX_REQUESTS,PERIOD
+from configs.settings import MAX_REQUESTS, PERIOD
 
 app_route26 = Blueprint("log file share", __name__)
 
