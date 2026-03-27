@@ -9,18 +9,20 @@ csp = {
     "default-src": "'self'",
     "script-src": [
         "'self'",
+        "https://cdn.statically.io",
         "https://accounts.google.com",
         "https://www.gstatic.com",
         "'unsafe-inline'",  # Cần thiết nếu og có viết JS trực tiếp trong HTML
     ],
-    "style-src": ["'self'", "'unsafe-inline'", "https://fonts.googleapis.com"],
+    "style-src": ["'self'", "'unsafe-inline'", "https://fonts.googleapis.com","https://cdn.statically.io"],
     "connect-src": [
         "'self'",
         "ws://*",  # Cho phép SocketIO kết nối
         "wss://*",
         "https://vault-storage.me",
         "https://accounts.google.com",
+        "https://cdn.statically.io"
     ],
-    "frame-src": ["'self'", "https://accounts.google.com"],
-    "img-src": ["'self'", "data:", "https:"],
+    "frame-src": ["'self'", "https://accounts.google.com","https://cdn.statically.io"],
+    "img-src": ["'self'", "data:", "https:","https://cdn.statically.io"],
 }
