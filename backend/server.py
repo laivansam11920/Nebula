@@ -19,6 +19,7 @@ from routes import register_routes
 import secrets
 from configs.duong_dan_thu_muc import thu_muc_chinh, duong_dan_hien_tai
 from __about__ import __title__, __author_email__, __copyright__, __version__, __author__
+from logs import logger
 
 os.environ["OAUTHLIB_INSECURE_TRANSPORT"] = "1"
 
@@ -103,7 +104,7 @@ admin_pass_on, admin_pass_off = str(os.getenv("BAOTRI_KEY_ON")), str(
 
 @socketio.on("admin_broadcast")
 def handle_broadcast(data):
-    print(f"Đang phát tin: {data['msg']}")
+    logger.log(f"{data['msg']}", duong_dan_hien_tai())
     emit("global_notification", {"message": data["msg"]}, broadcast=True)
 
 
@@ -143,7 +144,8 @@ def home():
     try:
         return send_from_directory(thu_muc, "index.html")
     except Exception as e:
-        return f"Lỗi rách việc rồi og ơi, thư mục này không tồn tại: {e}"
+        logger.error(f"{e}",duong_dan_hien_tai())
+        return f"Lỗi rách việc rồi og ơi, thư mục này không tồn tại: {e}",401
 
 
 port = int(os.environ.get("PORT", 8000))
@@ -151,12 +153,13 @@ port = int(os.environ.get("PORT", 8000))
 if __name__ == "__main__":
     try:
         db.command("ping")
+        logger.debug("test logger in server", duong_dan_hien_tai())
         print(f'>>> {__title__} ||| python: {__version__}')
         print(f">>> {__copyright__}")
         print(f">>> admin_gmail: {__author_email__} ||| adminname: {__author__}")
         socketio.run(app, host="0.0.0.0", port=port)
     except Exception as e:
-        print(f"System: Lỗi khởi động: {e}")
+        logger.critical(f"{e}",duong_dan_hien_tai())
 
 # hỡi người anh em
 # nếu bro gặp lỗi và đang cố gắng fix lỗi(90% là vậy)
