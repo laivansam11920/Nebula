@@ -1,7 +1,8 @@
 from configs.db import db
 from utils.token_het_han import kiem_tra_het_han_token
 from time import time
-
+from logs import logger
+from configs.duong_dan_thu_muc import duong_dan_hien_tai
 
 def kiem_tra_xac_nhan(gmail, token_nguoi_dung_gui_len):
     thu_muc_can_kiem_tra = db["token"]
@@ -43,5 +44,5 @@ def kiem_tra_xac_nhan(gmail, token_nguoi_dung_gui_len):
         return {"success": True, "message": "Xác thực thành công!"}
 
     except Exception as e:
-        print(f"Lỗi hệ thống: {e}")
+        logger.error(f"{e}", duong_dan_hien_tai())
         return {"success": False, "message": "Có lỗi xảy ra phía server!"}

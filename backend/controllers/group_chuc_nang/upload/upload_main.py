@@ -40,13 +40,10 @@ def process_single_file(file_data, user_email, folder_name):
         with open(temp_path, "wb") as f:
             f.write(file_bytes)
 
-        print(f"--- Đã lưu tạm: {temp_path} ---")
-
         if not ten_file_goc:
             ten_file_goc = "no_name_file"
 
         if ten_file_goc.lower().endswith(".html") or content_type == "text/html":
-            print(f"Da phat hien ra file html {ten_file_goc}")
             link_github = upload_html_to_github(temp_path, ten_file_goc, user_email)
             if link_github:
                 file_info_html = save_metadata_html(
@@ -68,8 +65,6 @@ def process_single_file(file_data, user_email, folder_name):
                 result["error"] = {"file": ten_file_goc, "error": "Nội dung nhạy cảm"}
                 return result
 
-        ### Upload lên Cloudinary
-        print(f"--- Bắt đầu upload Cloudinary: {ten_file_goc} ---")
         upload_result = cloudinary.uploader.upload(
             temp_path,
             folder=folder_name,
@@ -77,7 +72,6 @@ def process_single_file(file_data, user_email, folder_name):
             resource_type="auto",
             unique_filename=True,
         )
-        print(f"--- Upload Cloudinary xong: {ten_file_goc} ---")
 
         file_info = make_json_cloud(upload_result, user_email, ten_file_goc, "upload")
         luu(file_info, "file_info")
@@ -85,7 +79,7 @@ def process_single_file(file_data, user_email, folder_name):
         result["url"] = file_info["url"]
 
     except Exception as e:
-        print(f"Lỗi khi xử lý file {ten_file_goc}: {e}")
+        logger.error(f"{ten_file_goc}: {e}", duong_dan_hien_tai())
         result["error"] = {"file": ten_file_goc, "error": str(e)}
     finally:
         if os.path.exists(temp_path):
@@ -116,9 +110,6 @@ def upload_to_cloud():
     files_list = request.files.getlist("files[]")
     if not files_list or all(f.filename == "" for f in files_list):
         return jsonify({"error": "Danh sách file rỗng"}), 400
-
-    print("--- KIỂM TRA ĐẦU VÀO ---")
-    print(f"Content-Length: {request.content_length}")
 
     urls = []
     errors = []

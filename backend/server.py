@@ -33,7 +33,7 @@ sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding="utf-8")
 
 app = Flask(__name__)
 
-app.secret_key = "og_thich_ghi_gi_vao_day_cung_duoc_mien_la_bi_mat"
+app.secret_key = str(os.getenv("SERVER_SECRET_KEY"))
 
 app.config.update(
     SESSION_COOKIE_NAME="google-auth-session",
@@ -153,10 +153,6 @@ port = int(os.environ.get("PORT", 8000))
 if __name__ == "__main__":
     try:
         db.command("ping")
-        logger.debug("test logger in server", duong_dan_hien_tai())
-        print(f'>>> {__title__} ||| python: {__version__}')
-        print(f">>> {__copyright__}")
-        print(f">>> admin_gmail: {__author_email__} ||| adminname: {__author__}")
         socketio.run(app, host="0.0.0.0", port=port)
     except Exception as e:
         logger.critical(f"{e}",duong_dan_hien_tai())

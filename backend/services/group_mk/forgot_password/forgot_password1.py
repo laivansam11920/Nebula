@@ -3,7 +3,8 @@ from configs.db import db
 from utils.make_token import tao_token_10_so
 from time import time
 from flask import request
-
+from logs import logger
+from configs.duong_dan_thu_muc import duong_dan_hien_tai
 
 def kiem_tra_dat_lai_mat_khau(gmail):
 
@@ -12,9 +13,9 @@ def kiem_tra_dat_lai_mat_khau(gmail):
 
     try:
         db.command("ping")
-        print("system: find to connect mongodb ")
+        logger.log("system: find to connect mongodb", duong_dan_hien_tai())
     except Exception as e:
-        print(f"system: error connect {e}")
+        logger.error(f"{e}", duong_dan_hien_tai())
 
     kiem_tra_ton_tai = user.find_one({"gmail": gmail})
 
@@ -56,7 +57,7 @@ def kiem_tra_dat_lai_mat_khau(gmail):
                 "message": "Đã gửi email thành công! Vui lòng kiểm tra hộp thư.",
             }
         else:
-            print(f"Lỗi gửi email: {ket_qua.get('error', 'Không rõ lỗi')}")
+            logger.error(f"Lỗi gửi email: {ket_qua.get('error', 'Không rõ lỗi')}", duong_dan_hien_tai())
             return {
                 "success": False,
                 "error": ket_qua.get("error", "Đã có lỗi xảy ra khi gửi email."),

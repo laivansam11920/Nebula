@@ -1,5 +1,6 @@
 from configs.db import db
-
+from logs import logger
+from configs.duong_dan_thu_muc import duong_dan_hien_tai
 
 def lay_mot_truong_du_lieu(ten_collection, cot_can_tim, gia_tri_can_tim, cot_can_lay):
     try:
@@ -26,7 +27,8 @@ def lay_mot_truong_du_lieu(ten_collection, cot_can_tim, gia_tri_can_tim, cot_can
         return ket_qua, 200
 
     except Exception as e:
-        print(
-            f"[LOG LOI DB] gap su co ở collection '{ten_collection}' khi tim '{gia_tri_can_tim}': {e}"
+        logger.error(
+            f"gap su co ở collection '{ten_collection}' khi tim '{gia_tri_can_tim}': {e}",
+            duong_dan_hien_tai()
         )
         return "Loi he thong", 500

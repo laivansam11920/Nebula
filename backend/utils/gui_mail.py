@@ -2,14 +2,16 @@ import requests
 from utils.tinh_thoi_gian import thoi_gian_tuong_doi
 from datetime import datetime
 from utils.kiem_tra_thong_tin import lam_dep_thiet_bi
-
+from os import getenv
+from logs import logger
+from configs.duong_dan_thu_muc import duong_dan_hien_tai
 
 def gui_mail_reset(email_nguoi_nhan, token, thoi_gian, dia_chi_ip, thiet_bi):
 
-    service_id = "service_xszjius"
-    template_id = "template_rahi05h"
-    public_key = "Z2nHUm0dY8tFSWlaB"
-    pivate_key = "vFQ1PfWU2tFXj7Iq7p1Rk"
+    service_id = str(getenv("SERVICE_ID_EMAILJS"))
+    template_id = str(getenv("TEMPLATE_ID_EMAILJS"))
+    public_key = str(getenv("PUBLIC_KEY_EMAILJS"))
+    pivate_key = str(getenv("PRIVATE_KEY_EMAILJS"))
 
     link_reset = f"https://vault-storage.me/auth/reset_password?gmail={email_nguoi_nhan}&token={token}"
 
@@ -40,14 +42,12 @@ def gui_mail_reset(email_nguoi_nhan, token, thoi_gian, dia_chi_ip, thiet_bi):
         #
         response = requests.post(url, json=data)
 
-        print(f"EmailJS Response: {response.status_code} - {response.text}")
-
         if response.status_code == 200:
-            print(f"Gửi mail cho {email_nguoi_nhan} thành công rồi og ơi! 🎉")
+            logger.log(f"send for {email_nguoi_nhan}!", duong_dan_hien_tai())
             return {"success": True}
         else:
-            print(f"EmailJS báo lỗi: {response.text}")
+            logger.warring(f"EmailJS error: {response.text}", duong_dan_hien_tai())
             return {"success": False, "error": response.text}
     except Exception as e:
-        print(f"Có lỗi bất ngờ rồi og ơi: {e}")
+        logger.error(f"error: {e}", duong_dan_hien_tai())
         return {"success": False, "error": str(e)}

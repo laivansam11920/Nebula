@@ -1,8 +1,7 @@
+from logs import logger
+from configs.duong_dan_thu_muc import duong_dan_hien_tai
+
 def parse_size_to_bytes(size_data):
-    """
-    Chuyển đổi chuỗi dung lượng (VD: '178.0 KB') thành số Byte.
-    An toàn với cả dữ liệu đầu vào là int/float hoặc None.
-    """
     if not size_data:
         return 0
 
@@ -30,5 +29,5 @@ def parse_size_to_bytes(size_data):
         return num  # Mặc định Bytes
 
     except Exception as e:
-        print(f"[DEBUG] Lỗi parse file size: {size_data} -> {e}")
+        logger.error(f"{e}", duong_dan_hien_tai())
         return 0

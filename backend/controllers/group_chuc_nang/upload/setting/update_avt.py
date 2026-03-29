@@ -8,15 +8,17 @@ import os
 import uuid
 from configs.db import db
 import configs.cloudinary
+from logs import logger
+from configs.duong_dan_thu_muc import duong_dan_hien_tai
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 TEMP_DIR = os.path.join(BASE_DIR, "temp")
 
 if not os.path.exists(TEMP_DIR):
     os.makedirs(TEMP_DIR, exist_ok=True)
-    print(f"📁 Đã tạo thư mục tạm tại: {TEMP_DIR}")
+    logger.log(f"Đã tạo thư mục tạm tại: {TEMP_DIR}", duong_dan_hien_tai())
 else:
-    print(f"📁 Thư mục tạm đã sẵn sàng: {TEMP_DIR}")
+    logger.log(f"Đã tạo thư mục tạm tại: {TEMP_DIR}", duong_dan_hien_tai())
 
 
 def upload_to_cloud_avt():
@@ -37,31 +39,25 @@ def upload_to_cloud_avt():
     files = request.files.getlist("avatar")
     urls = []
     error = []
-    print("--- KIỂM TRA ĐẦU VÀO ---")
-    print(
-        f"Content-Length: {request.content_length}"
-    )  # Xem dung lượng gửi lên có > 0 không
-    print(f"Files keys: {list(request.files.keys())}")
     for file in files:
         unique_filename = f"{uuid.uuid4()}_{file.filename}"
         temp_path = os.path.abspath(os.path.join(TEMP_DIR, unique_filename))
         try:
             file.save(temp_path)
-            print(f"--- Đã lưu tạm: {temp_path} ---")
+            logger.log(f"Đã lưu tạm: {temp_path}", duong_dan_hien_tai())
             file.seek(0)
             ten_file_goc = file.filename
             if ten_file_goc:
-                print("ok, ten da co roi ban oi")
+                logger.log("ok, name create", duong_dan_hien_tai())
             else:
                 ten_file_goc = "no_name__file"
             res = check_image_sensitivity(temp_path)
-            print(res)
+            logger.log(res, duong_dan_hien_tai())
             level = res.get("level").upper()
             if level != "SAFE":
                 error.append({"file": ten_file_goc, "error": "Nội dung nhạy cảm"})
                 os.remove(temp_path)
                 continue
-            print("--- Bắt đầu upload Cloudinary ---")
             upload_result = cloudinary.uploader.upload(
                 file,
                 folder=folder_name,
@@ -69,7 +65,6 @@ def upload_to_cloud_avt():
                 resource_type="auto",
                 unique_filename=True,
             )
-            print("--- Upload Cloudinary xong ---")
             file_info = make_json_cloud(
                 upload_result, user_email, ten_file_goc, "avatar"
             )
@@ -87,7 +82,7 @@ def upload_to_cloud_avt():
             luu(file_info, "file_info")
             urls.append(file_info.get("url"))
         except Exception as e:
-            print(f"Lỗi: {e}")
+            logger.error(f"{e}", duong_dan_hien_tai())
         finally:
             if os.path.exists(temp_path):
                 os.remove(temp_path)

@@ -1,6 +1,7 @@
 from flask import request, jsonify
 from utils.lay_du_lieu_thu_db import lay_tat_ca_file
-
+from logs import logger
+from configs.duong_dan_thu_muc import duong_dan_hien_tai
 
 def get_files_for_dashboard():
     user_email = request.cookies.get("user_gmail", "")
@@ -15,5 +16,5 @@ def get_files_for_dashboard():
         return jsonify({"status": "success", "files": user_files}), 200
 
     except Exception as e:
-        print(f"Lỗi khi lấy danh sách file: {e}")
+        logger.error(f"{e}", duong_dan_hien_tai())
         return jsonify({"error": "Internal Server Error"}), 500

@@ -4,7 +4,8 @@ from services.chat.chuc_nang.bot_web.get_user_id import get_user_id
 from services.chat.chuc_nang.bot_web.save_message import save_message
 from services.chat.chuc_nang.bot_web.generate_ai_res import generate_ai_response
 from datetime import datetime
-
+from logs import logger
+from configs.duong_dan_thu_muc import duong_dan_hien_tai
 
 def support_chat():
     try:
@@ -24,7 +25,7 @@ def support_chat():
         user_id = get_user_id()
 
         # Log request
-        print(f"[CHAT] User {user_id}: {user_message}")
+        logger.log(f"[CHAT] User {user_id}: {user_message}")
 
         # Thêm thông tin về files vào message nếu có
         if files:
@@ -40,7 +41,7 @@ def support_chat():
         save_message(user_id, "bot", bot_response)
 
         # Log response
-        print(f"[CHAT] Bot: {bot_response[:100]}...")
+        logger.log(f"[CHAT] Bot: {bot_response[:100]}...")
 
         # Return response
         return (
@@ -56,7 +57,7 @@ def support_chat():
         )
 
     except Exception as e:
-        print(f"[ERROR] Chat endpoint error: {e}")
+        logger.error(f"{e}", duong_dan_hien_tai())
         return (
             jsonify(
                 {

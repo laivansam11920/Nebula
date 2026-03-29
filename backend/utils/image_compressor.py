@@ -1,6 +1,7 @@
 import tempfile
 from PIL import Image
-
+from logs import logger
+from configs.duong_dan_thu_muc import duong_dan_hien_tai
 
 def compress_image_for_ai(input_path: str, max_size: tuple = (640, 640)) -> str:
     try:
@@ -14,5 +15,5 @@ def compress_image_for_ai(input_path: str, max_size: tuple = (640, 640)) -> str:
             img.save(temp_path, format="JPEG", quality=85, optimize=True)
             return temp_path
     except Exception as e:
-        print(f"Lỗi khi nén ảnh: {e}")
+        logger.error(f"{e}", duong_dan_hien_tai())
         return input_path

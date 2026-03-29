@@ -29,7 +29,7 @@ class Log_system:
         self.mui_gio_vn = timezone(timedelta(hours=7))
 
     def save_to_file(self, level, line, path_system, mes, time, user):
-        log_entry = f"[{time}] ||| {mes} ||| line: {line} ||| {level} ||| {path_system} ||| {user}\n"
+        log_entry = f"[{time}] | {mes} | line: {line} | {level} | {path_system} | {user}\n"
         def run_main():
             try:
                 with open("server.log", "a", encoding="utf-8") as f:
@@ -75,7 +75,7 @@ class Log_system:
         time = self.get_time()
         user = self.get_user()
         print(
-            f"{self.GREEN}[{time}] ||| {messing_info} ||| line: {line} ||| {self.main_info} ||| {path_in} ||| {user}"
+            f"[{time}] | {messing_info} | line: {line} | {self.main_info} | {path_in} | {user}"
         )
         self.save_to_file(self.main_info, line, path_in, messing_info, time, user)
 
@@ -84,7 +84,7 @@ class Log_system:
         user = self.get_user()
         time = self.get_time()
         print(
-            f"{self.YELLOW}[{time}] ||| {messing_warring} ||| line: {line} ||| {self.main_warring} ||| {path_in} ||| {user}"
+            f"[{time}] | {messing_warring} | line: {line} | {self.main_warring} | {path_in} | {user}"
         )
         self.save_database(
             self.main_warring,
@@ -101,7 +101,7 @@ class Log_system:
         user = self.get_user()
         time = self.get_time()
         print(
-            f"{self.RED}[{time}] ||| {messing_error} ||| line: {line} ||| {self.main_error} ||| {path_in} ||| {user}"
+            f"[{time}] | {messing_error} | line: {line} | {self.main_error} | {path_in} | {user}"
         )
         self.save_database(
             self.main_error,
@@ -118,7 +118,7 @@ class Log_system:
         time = self.get_time()
         user = self.get_user()
         print(
-            f"{self.GREEN}[{time}] ||| {messing_log} ||| line: {line} ||| {self.main_log} ||| {path_in} ||| {user}"
+            f"[{time}] | {messing_log} | line: {line} | {self.main_log} | {path_in} | {user}"
         )
         self.save_to_file(self.main_log, line, path_in, messing_log, time, user)
 
@@ -127,7 +127,7 @@ class Log_system:
         time = self.get_time()
         user = self.get_user()
         print(
-            f"{self.RESET}[{time}] ||| {messing_debug} ||| line: {line} ||| {self.main_debug} ||| {path_in} ||| {user}"
+            f"[{time}] | {messing_debug} | line: {line} | {self.main_debug} | {path_in} | {user}"
         )
         self.save_to_file(self.main_debug, line, path_in, messing_debug, time, user)
 
@@ -136,7 +136,7 @@ class Log_system:
         user = self.get_user()
         time = self.get_time()
         print(
-            f"{self.RED}[{time}] ||| {messing_critical} ||| line: {line} ||| {self.main_critical} ||| {path_in} ||| {user}"
+            f"[{time}] | {messing_critical} | line: {line} | {self.main_critical} | {path_in} | {user}"
         )
         self.save_database(
             self.main_critical,

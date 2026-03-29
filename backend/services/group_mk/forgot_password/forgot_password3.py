@@ -1,6 +1,7 @@
 from configs.db import db
 from utils.hash_password import hash_password, make_salt
-
+from logs import logger
+from configs.duong_dan_thu_muc import duong_dan_hien_tai
 
 def kiem_tra_de_doi_mat_khau(token, gmail, new_password):
     thu_muc_can_kiem_tra = db["token"]
@@ -40,5 +41,5 @@ def kiem_tra_de_doi_mat_khau(token, gmail, new_password):
                 "message": "Mật khẩu mới không được giống mật khẩu cũ!",
             }
     except Exception as e:
-        print(f"Lỗi khi kiểm tra để đổi mật khẩu: {e}")
+        logger.error(f"{e}", duong_dan_hien_tai())
         return {"success": False, "message": str(e)}

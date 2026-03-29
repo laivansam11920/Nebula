@@ -26,7 +26,7 @@ def run_ai_code_safely(code):
     my_builtins["__import__"] = safe_import
 
     safe_globals = {"__builtins__": my_builtins}
-    safe_globals["_print_"] = PrintCollector
+    safe_globals["_logger.log_"] = PrintCollector
     safe_globals["_write_"] = full_write_guard
     safe_globals["_getattr_"] = getattr
     safe_globals["_getitem_"] = default_guarded_getitem
@@ -48,7 +48,7 @@ def run_ai_code_safely(code):
 
 # 2. HÀM GỌI AI THẬT
 def ask_gemini_for_sandbox(system_instruction, user_text, doan_chat_truoc):
-    print("\n[Hệ thống] Đang gọi Gemma-3-27b-it...")
+    logger.log("\n[Hệ thống] Đang gọi Gemma-3-27b-it...")
     try:
         if doan_chat_truoc is None:
             doan_chat_truoc = []
@@ -89,7 +89,7 @@ def ask_gemini_for_sandbox(system_instruction, user_text, doan_chat_truoc):
 
 # 3. LOGIC XỬ LÝ CHÍNH ĐÃ THÔNG MINH HƠN
 def handle_ai_code_generation(message_text, history):
-    print(f"\n--- KHÁCH NHẮN: {message_text} ---")
+    logger.log(f"\n--- KHÁCH NHẮN: {message_text} ---")
 
     # CÔNG THỨC MỚI: AI tự đánh giá xem có cần viết code không
     system_prompt_smart = (
@@ -97,7 +97,7 @@ def handle_ai_code_generation(message_text, history):
         "LUẬT XỬ LÝ QUAN TRỌNG NHẤT:\n"
         "1. NẾU người dùng CHỈ giao tiếp bình thường (hỏi thăm, tán gẫu, hỏi 'thấy vui không', v.v.), hãy trả lời trực tiếp một cách tự nhiên và KẾT THÚC. TUYỆT ĐỐI KHÔNG VIẾT CODE.\n"
         "2. CHỈ KHI người dùng yêu cầu tính toán toán học, xem ngày giờ, hoặc lấy thông tin hệ thống máy tính, bạn MỚI viết code Python.\n"
-        "3. NẾU BẮT BUỘC PHẢI VIẾT CODE: Đặt code trong thẻ ```python. Gán kết quả v��o biến 'result'. KHÔNG dùng print(), KHÔNG import thư viện lạ."
+        "3. NẾU BẮT BUỘC PHẢI VIẾT CODE: Đặt code trong thẻ ```python. Gán kết quả v��o biến 'result'. KHÔNG dùng logger.log(), KHÔNG import thư viện lạ."
     )
 
     ai_reply = ask_gemini_for_sandbox(system_prompt_smart, message_text, history)
@@ -106,10 +106,10 @@ def handle_ai_code_generation(message_text, history):
     # Nếu nó có viết code (Trường hợp B)
     if code_match:
         ai_code = code_match.group(1).strip()
-        print(f"\n[1. CODE GEMMA TỰ VIẾT RA]:\n{ai_code}")
+        logger.log(f"\n[1. CODE GEMMA TỰ VIẾT RA]:\n{ai_code}")
 
         execution_result = run_ai_code_safely(ai_code)
-        print(f"\n[2. KẾT QUẢ CHẠY TRÊN UBUNTU]: {execution_result}")
+        logger.log(f"\n[2. KẾT QUẢ CHẠY TRÊN UBUNTU]: {execution_result}")
 
         system_prompt_answer = "Bạn là trợ lý Vault-Sm. Trả lời kết quả tính toán cho khách thật ngắn gọn và thân thiện, dùng icon :)"
         final_answer_prompt = f"Yêu cầu ban đầu: {message_text}. Kết quả tính toán là: {execution_result}. Hãy báo cho khách."
@@ -121,18 +121,18 @@ def handle_ai_code_generation(message_text, history):
 
     # Nếu nó KHÔNG viết code (Trường hợp A - Tán gẫu)
     else:
-        print("\n[Hệ thống]: Chế độ tán gẫu. Không cần chạy Sandbox.")
+        logger.log("\n[Hệ thống]: Chế độ tán gẫu. Không cần chạy Sandbox.")
         return ai_reply
 
 
 # 4. CHẠY TEST
 if __name__ == "__main__":
-    print("=== BẮT ĐẦU TEST VỚI GEMINI THẬT ===")
+    logger.log("=== BẮT ĐẦU TEST VỚI GEMINI THẬT ===")
 
     # Test thử câu nói chuyện bình thường
     cau_hoi = "ê thấy vui không?"
     lich_su = []
 
     cau_tra_loi = handle_ai_code_generation(cau_hoi, lich_su)
-    print(f"\n[3. GEMMA TRẢ LỜI KHÁCH]:\n{cau_tra_loi}")
-    print("\n=== KẾT THÚC TEST ===")
+    logger.log(f"\n[3. GEMMA TRẢ LỜI KHÁCH]:\n{cau_tra_loi}")
+    logger.log("\n=== KẾT THÚC TEST ===")

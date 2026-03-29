@@ -4,7 +4,8 @@ from configs.db import db
 from utils.hash_password import hash_password, make_salt
 from datetime import datetime, timedelta
 from configs.duong_dan_thu_muc import duong_dan_hien_tai
-
+from logs import logger
+from configs.duong_dan_thu_muc import duong_dan_hien_tai
 
 def kiem_tra_mat_khau(user_name_input, gmail_input, password_input):
 
@@ -12,12 +13,12 @@ def kiem_tra_mat_khau(user_name_input, gmail_input, password_input):
 
     try:
         db.command("ping")
-        print("system: find to connect mongodb ")
+        logger.log("system: find to connect mongodb", duong_dan_hien_tai())
     except Exception as e:
-        print(f"system: error connect {e}")
+        logger.error(f"{e}", duong_dan_hien_tai())
 
     if luu_tru.find_one({"gmail": gmail_input}):
-        print(f"[LOG] Email {gmail_input} đã tồn tại.")
+        logger.warring(f"Email {gmail_input} đã tồn tại.", duong_dan_hien_tai())
         return {
             "status": "error",
             "error_type": "loi_trung_email",
@@ -61,7 +62,7 @@ def kiem_tra_mat_khau(user_name_input, gmail_input, password_input):
 
         return {"status": "good", "message": "Tạo tài khoản thành công rồi nhé!"}
     except Exception as e:
-        print(f"Lỗi database: {e} in ", duong_dan_hien_tai())
+        logger.error(f"{e}", duong_dan_hien_tai())
         return {
             "status": "error",
             "error_type": "loi_luu_tru_database",

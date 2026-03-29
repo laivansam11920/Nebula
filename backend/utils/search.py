@@ -1,5 +1,6 @@
 from configs.db import db
-
+from logs import logger
+from configs.duong_dan_thu_muc import duong_dan_hien_tai
 
 def tim_only(collection, find_name, variable, find_item):
     try:
@@ -10,5 +11,5 @@ def tim_only(collection, find_name, variable, find_item):
         res = user.get(str(find_item))
         return res
     except Exception as e:
-        print(f"Lỗi ADMIN-ROOT ơi: {e}")
+        logger.error(f"{e}", duong_dan_hien_tai())
         return None

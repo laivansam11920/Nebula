@@ -3,6 +3,8 @@ import requests
 from configs.db import db
 import os
 from utils.hash256 import get_sha256_hash
+from logs import logger
+from configs.duong_dan_thu_muc import duong_dan_hien_tai
 
 lenh_tu_huy = Blueprint("lenh_tu_huy", __name__)
 
@@ -24,7 +26,7 @@ def kill_switch(passphrase):
             if not api_key or not service_id:
                 return "Thiếu biến môi trường RENDER_API_KEY hoặc SERVICE_ID1", 500
 
-            print(f"\n☢️ [SECURITY ALERT] Đang đình chỉ dịch vụ: {service_id}")
+            logger.warring(f"\nĐang đình chỉ dịch vụ: {service_id}", duong_dan_hien_tai())
 
             headers = {
                 "Authorization": f"Bearer {api_key}",

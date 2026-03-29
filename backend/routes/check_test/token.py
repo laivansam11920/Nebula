@@ -1,4 +1,6 @@
 from flask import Blueprint, request
+from logs import logger
+from configs.duong_dan_thu_muc import duong_dan_hien_tai
 
 app_fac = Blueprint("face", __name__)
 
@@ -14,7 +16,7 @@ def verify():
     challenge = request.args.get("hub.challenge")
 
     if mode == "subscribe" and token == MY_VERIFY_TOKEN:
-        print("WEBHOOK_VERIFIED")
+        logger.log("WEBHOOK_VERIFIED", duong_dan_hien_tai())
         return challenge, 200  # BẮT BUỘC trả về challenge này
 
     return "Verification failed", 403
