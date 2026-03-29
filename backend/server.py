@@ -94,6 +94,9 @@ def unauthorized_error(e):
 def service_unavailable_error(e):
     return send_from_directory(thu_muc_chinh("frontend/view/error"), "503.html"), 503
 
+@app.errorhandler(405)
+def method_not_allowed(error):
+    return send_from_directory(thu_muc_chinh("frontend/view/error"), "405.html"), 405
 
 tim_kiem = db["trang_thai_web"]
 

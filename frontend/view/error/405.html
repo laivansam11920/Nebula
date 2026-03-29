@@ -1,0 +1,178 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>405 - Phương thức không được phép</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      }
+
+      body {
+        background-color: #ffffff;
+        color: #000000;
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        overflow: hidden;
+      }
+
+      .container {
+        max-width: 600px;
+        padding: 20px;
+        z-index: 1;
+      }
+
+      /* Icon mũi tên bị chặn */
+      .method-icon {
+        margin-bottom: 20px;
+        animation: shake-hard 0.5s ease-in-out;
+        cursor: pointer;
+      }
+
+      .method-icon:active {
+        animation: shake 0.2s ease-in-out;
+      }
+
+      @keyframes shake-hard {
+        0% {
+          transform: translate(1px, 1px) rotate(0deg);
+        }
+        10% {
+          transform: translate(-1px, -2px) rotate(-1deg);
+        }
+        20% {
+          transform: translate(-3px, 0px) rotate(1deg);
+        }
+        30% {
+          transform: translate(3px, 2px) rotate(0deg);
+        }
+        40% {
+          transform: translate(1px, -1px) rotate(1deg);
+        }
+        50% {
+          transform: translate(-1px, 2px) rotate(-1deg);
+        }
+        100% {
+          transform: translate(0px, 0px) rotate(0deg);
+        }
+      }
+
+      @keyframes shake {
+        0%,
+        100% {
+          transform: translateX(0);
+        }
+        25% {
+          transform: translateX(-10px);
+        }
+        75% {
+          transform: translateX(10px);
+        }
+      }
+
+      .method-icon svg {
+        width: 100px;
+        height: 100px;
+        fill: #000;
+      }
+
+      h1 {
+        font-size: 2.5rem;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        margin-bottom: 15px;
+        font-weight: 800;
+      }
+
+      p {
+        font-size: 1.1rem;
+        color: #555;
+        margin-bottom: 30px;
+      }
+
+      .divider {
+        width: 100px;
+        height: 2px;
+        background: #000;
+        margin: 0 auto 30px;
+      }
+
+      .btn-group {
+        display: flex;
+        gap: 15px;
+        justify-content: center;
+      }
+
+      .btn {
+        display: inline-block;
+        padding: 12px 30px;
+        border: 2px solid #000;
+        color: #fff;
+        background: #000;
+        text-decoration: none;
+        font-weight: bold;
+        transition: 0.3s;
+        text-transform: uppercase;
+      }
+
+      .btn:hover {
+        background: #fff;
+        color: #000;
+      }
+
+      .btn-outline {
+        background: #fff;
+        color: #000;
+      }
+
+      .btn-outline:hover {
+        background: #f4f4f4;
+        color: #000;
+      }
+
+      .bg-text {
+        position: absolute;
+        font-size: 15vw;
+        font-weight: 900;
+        color: #f4f4f4;
+        z-index: -1;
+        user-select: none;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="bg-text">METHOD</div>
+
+    <div class="container">
+      <div class="method-icon">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path
+            d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0
+               18c-4.42 0-8-3.58-8-8 0-1.85.63-3.55 1.69-4.9L16.9 18.31C15.55 19.37
+               13.85 20 12 20zm6.31-3.1L7.1 5.69C8.45 4.63 10.15 4 12 4c4.42 0 8
+               3.58 8 8 0 1.85-.63 3.55-1.69 4.9z"
+          />
+        </svg>
+      </div>
+
+      <h1>405 - Method Not Allowed</h1>
+      <div class="divider"></div>
+      <p>
+        Ủa khoan bạn ơi! Phương thức bạn dùng không được hỗ trợ ở đây. <br />
+        Server không chấp nhận kiểu request này cho tài nguyên đó đâu nha.
+      </p>
+
+      <div class="btn-group">
+        <a href="/" class="btn">Về trang chủ</a>
+        <a href="javascript:history.back()" class="btn btn-outline">Quay lại</a>
+      </div>
+    </div>
+  </body>
+</html>
