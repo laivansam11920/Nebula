@@ -25,7 +25,7 @@ def support_chat():
         user_id = get_user_id()
 
         # Log request
-        logger.log(f"[CHAT] User {user_id}: {user_message}")
+        logger.log(f"User {user_id}: {user_message}", duong_dan_hien_tai())
 
         # Thêm thông tin về files vào message nếu có
         if files:
@@ -41,7 +41,7 @@ def support_chat():
         save_message(user_id, "bot", bot_response)
 
         # Log response
-        logger.log(f"[CHAT] Bot: {bot_response[:100]}...")
+        logger.log(f"Bot: {bot_response[:100]}...", duong_dan_hien_tai())
 
         # Return response
         return (
