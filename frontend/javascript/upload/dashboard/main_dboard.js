@@ -378,7 +378,7 @@ function renderFiles() {
             Bạn chưa có file nào ở đây. Hãy tải lên tài liệu đầu tiên để bắt đầu lưu trữ nhé!
           </div>
           <!-- Nút bấm nổi bật (Tương tác gọi thẳng input tải file) -->
-          <button onclick="window.location.href='https://www.vault-storage.me/frontend/view/upload/web_upload/index.html'"
+          <button onclick="window.location.href='https://vault-storage.me/app/upload'"
                   style="margin-top:16px;padding:10px 24px;background:var(--ink);color:#fff;border:none;border-radius:8px;font-weight:600;font-size:13px;font-family:'Manrope',sans-serif;cursor:pointer;display:flex;align-items:center;gap:8px;box-shadow: 0 4px 12px rgba(0,0,0,0.15); transition: all 0.2s;"
                   onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 6px 16px rgba(0,0,0,0.2)';"
                   onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 4px 12px rgba(0,0,0,0.15)';">
