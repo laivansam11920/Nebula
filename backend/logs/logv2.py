@@ -3,6 +3,7 @@ from datetime import timezone, datetime, timedelta
 import inspect
 from flask import request
 import threading
+import os
 
 mui_gio_vn = timezone(timedelta(hours=7))
 bay_gio = datetime.now(mui_gio_vn)
@@ -31,10 +32,15 @@ class Log_system:
         log_entry = f"[{time}] | {mes} | line: {line} | {level} | {path_system} | {user}\n"
         def run_main():
             try:
-                with open("server.log", "a", encoding="utf-8") as f:
+
+                thu_muc_hien_tai = os.path.dirname(os.path.abspath(__file__))
+                duong_dan_log = os.path.join(thu_muc_hien_tai, "server.log")
+
+                with open("server", "a", encoding="utf-8") as f:
                     f.write(log_entry)
             except Exception as e:
                 print(f"{self.RED} Lỗi ghi file log: {e}{self.RESET}")
+                
         threading.Thread(target=run_main).start()
 
     def get_time(self):
@@ -70,7 +76,7 @@ class Log_system:
 
         threading.Thread(target=run_save).start()
 
-    def info(self, messing_info, path_in):
+    def info(self, messing_info, path_in=None):
         line = inspect.stack()[1][2]
         time = self.get_time()
         user = self.get_user()
@@ -79,7 +85,7 @@ class Log_system:
         )
         self.save_to_file(self.main_info, line, path_in, messing_info, time, user)
 
-    def warring(self, messing_warring, path_in):
+    def warring(self, messing_warring, path_in=None):
         line = inspect.stack()[1][2]
         user = self.get_user()
         time = self.get_time()
@@ -96,7 +102,7 @@ class Log_system:
         )
         self.save_to_file(self.main_warring, line, path_in, messing_warring, time, user)
 
-    def error(self, messing_error, path_in):
+    def error(self, messing_error, path_in=None):
         line = inspect.stack()[1][2]
         user = self.get_user()
         time = self.get_time()
@@ -113,7 +119,7 @@ class Log_system:
         )
         self.save_to_file(self.main_error, line, path_in, messing_error, time, user)
 
-    def log(self, messing_log, path_in):
+    def log(self, messing_log, path_in=None):
         line = inspect.stack()[1][2]
         time = self.get_time()
         user = self.get_user()
@@ -122,7 +128,7 @@ class Log_system:
         )
         self.save_to_file(self.main_log, line, path_in, messing_log, time, user)
 
-    def debug(self, messing_debug, path_in):
+    def debug(self, messing_debug, path_in=None):
         line = inspect.stack()[1][2]
         time = self.get_time()
         user = self.get_user()
@@ -131,7 +137,7 @@ class Log_system:
         )
         self.save_to_file(self.main_debug, line, path_in, messing_debug, time, user)
 
-    def critical(self, messing_critical, path_in):
+    def critical(self, messing_critical, path_in=None):
         line = inspect.stack()[1][2]
         user = self.get_user()
         time = self.get_time()
