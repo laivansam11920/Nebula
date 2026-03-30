@@ -11,7 +11,7 @@ thoi_gian_dep = bay_gio.strftime("%H:%M:%S %d/%m/%Y")
 
 
 class Log_system:
-    # color?
+    # color????
     RED = "\033[91m"
     YELLOW = "\033[93m"
     GREEN = "\033[92m"
