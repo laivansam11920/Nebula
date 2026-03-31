@@ -6,7 +6,7 @@ def get_fallback_response(user_message):
 2. Hoặc kéo thả file trực tiếp vào dashboard
 
 📤 Hỗ trợ mọi định dạng file
-💾 Tối đa 2GB/file (gói PRO)"""
+💾 Tối đa 2GB/file (gói PRO)."""
 
     elif "mật khẩu" in msg or "password" in msg:
         return """Để reset mật khẩu:
