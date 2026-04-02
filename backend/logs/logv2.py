@@ -39,7 +39,7 @@ class Log_system:
                 thu_muc_hien_tai = os.path.dirname(os.path.abspath(__file__))
                 duong_dan_log = os.path.join(thu_muc_hien_tai, "server.log")
 
-                with open("server", "a", encoding="utf-8") as f:
+                with open(duong_dan_log, "a", encoding="utf-8") as f:
                     f.write(log_entry)
             except Exception as e:
                 print(f"{self.RED} Lỗi ghi file log: {e}{self.RESET}")
