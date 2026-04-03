@@ -80,6 +80,7 @@ google = oauth.register(
 
 register_routes(app)
 
+duong_dan_file = duong_dan_hien_tai()
 
 @app.errorhandler(404)
 def page_not_found(e):
@@ -115,7 +116,7 @@ admin_pass_on, admin_pass_off = str(os.getenv("BAOTRI_KEY_ON")), str(
 
 @socketio.on("admin_broadcast")
 def handle_broadcast(data):
-    logger.log(f"{data['msg']}", duong_dan_hien_tai())
+    logger.log(f"{data['msg']}", duong_dan_file)
     emit("global_notification", {"message": data["msg"]}, broadcast=True)
 
 
@@ -165,7 +166,7 @@ def home():
     try:
         return send_from_directory(thu_muc, "index.html")
     except Exception as e:
-        logger.error(f"{e}", duong_dan_hien_tai())
+        logger.error(f"{e}", duong_dan_file)
         return f"Lỗi rách việc rồi og ơi, thư mục này không tồn tại: {e}", 401
 
 
@@ -176,10 +177,4 @@ if __name__ == "__main__":
         db.command("ping")
         socketio.run(app, host="0.0.0.0", port=port)
     except Exception as e:
-        logger.critical(f"{e}", duong_dan_hien_tai())
-
-# hỡi người anh em
-# nếu bro gặp lỗi và đang cố gắng fix lỗi(90% là vậy)
-# thì xin lỗi...
-# chỉ có chúa với tui là hiểu nó chạy thế nào
-# và giờ chỉ còn chúa thôi
+        logger.critical(f"{e}", duong_dan_file)

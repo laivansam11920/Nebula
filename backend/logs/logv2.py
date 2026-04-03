@@ -30,7 +30,7 @@ class Log_system:
 
     def save_to_file(self, level, line, path_system, mes, time, user):
         log_entry = (
-            f"[{time}] [{path_system:<30}:{line:<3}] [{level:^8}] {mes}:[{user}\n]"
+            f"[{time}] [{path_system}:{line}] [{level}] {mes}:[{user}\n]"
         )
 
         def run_main():
