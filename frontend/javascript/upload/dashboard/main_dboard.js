@@ -39,6 +39,13 @@ async function secretMaintenanceCheck() {
   }
 }
 
+function toiUuLinkCloudinary(url) {
+  if (!url || !url.includes('cloudinary.com')) return url; // Không phải link cloudinary thì tha cho nó
+  
+  // Nhét thông số cắt ảnh nhỏ và nén tự động vào
+  return url.replace('/upload/', '/upload/w_200,h_200,c_fill,q_auto,f_auto/');
+}
+
 secretMaintenanceCheck();
 
 function updateMainAvatar(dataURL) {
@@ -381,16 +388,11 @@ function renderFiles() {
       const div = document.createElement('div');
       div.className = 'file-card' + (selectedId === f.id ? ' selected' : '');
 
-      // Kiểm tra nếu là ảnh thì dùng URL, nếu không thì dùng màu thumb mặc định
-      const bgStyle =
-        f.type === 'img' && f.url
-          ? `background-image: url('${f.url}'); background-size: cover; background-position: center;`
-          : `background: ${f.thumb}`;
+      const isImg = f.type === 'img' && f.url;
+      const bgStyle = isImg ? '' : `background: ${f.thumb}`;
 
-      // Nếu là ảnh thì không hiện Emoji đè lên (hoặc hiện nhỏ lại), tùy og thích
-      const content =
-        f.type === 'img' && f.url
-          ? ''
+      const content = isImg 
+          ? `<img src="${toiUuLinkCloudinary(f.url)}" loading="lazy" style="width:100%; height:100%; object-fit:cover; border-radius:inherit;" alt="${f.name}">` 
           : `<span style="font-size:32px">${f.emoji}</span>`;
 
       div.innerHTML = `
@@ -412,12 +414,12 @@ function renderFiles() {
 
       // Tạo logic kiểm tra ảnh giống như bên Grid Mode
       const isImg = f.type === 'img' && f.url;
-      const rowBgStyle = isImg
-        ? `background-image: url('${f.url}'); background-size: cover; background-position: center;`
-        : `background: ${f.thumb}`;
-      const rowContent = isImg ? '' : f.emoji;
+      const rowBgStyle = isImg ? '' : `background: ${f.thumb}`;
+       const rowContent = isImg 
+        ? `<img src="${toiUuLinkCloudinary(f.url)}" loading="lazy" style="width:100%; height:100%; object-fit:cover; border-radius:inherit;" alt="${f.name}">` 
+        : f.emoji;
 
-      div.innerHTML = `
+     div.innerHTML = `
         <div class="row-icon" style="${rowBgStyle}">${rowContent}</div>
         <div class="row-name">${highlight(f.name, searchQuery)}</div>
         <div class="row-type">${f.ext}</div>
