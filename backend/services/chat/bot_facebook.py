@@ -32,9 +32,6 @@ def handle_ai_logic(sender_id, message_text, message_id=None):
     prompt_gop = f"{message_text}\n(System Note: Nếu cần trích dẫn lại để làm rõ, hãy bắt đầu câu trả lời bằng chữ [QUOTE])"
 
     ai_reply = ask_gemini(prompt_gop, history)
-    logger.error(f"1. Tin nhắn khách: {message_text}")
-    logger.error(f"2. Mã MID nhận được: {message_id}")
-    logger.error(f"3. AI trả lời nguyên gốc: {ai_reply}")
     if isinstance(ai_reply, str) and ai_reply.startswith("loi"):
         if "429" in ai_reply or "RESOURCE_EXHAUSTED" in ai_reply:
             send_message(sender_id, "Tui đang nghẹn kẹo (quá tải xíu), og đợi tui khoảng 1 phút rồi nhắn lại nha :)", message_id)
