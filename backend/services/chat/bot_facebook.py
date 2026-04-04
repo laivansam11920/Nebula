@@ -13,12 +13,13 @@ from configs.duong_dan_thu_muc import duong_dan_hien_tai
 limits_col = db["user_limits"]
 
 
-def handle_ai_logic(sender_id, message_text):
+def handle_ai_logic(sender_id, message_text, message_id=None):
 
     send_typing(sender_id)
 
     user_data = limits_col.find_one({"sender_id": sender_id})
     history = user_data.get("history", []) if user_data else []
+    prompt_gop = f"{message_text}\n(System Note: Nếu cần trích dẫn lại để làm rõ, hãy bắt đầu câu trả lời bằng chữ [QUOTE])"
 
     keywords = ["tin tức", "thời tiết", "giá", "hôm nay", "ngày mấy", "mấy giờ"]
     search_context = ""
@@ -30,7 +31,22 @@ def handle_ai_logic(sender_id, message_text):
             f"(Bối cảnh thực tế: {search_context})\nCâu hỏi khách: {message_text}"
         )
 
-    ai_reply = ask_gemini(message_text, history)
+    ai_reply = ask_gemini(prompt_gop, history)
+
+    if isinstance(ai_reply, str) and ai_reply.startswith("loi"):
+        if "429" in ai_reply or "RESOURCE_EXHAUSTED" in ai_reply:
+            send_message(sender_id, "Tui đang nghẹn kẹo (quá tải xíu), og đợi tui khoảng 1 phút rồi nhắn lại nha :)", message_id)
+        else:
+            send_message(sender_id, "Não tui đang bị lag, og đợi xíu nha :)", message_id)
+        
+        logger.warring(f"Bỏ qua lưu vì lỗi API: {ai_reply}", duong_dan_hien_tai())
+        return
+    
+    is_quote = False
+    if ai_reply.startswith("[QUOTE]"):
+        ai_reply = ai_reply.replace("[QUOTE]", "").strip()
+        is_quote = True
+    mid_to_send = message_id if is_quote else None
 
     has_sent = False
 
@@ -58,7 +74,7 @@ def handle_ai_logic(sender_id, message_text):
         msg_to_send = (
             ai_reply.split("|||")[0].strip() if "|||" in ai_reply else ai_reply
         )
-        send_message(sender_id, msg_to_send)
+        send_message(sender_id, msg_to_send, reply_to_mid=mid_to_send)
 
     limits_col.update_one(
         {"sender_id": sender_id},
