@@ -15,14 +15,8 @@ def send_message(recipient_id, text, reply_to_mid=None):
     url = "https://graph.facebook.com/v12.0/me/messages"
     params = {"access_token": PAGE_ACCESS_TOKEN}
     message_data = {"text": text}
-
-    if reply_to_mid:
-        message_data["reply_to"] = {"message_id": reply_to_mid}
-
     payload = {"recipient": {"id": recipient_id}, "message": message_data}
     response=requests.post(url, params=params, json=payload)
-    if response.status_code != 200:
-        logger.error(response.json(), duong_dan_hien_tai())
 
 
 def send_button_message(recipient_id):
