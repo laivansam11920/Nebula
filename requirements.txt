@@ -40,3 +40,4 @@ PyGithub
 newrelic
 Pillow
 flask-talisman
+resend

@@ -6,6 +6,12 @@ import threading
 import os
 import uuid
 import hashlib
+from configs.db import db
+import resend
+from os import getenv
+from pymongo import ReturnDocument
+
+resend.api_key = str(getenv("RESEND_API_KEY"))
 
 mui_gio_vn = timezone(timedelta(hours=7))
 bay_gio = datetime.now(mui_gio_vn)
@@ -60,27 +66,67 @@ class Log_system:
         except:
             return "System"
 
+    def send_email_alert(self, result_from_mongo):
+        try:
+            email_data = {
+                "type": result_from_mongo.get("log_level"),
+                "time-first": result_from_mongo.get("time_first"),
+                "time-last": result_from_mongo.get("time_last"),
+                "count": result_from_mongo.get("count"),
+                "id_log": result_from_mongo.get("id"),
+                "mes": result_from_mongo.get("mes"),
+                "path": result_from_mongo.get("path"),
+                "line": result_from_mongo.get("line"),
+                "user": result_from_mongo.get("user"),
+                "time": result_from_mongo.get("time_last")
+            }
+
+            params = {
+                "from": "Vault Monitor <system@vault-storage.me>",
+                "to": ["samvasang1192011@gmail.com"],
+                "subject": f"[{email_data['type']}] New Alert: {email_data['id_log']}",
+                "template_id": "system-monitor-report",
+                "data": email_data
+            }
+
+            resend.Emails.send(params)
+            print(f"{self.GREEN} [Resend] Đã bắn mail báo cáo thành công! {self.RESET}")
+
+        except Exception as e:
+            print(f"{self.RED} [Resend] Lỗi khi gửi mail: {e} {self.RESET}")
+
     def save_database(self, level, line, path_system, mes, time, user):
         def run_save():
-            from configs.db import db
-
+           
             collection = db["log_error_system"]
-            try:
-                raw_id = f"{level}{line}{path_system}{mes}{user}"
+            
+            raw_id = f"{level}{line}{path_system}{mes}{user}"
+            error_id = hashlib.md5(raw_id.encode()).hexdigest()[:10]
 
-                collection.insert_one(
+            try:
+                result = collection.find_one_and_update(
+                    {"id": error_id},
                     {
-                        "log_level": level,
-                        "line": line,
-                        "path": path_system,
-                        "time": time,
-                        "user": user,
-                        "mes": mes,
-                        "id": hashlib.md5(raw_id.encode()).hexdigest()[:10]
-                    }
+                        "$inc": {"count": 1},
+                        "$set": {
+                            "log_level": level,
+                            "line": line,
+                            "path": path_system,
+                            "time_last": time,
+                            "user": user,
+                            "mes": mes
+                        },
+                        "$setOnInsert": {"time_first": time}
+                    },
+                    upsert=True,
+                    return_document=ReturnDocument.AFTER
                 )
+                count = result.get("count")
+                if count == 1 or (count > 1 and count % 100 == 0):
+                    self.send_email_alert(result) 
+                    
             except Exception as e:
-                print(f"{self.RED} {e}")
+                print(f"{self.RED} {e}{self.RESET}")
 
         threading.Thread(target=run_save).start()
 
