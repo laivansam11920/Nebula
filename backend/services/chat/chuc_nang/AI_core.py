@@ -55,15 +55,11 @@ documents = thong_tin_web
 def get_embedding(text):
     try:
         res = client.models.embed_content(
-            model="models/gemini-embedding-001", contents=text
+            model="models/gemini-embedding-004", contents=text
         )
         return res.embeddings[0].values
     except Exception as e:
-        logger.error(f"{e}", duong_dan_hien_tai())
-        logger.debug("Đang quét danh sách model khả dụng...", duong_dan_hien_tai())
-        for m in client.models.list():
-            if "embed" in m.name.lower():
-                logger.log(f"-> Model bạn nên dùng là: {m.name}", duong_dan_hien_tai())
+        logger.error(f"Lỗi lấy embedding: {e}", duong_dan_hien_tai())
         return None
 
 
