@@ -6,7 +6,6 @@ import threading
 import os
 import uuid
 import hashlib
-from configs.db import db
 import resend
 from os import getenv
 from pymongo import ReturnDocument
@@ -97,7 +96,7 @@ class Log_system:
 
     def save_database(self, level, line, path_system, mes, time, user):
         def run_save():
-           
+            from configs.db import db
             collection = db["log_error_system"]
             
             raw_id = f"{level}{line}{path_system}{mes}{user}"
