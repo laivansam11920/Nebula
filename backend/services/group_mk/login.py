@@ -37,7 +37,7 @@ def kiem_tra(email_gui_len, pass_gui_len):
 
         token_new = tao_token_10_so()
         token_new_hash = hash(str(token_new))
-        logger.error("dmmmmm", duong_dan_hien_tai())
+        logger.error("dmmmmm,,,", duong_dan_hien_tai())
         noi_tim_kiem.update_one(
             {"gmail": email_gui_len},
             {
