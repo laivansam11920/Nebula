@@ -4,6 +4,8 @@ import inspect
 from flask import request
 import threading
 import os
+import uuid
+import hashlib
 
 mui_gio_vn = timezone(timedelta(hours=7))
 bay_gio = datetime.now(mui_gio_vn)
@@ -64,6 +66,8 @@ class Log_system:
 
             collection = db["log_error_system"]
             try:
+                raw_id = f"{level}{line}{path_system}{mes}{user}"
+
                 collection.insert_one(
                     {
                         "log_level": level,
@@ -72,6 +76,7 @@ class Log_system:
                         "time": time,
                         "user": user,
                         "mes": mes,
+                        "id": hashlib.md5(raw_id.encode()).hexdigest()[:10]
                     }
                 )
             except Exception as e:
