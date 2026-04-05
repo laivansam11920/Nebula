@@ -217,32 +217,29 @@ class Log_system:
                     <span style="font-family:'Courier New',monospace;font-size:10px;letter-spacing:0.12em;text-transform:uppercase;color:#999999;display:block;margin-bottom:8px;">MongoDB Upsert Payload</span>
                     <div style="background:#1a1a1a;font-family:'Courier New',monospace;font-size:11px;line-height:1.8;padding:18px 20px;border-radius:2px;color:#d4d4d4;word-break:break-all;">
 <span style="color:#808080;">// filter</span><br/>
-{ <span style="color:#9cdcfe;">"id"</span>: <span style="color:#ce9178;">{result_from_mongo.get("id")}</span> }<br/>
+{{ <span style="color:#9cdcfe;">"id"</span>: <span style="color:#ce9178;">{result_from_mongo.get("id")}</span> }}<br/>
 <br/>
 <span style="color:#808080;">// update</span><br/>
-{<br/>  
-&nbsp;&nbsp;<span style="color:#dcdcaa;">"$inc"</span>: { <span style="color:#9cdcfe;">"count"</span>: <span style="color:#b5cea8;">{result_from_mongo.get("count")}</span> },<br/>
-&nbsp;&nbsp;<span style="color:#dcdcaa;">"$set"</span>: {<br/>
+{{<br/>  
+&nbsp;&nbsp;<span style="color:#dcdcaa;">"$inc"</span>: {{ <span style="color:#9cdcfe;">"count"</span>: <span style="color:#b5cea8;">{result_from_mongo.get("count")}</span> }},<br/>
+&nbsp;&nbsp;<span style="color:#dcdcaa;">"$set"</span>: {{<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#9cdcfe;">"log_level"</span>: <span style="color:#ce9178;">{result_from_mongo.get("log_level")}</span>,<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#9cdcfe;">"line"</span>: <span style="color:#b5cea8;">{result_from_mongo.get("line")}</span>,<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#9cdcfe;">"path"</span>: <span style="color:#ce9178;">{result_from_mongo.get("path")}</span>,<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#9cdcfe;">"time_last"</span>: <span style="color:#ce9178;">{result_from_mongo.get("time_last")}</span>,<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#9cdcfe;">"user"</span>: <span style="color:#ce9178;">{result_from_mongo.get("user")}</span>,<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#9cdcfe;">"mes"</span>: <span style="color:#ce9178;">{result_from_mongo.get("mes")}</span><br/>
-&nbsp;&nbsp;},<br/>
-&nbsp;&nbsp;<span style="color:#dcdcaa;">"$setOnInsert"</span>: {<br/>
+&nbsp;&nbsp;}},<br/>
+&nbsp;&nbsp;<span style="color:#dcdcaa;">"$setOnInsert"</span>: {{<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#9cdcfe;">"time_first"</span>: <span style="color:#ce9178;">{result_from_mongo.get("time_first")}</span><br/>
-&nbsp;&nbsp;}<br/>
-}<br/>
+&nbsp;&nbsp;}}<br/>
+}}<br/>
 <br/>
 <span style="color:#808080;">// options: upsert=true, return_document=true</span>
                     </div>
                   </td>
                 </tr>
               </table>
-
-            </td>
-          </tr>
 
           <!-- FOOTER -->
           <tr>
