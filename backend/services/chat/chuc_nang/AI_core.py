@@ -38,7 +38,7 @@ def ask_gemini(user_text, doan_chat_truoc):
         }
         all_contents = [instruction_msg, model_ack] + clean_history + [current_message]
         response = client.models.generate_content(
-            model="gemma-3-27b-it",
+            model="gemini-3-flash-live",#gemini-3-flash-live gemma-3-27b-it
             contents=all_contents,
             config=types.GenerateContentConfig(temperature=0.7),
         )
