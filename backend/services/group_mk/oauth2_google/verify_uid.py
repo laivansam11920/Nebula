@@ -4,7 +4,7 @@ import hmac
 
 def verify_uid(user_gmail, uid):
     collection = db["users"]
-    user = collection.find_one({"gmail": user_gmail})
+    user = collection.find_one({"gmail": user_gmail}, {"gmail": 1, "_id": 0})
     if not user:
         return {"trang_thai": False, "mes": "khong tin thay nguoi dung"}
     uid_db = str(user.get("uid"))

@@ -1,4 +1,4 @@
-from flask import session, request, jsonify, make_response, session
+from flask import request, jsonify
 from services.group_mk.login import kiem_tra
 from validators.kiem_tra_cap_bac import kiem_tra_cap_bac
 from utils.search import tim_only
@@ -6,6 +6,7 @@ from configs.duong_dan_thu_muc import duong_dan_hien_tai
 from logs import logger
 from configs.duong_dan_thu_muc import duong_dan_hien_tai
 from utils.session import set_session
+from configs.settings import ip_allow
 
 def kiem_tra1():
     du_lieu = request.get_json()
@@ -18,6 +19,11 @@ def kiem_tra1():
 
     try:
         if str(role_sach) == "admin-root":
+
+            ip_user = request.remote_addr
+            if ip_user not in ip_allow:
+                return "kiem_tra", 403 
+            
             lenh = {"lenh_thuc_thi": "khong_kiem_tra"}
             res_res_res = jsonify(lenh)
             list = {"role": str(role), "lenh_thuc_thi":"khong_kiem_tra"}

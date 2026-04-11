@@ -1,4 +1,5 @@
 from configs.db import db
+from configs.argon2 import ph
 from utils.hash_password import hash_password
 from utils.make_token import tao_token_10_so
 from utils.hash import hash
@@ -15,14 +16,13 @@ def kiem_tra(email_gui_len, pass_gui_len):
 
     log_login = db["log_login"]
 
-    kiem_tra_1 = noi_tim_kiem.find_one({"gmail": email_gui_len})
+    kiem_tra_1 = noi_tim_kiem.find_one({"gmail": email_gui_len}, {"gmail": 1, "role": 1, "salt": 1, "password": 1, "_id": 0})
 
     if kiem_tra_1 is None:
         return {"success": False, "message": "Sai người dùng hoặc mật khẩu!"}
 
     role = kiem_tra_1["role"]
     salt = kiem_tra_1.get("salt")
-    pass_hash = hash_password(pass_gui_len, salt)
 
     client_info = {
         "ip_address": get_real_ip(),
@@ -32,8 +32,24 @@ def kiem_tra(email_gui_len, pass_gui_len):
             "browser": request.user_agent.browser,
         },
     }
+    pass_user = kiem_tra_1["password"]
+    
+    login_success = False
+    migration_needed = False
 
-    if kiem_tra_1["password"] == pass_hash: 
+    try:
+        ph.verify(pass_user, pass_gui_len)
+
+        login_success = True
+
+    except Exception:
+        pass_hash = hash_password(pass_gui_len, salt)
+
+        if pass_user == pass_hash:
+            login_success = True
+            migration_needed = True
+
+    if login_success: 
 
         token_new = tao_token_10_so()
         token_new_hash = hash(str(token_new))
@@ -45,6 +61,7 @@ def kiem_tra(email_gui_len, pass_gui_len):
                     "token_nguoi_dung_upload": token_new_hash,
                     "trang_thai": "da_dang_nhap",
                     "blacklist": 0,
+                    "password": ph.hash(str(pass_gui_len)) if migration_needed else pass_user
                 }
             },
         )
