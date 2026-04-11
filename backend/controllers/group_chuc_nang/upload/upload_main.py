@@ -15,6 +15,7 @@ import concurrent.futures
 import configs.cloudinary
 from logs import logger
 from configs.duong_dan_thu_muc import duong_dan_hien_tai
+import io
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 TEMP_DIR = os.path.join(BASE_DIR, "temp")
@@ -30,6 +31,8 @@ else:
 
 def process_single_file(file_data, user_email, folder_name):
     file_bytes, ten_file_goc, content_type = file_data
+
+    file_stre = io.BytesIO(file_bytes)
 
     unique_filename = f"{uuid.uuid4()}_{ten_file_goc}"
     temp_path = os.path.abspath(os.path.join(TEMP_DIR, unique_filename))
@@ -66,7 +69,7 @@ def process_single_file(file_data, user_email, folder_name):
                 return result
 
         upload_result = cloudinary.uploader.upload(
-            temp_path,
+            file_stre,
             folder=folder_name,
             use_filename=True,
             resource_type="auto",
