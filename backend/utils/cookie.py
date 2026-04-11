@@ -1,5 +1,5 @@
 from datetime import timedelta
-from flask import make_response, jsonify
+from flask import session, make_response, jsonify
 
 
 def cookie(dict_cookies, so_ngay_toi_da, ket_qua_tra_ve):

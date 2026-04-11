@@ -1,6 +1,6 @@
 import cloudinary
 import cloudinary.uploader
-from flask import request, jsonify
+from flask import session, request, jsonify, session
 from utils.cloudidary_json_get import make_json_cloud
 from utils.luu_du_lieu_vao_db import luu
 from utils.scan_img import check_image_sensitivity
@@ -89,8 +89,8 @@ def process_single_file(file_data, user_email, folder_name):
 
 
 def upload_to_cloud():
-    user_email = request.cookies.get("user_gmail")
-    trang_thai = request.cookies.get("trang_thai")
+    user_email = session.get("user_gmail")
+    trang_thai = session.get("trang_thai")
 
     if trang_thai != "da_dang_nhap":
         return jsonify({"loi": "nguoi_dung_chua_dang_nhap"}), 401

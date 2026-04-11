@@ -1,4 +1,4 @@
-from flask import jsonify, Blueprint
+from flask import session, jsonify, Blueprint
 from datetime import datetime
 from controllers.group_chuc_nang.upload.chuc_nang.bot_chat import chat_with_bot
 

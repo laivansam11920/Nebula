@@ -1,4 +1,4 @@
-from flask import Blueprint
+from flask import session, Blueprint
 from flask_cors import CORS, cross_origin
 
 # import nội bộ

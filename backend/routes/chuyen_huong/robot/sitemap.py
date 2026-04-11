@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, make_response
+from flask import session, Blueprint, render_template, make_response
 from datetime import datetime
 
 sitemap_site = Blueprint("sitemap_site", __name__)

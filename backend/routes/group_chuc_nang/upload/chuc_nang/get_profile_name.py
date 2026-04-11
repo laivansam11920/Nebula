@@ -1,4 +1,4 @@
-from flask import Blueprint
+from flask import session, Blueprint
 from controllers.group_chuc_nang.upload.chuc_nang.get_profile_name import (
     get_profile_controller,
 )

@@ -1,4 +1,4 @@
-from flask import request, jsonify
+from flask import session, request, jsonify
 from configs.db import db
 
 

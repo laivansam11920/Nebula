@@ -1,6 +1,6 @@
 from google import genai
 
-client = genai.Client(api_key="...3daLw")
+client = genai.Client(api_key="AIzaSyCbX89NmlXQ-1gP9xgJMLb8CripJc1fybw")
 
 
 a = str(input("nhap: "))
@@ -186,11 +186,11 @@ full_prompt = system_prompt2 + history_context
 
 if __name__ == "__main__":
     response = client.models.generate_content(
-        model="gemma-3-27b-it", contents=full_prompt, config={"temperature": 1}
+        model="gemma-4-31b-it", contents=full_prompt, config={"temperature": 1}
     )
 
     caption = response.text.strip()
-    logger(caption)
+    print(caption)
 
     # 3. Lưu câu mới vào lịch sử
     with open(history_file, "a", encoding="utf-8") as f:

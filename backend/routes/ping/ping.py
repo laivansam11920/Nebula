@@ -1,4 +1,4 @@
-from flask import Blueprint
+from flask import session, Blueprint
 
 khoi_dong = Blueprint("ping", __name__)
 

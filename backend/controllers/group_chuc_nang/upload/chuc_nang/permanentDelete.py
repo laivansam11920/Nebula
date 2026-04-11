@@ -1,11 +1,11 @@
-from flask import request, jsonify
+from flask import session, request, jsonify
 from services.group_chuc_nang.dashboard.permanentDelete import (
     permanentdelete_file_services,
 )
 
 
 def permanentdelete_file_controller():
-    trang_thai_dang_nhap = request.cookies.get("trang_thai")
+    trang_thai_dang_nhap = session.get("trang_thai")
     if not trang_thai_dang_nhap or str(trang_thai_dang_nhap) == "chua_dang_nhap":
         return jsonify({"trang_thai": False, "mes": "loi chua dang nhap"}), 401
     data = request.get_json()

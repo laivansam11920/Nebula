@@ -1,4 +1,4 @@
-from flask import request, jsonify
+from flask import session, request, jsonify
 from configs.db import db
 from datetime import datetime
 from utils.kiem_tra_thong_tin import lam_dep_thiet_bi
@@ -6,8 +6,8 @@ from utils.kiem_tra_thong_tin import lam_dep_thiet_bi
 
 def log_sh():
     # Lấy dữ liệu từ Cookie
-    gmail = request.cookies.get("user_gmail")
-    ten_nguoi_dung = request.cookies.get("ten_nguoi_dung")
+    gmail = session.get("user_gmail")
+    ten_nguoi_dung = session.get("ten_nguoi_dung")
     ua_string = request.headers.get("User-Agent")
 
     # Lấy dữ liệu JSON từ Body

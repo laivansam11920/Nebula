@@ -51,7 +51,7 @@ from routes.chuyen_huong.robot.sitemap import sitemap_site
 
 blueprint_groups = {
     "/auth": [
-        login_route,
+        login_route, #tiến trình 1
         signup_route,
         findpassword_route_2,
         findpassword_route,

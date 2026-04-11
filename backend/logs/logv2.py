@@ -1,7 +1,7 @@
 from configs.duong_dan_thu_muc import duong_dan_hien_tai
 from datetime import timezone, datetime, timedelta
 import inspect
-from flask import request
+from flask import session, request
 import threading
 import os
 import uuid
@@ -9,8 +9,7 @@ import hashlib
 import resend
 from os import getenv
 from pymongo import ReturnDocument
-
-resend.api_key = str(getenv("RESEND_API_KEY"))
+import configs.resend
 
 mui_gio_vn = timezone(timedelta(hours=7))
 bay_gio = datetime.now(mui_gio_vn)
@@ -55,7 +54,7 @@ class Log_system:
 
     def get_user(self):
         try:
-            user = request.cookies.get("user_gmail")
+            user = session.get("user_gmail")
             ip = request.remote_addr
             method = request.method
             url = request.path

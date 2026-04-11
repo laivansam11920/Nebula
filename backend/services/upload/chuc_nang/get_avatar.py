@@ -1,9 +1,9 @@
-from flask import request, jsonify
+from flask import session, request, jsonify
 from configs.db import db
 
 
 def get_avatar():
-    gmail_user = request.cookies.get("user_gmail")
+    gmail_user = session.get("user_gmail")
     if not gmail_user:
         return jsonify({"trang_thai": False, "mes": "Chưa đăng nhập!"}), 401
 

@@ -2,7 +2,7 @@ import eventlet
 eventlet.monkey_patch()
 import newrelic.agent
 newrelic.agent.initialize()
-from flask import Flask, abort, request, send_from_directory
+from flask import session, Flask, abort, request, send_from_directory
 from flask_cors import CORS
 import os
 import sys

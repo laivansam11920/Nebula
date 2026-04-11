@@ -1,4 +1,4 @@
-from flask import request
+from flask import session, request
 import time
 import threading
 from configs.db import db

@@ -1,4 +1,4 @@
-from flask import Blueprint
+from flask import session, Blueprint
 import requests
 from configs.db import db
 import os

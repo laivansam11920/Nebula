@@ -1,4 +1,4 @@
-from flask import Blueprint
+from flask import session, Blueprint
 
 # import nội bộ
 from middleware.rate_limiting import limit_requests

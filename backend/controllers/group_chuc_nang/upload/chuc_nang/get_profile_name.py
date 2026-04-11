@@ -1,10 +1,10 @@
-from flask import request, jsonify
+from flask import session, request, jsonify
 from services.group_chuc_nang.dashboard.get_profile_name import get_profile
 
 
 def get_profile_controller():
     try:
-        gmail = request.cookies.get("user_gmail")
+        gmail = session.get("user_gmail")
         if not gmail:
             return jsonify({"trang_thai": False, "mes": "Cookie gmail trống"}), 401
         ket_qua = get_profile(gmail)

@@ -1,7 +1,7 @@
-from flask import request
+from flask import session, request
 
 
 def lock_file_download_services():
-    request.cookies.get("user_gmail")
-    request.cookies.get("ten_nguoi_dung")
-    request.cookies.get("trang_thai")
+    session.get("user_gmail")
+    session.get("ten_nguoi_dung")
+    session.get("trang_thai")

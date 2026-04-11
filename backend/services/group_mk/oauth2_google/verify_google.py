@@ -1,7 +1,7 @@
 from configs.db import db
 from datetime import datetime, timedelta, timezone
 from utils.get_ip import get_real_ip
-from flask import request
+from flask import session, request
 
 
 def kiem_tra_db(nguoi_dung, gmail_nguoi_dung, pic, uid):

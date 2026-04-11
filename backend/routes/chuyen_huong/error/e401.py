@@ -1,4 +1,4 @@
-from flask import Blueprint, send_from_directory
+from flask import session, Blueprint, send_from_directory
 from configs.duong_dan_thu_muc import thu_muc_chinh
 from configs.settings import MAX_REQUESTS, PERIOD
 from middleware.rate_limiting import limit_requests

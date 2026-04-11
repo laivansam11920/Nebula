@@ -1,4 +1,4 @@
-from flask import Blueprint, request
+from flask import session, Blueprint, request
 from controllers.group_chuc_nang.chat.chat_main import receive_message
 
 app_route22 = Blueprint("facebook-bot", __name__)

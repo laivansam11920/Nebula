@@ -1,4 +1,4 @@
-from flask import Blueprint, url_for
+from flask import session, Blueprint, url_for
 from configs.oauth2_google import oauth
 
 app_route19 = Blueprint("dang-nhap-bang-google", __name__)

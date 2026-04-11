@@ -3,7 +3,7 @@ from utils.hash_password import hash_password
 from utils.make_token import tao_token_10_so
 from utils.hash import hash
 from datetime import datetime, timezone
-from flask import request
+from flask import session, request
 from utils.get_ip import get_real_ip
 from logs import logger
 from configs.duong_dan_thu_muc import duong_dan_hien_tai
@@ -11,7 +11,7 @@ from configs.duong_dan_thu_muc import duong_dan_hien_tai
 
 def kiem_tra(email_gui_len, pass_gui_len):
 
-    noi_tim_kiem = db["users"]  # truy cập vào kho của tôi:))
+    noi_tim_kiem = db["users"]
 
     log_login = db["log_login"]
 
@@ -33,11 +33,11 @@ def kiem_tra(email_gui_len, pass_gui_len):
         },
     }
 
-    if kiem_tra_1["password"] == pass_hash:  #
+    if kiem_tra_1["password"] == pass_hash: 
 
         token_new = tao_token_10_so()
         token_new_hash = hash(str(token_new))
-        logger.error("dmmmmm,,,", duong_dan_hien_tai())
+
         noi_tim_kiem.update_one(
             {"gmail": email_gui_len},
             {

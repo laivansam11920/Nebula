@@ -1,4 +1,4 @@
-from flask import Blueprint
+from flask import session, Blueprint
 from middleware.rate_limiting import limit_requests
 from configs.settings import MAX_REQUESTS, PERIOD
 from controllers.group_chuc_nang.upload.chuc_nang.get_profile_power import (

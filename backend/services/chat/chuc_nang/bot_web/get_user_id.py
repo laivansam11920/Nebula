@@ -1,8 +1,8 @@
-from flask import request
+from flask import session, request
 
 
 def get_user_id():
-    user_id = request.cookies.get("user_id")
+    user_id = session.get("user_id")
 
     if not user_id:
         user_id = request.headers.get("X-User-ID") or request.remote_addr

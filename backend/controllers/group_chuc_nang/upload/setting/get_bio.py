@@ -1,9 +1,9 @@
-from flask import request, jsonify
+from flask import session, request, jsonify
 from services.group_chuc_nang.dashboard.setting.get_bio import get_bio_services
 
 
 def get_bio_controller():
-    user = request.cookies.get("user_gmail")
+    user = session.get("user_gmail")
     if not user:
         jsonify({"trang_thai": False, "mes": "chua dang nhap"}), 401
     ket_qua = get_bio_services(user)

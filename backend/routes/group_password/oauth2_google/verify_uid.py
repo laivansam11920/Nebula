@@ -1,4 +1,4 @@
-from flask import Blueprint
+from flask import session, Blueprint
 from controllers.group_password.oauth2_google.verify_uid import verify_uid_controller
 from middleware.rate_limiting import limit_requests
 from configs.settings import MAX_REQUESTS, PERIOD

@@ -1,4 +1,4 @@
-from flask import request, jsonify
+from flask import session, request, jsonify
 from functools import wraps
 import time
 from configs.settings import ip_allow, MAX_REQUESTS, PERIOD

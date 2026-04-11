@@ -1,4 +1,4 @@
-from flask import request, jsonify
+from flask import session, request, jsonify
 from services.group_mk.oauth2_google.verify_uid import verify_uid
 
 

@@ -1,4 +1,4 @@
-from flask import Blueprint
+from flask import session, Blueprint
 
 # import noi bo
 from controllers.group_chuc_nang.kiem_tra_dang_nhap.upload_fist_login import (

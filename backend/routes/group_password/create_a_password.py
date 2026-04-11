@@ -1,4 +1,4 @@
-from flask import Blueprint
+from flask import session, Blueprint
 from middleware.rate_limiting import limit_requests
 from controllers.group_password.create_a_password import kiem_tra2
 from configs.settings import MAX_REQUESTS, PERIOD

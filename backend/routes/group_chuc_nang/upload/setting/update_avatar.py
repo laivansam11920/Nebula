@@ -1,4 +1,4 @@
-from flask import Blueprint
+from flask import session, Blueprint
 from controllers.group_chuc_nang.upload.setting.update_avt import upload_to_cloud_avt
 from middleware.rate_limiting import limit_requests
 from configs.settings import MAX_REQUESTS, PERIOD

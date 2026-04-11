@@ -43,12 +43,12 @@
 ┌─────────────────────────────────────────────────────────┐
 │                   BACKEND SERVER                        │
 │                                                         │
-│   GET /api/dashboard/stats      ← Stat cards           │
-│   GET /api/dashboard/uploads    ← Biểu đồ              │
-│   GET /api/files/recent         ← Bảng file            │
-│   GET /api/activity             ← Activity feed        │
-│   GET /api/system/health        ← System status        │
-│   GET /api/storage/breakdown    ← Storage chart        │
+│   GET /api/dashboard/stats      ← Stat cards            │
+│   GET /api/dashboard/uploads    ← Biểu đồ               │
+│   GET /api/files/recent         ← Bảng file             │
+│   GET /api/activity             ← Activity feed         │
+│   GET /api/system/health        ← System status         │
+│   GET /api/storage/breakdown    ← Storage chart         │
 └─────────────────────────────────────────────────────────┘
 ```
 

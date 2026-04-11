@@ -1,4 +1,4 @@
-from flask import request
+from flask import session, request
 
 
 def get_real_ip():

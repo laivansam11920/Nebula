@@ -1,11 +1,11 @@
-from flask import request, jsonify, make_response, session
+from flask import session, request, jsonify, make_response, session
 from services.group_mk.login import kiem_tra
 from validators.kiem_tra_cap_bac import kiem_tra_cap_bac
 from utils.search import tim_only
 from configs.duong_dan_thu_muc import duong_dan_hien_tai
 from logs import logger
 from configs.duong_dan_thu_muc import duong_dan_hien_tai
-
+from utils.session import set_session
 
 def kiem_tra1():
     du_lieu = request.get_json()
@@ -19,25 +19,9 @@ def kiem_tra1():
     try:
         if str(role_sach) == "admin-root":
             lenh = {"lenh_thuc_thi": "khong_kiem_tra"}
-            res_res_res = make_response(jsonify(lenh))
-            res_res_res.set_cookie(
-                "role",
-                str(role),
-                max_age=86400 * 30,
-                httponly=True,
-                samesite="None",
-                secure=True,
-                path="/",
-            )
-            res_res_res.set_cookie(
-                "lenh_thuc_thi",
-                "khong_kiem_tra",
-                max_age=86400 * 30,
-                httponly=True,
-                samesite="None",
-                secure=True,
-                path="/",
-            )
+            res_res_res = jsonify(lenh)
+            list = {"role": str(role), "lenh_thuc_thi":"khong_kiem_tra"}
+            set_session(**list)
             return res_res_res, 200
     except Exception as e:
         logger.error(f"{e}", duong_dan_hien_tai())
@@ -50,59 +34,12 @@ def kiem_tra1():
         token = ket_qua["token"]
         res = jsonify(ket_qua)
 
-        session["user_token"] = token
-        session["user_gmail"] = nguoi_dung
-        session["role"] = role
-        session["lenh_thuc_thi"] = "can_kiem_tra"
-        session["trang_thai"] = "da_dang_nhap"
-        session["ten_nguoi_dung"] = name
-        
+        set_session(user_token=token, user_gmail=nguoi_dung, role=role, lenh_thuc_thi="can_kiem_tra", trang_thai="da_dang_nhap", ten_nguoi_dung=name)
+    
         return res, 200
     else:
-        res_res = make_response(jsonify(ket_qua))
-        res_res.set_cookie(
-            "user_token",
-            "",
-            max_age=0,
-            httponly=True,
-            samesite="None",
-            secure=True,
-            path="/",
-        )
-        res_res.set_cookie(
-            "user_gmail",
-            "",
-            max_age=0,
-            httponly=True,
-            samesite="None",
-            secure=True,
-            path="/",
-        )
-        res_res.set_cookie(
-            "role",
-            role,
-            max_age=86400 * 30,
-            httponly=True,
-            samesite="None",
-            secure=True,
-            path="/",
-        )
-        res_res.set_cookie(
-            "lenh_thuc_thi",
-            "can_kiem_tra",
-            max_age=86400 * 30,
-            httponly=True,
-            samesite="None",
-            secure=True,
-            path="/",
-        )
-        res_res.set_cookie(
-            "trang_thai",
-            "chua_dang_nhap",
-            max_age=86400 * 30,
-            httponly=True,
-            samesite="None",
-            secure=True,
-            path="/",
-        )
+        res_res = jsonify(ket_qua)
+
+        set_session(lenh_thuc_thi="can_kiem_tra", trang_thai="chua_dang_nhap")
+
         return res_res, 401

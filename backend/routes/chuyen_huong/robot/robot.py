@@ -1,4 +1,4 @@
-from flask import Blueprint
+from flask import session, Blueprint
 
 robot_site = Blueprint("robot_txt", __name__)
 

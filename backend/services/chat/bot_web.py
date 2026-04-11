@@ -1,4 +1,4 @@
-from flask import request, jsonify
+from flask import session, request, jsonify
 from services.chat.chuc_nang.bot_web.validate_request_data import validate_request_data
 from services.chat.chuc_nang.bot_web.get_user_id import get_user_id
 from services.chat.chuc_nang.bot_web.save_message import save_message
