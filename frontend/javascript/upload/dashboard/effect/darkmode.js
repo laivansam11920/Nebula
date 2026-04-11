@@ -15,5 +15,7 @@ function toggleDark() {
   set('--ink-6', '#242424', '#ffffff');
   set('--ink-7', '#ffffff', '#000000');
   set('--ink-8', '#ffffff', '#000000');
+  set('--ink-9', '#ffffff', '#000000')
   toast(on ? '🌙 Giao diện tối đã bật' : '☀️ Giao diện sáng đã bật');
 }
+// nhiều thế

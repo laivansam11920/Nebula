@@ -271,7 +271,7 @@ header {
 .am-name {
   font-size: 14px;
   font-weight: 700;
-  color: var(--ink);
+  color: var(--ink-9);
   line-height: 1.2;
 }
 .am-email {
