@@ -46,6 +46,7 @@ def ask_gemini(user_text, doan_chat_truoc):
             return response.text.strip()
         return "Tui chưa nghĩ ra câu trả lời, og thử lại sau nha!"
     except Exception as e:
+        logger.error(f"{e}", duong_dan_hien_tai())
         return f"loi{e}"
 
 
