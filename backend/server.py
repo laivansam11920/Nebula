@@ -6,7 +6,6 @@ import newrelic.agent
 newrelic.agent.initialize()
 from flask import session, Flask, abort, request, send_from_directory
 from flask_cors import CORS
-from werkzeug.middleware.proxy_fix import ProxyFix
 import os
 import sys
 import io
@@ -27,7 +26,8 @@ from __about__ import (
     __author__,
 )
 from logs import logger
-from routes.group_chuc_nang.upload.chuyen_huong.dashboard import user_dashboard
+from routes.group_chuc_nang.upload.chuyen_huong.dashboard import user_dashboard_user_route
+
 os.environ["OAUTHLIB_INSECURE_TRANSPORT"] = "1"
 
 sentry_sdk.init(
@@ -39,20 +39,6 @@ sentry_sdk.init(
 sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding="utf-8")
 
 app = Flask(__name__)
-
-class FixAzureHostMiddleware:
-    def __init__(self, app):
-        self.app = app
-
-    def __call__(self, environ, start_response):
-        host = environ.get('HTTP_X_FORWARDED_HOST', environ.get('HTTP_X_ORIGINAL_HOST', environ.get('HTTP_HOST', '')))
-        
-        if host:
-            environ['HTTP_HOST'] = host.split(':')[0]
-            
-        return self.app(environ, start_response)
-
-app.wsgi_app = FixAzureHostMiddleware(app.wsgi_app)
 
 app.secret_key = str(os.getenv("SERVER_SECRET_KEY"))
 
@@ -183,14 +169,24 @@ def block_bad_bots():
         abort(403)
 
 
-@app.route("/", subdomain="")
+@app.route("/")
 def home():
-    thu_muc = thu_muc_chinh()
     try:
+        h1 = request.headers.get('X-Forwarded-Host', '')
+        h2 = request.headers.get('X-Original-Host', '')
+        h3 = request.headers.get('Host', '')
+        h4 = request.headers.get('DISGUISED-HOST', '')
+
+        tat_ca_host = str(h1 + h2 + h3 + h4).lower()
+
+        if 'dashboard' in tat_ca_host:
+            return user_dashboard_user_route()
+        
+        thu_muc = thu_muc_chinh()
         return send_from_directory(thu_muc, "trang_chu.html")
     except Exception as e:
-        logger.error(f"{e}", duong_dan_file)
-        return f"Lỗi rách việc rồi og ơi, thư mục này không tồn tại: {e}", 404
+        logger.error(f"{e} | Manh mối Host: {tat_ca_host}", duong_dan_file)
+        return f"Lỗi rách việc rồi og ơi, thư mục này không tồn tại: {e} | Manh mối Host: {tat_ca_host}", 404
 
 
 port = int(os.environ.get("PORT", 8000))

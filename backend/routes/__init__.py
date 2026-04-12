@@ -96,24 +96,20 @@ blueprint_groups = {
     "/app": [user_upload_site],
 }
 
-
-api_domain_route = ['login_route'] #919261242026 start
-
 def register_routes(app):
     try:
-        app.config['SERVER_NAME'] = 'vault-storage.me'
         for prefix, blueprints in blueprint_groups.items():
             if not isinstance(blueprints, list):
                 blueprints = [blueprints]
 
             for bp in blueprints:
                 if bp.name == user_dashboard.name:
-                    app.register_blueprint(bp, subdomain='dashboard')
+                    app.register_blueprint(bp)
                 else:
                     if prefix == "":
-                        app.register_blueprint(bp,  subdomain='')
+                        app.register_blueprint(bp)
                     else:
-                        app.register_blueprint(bp, url_prefix=prefix,  subdomain='')
+                        app.register_blueprint(bp, url_prefix=prefix)
         print("[SUCCESS]: Đã đăng ký toàn bộ route thành công! :)")
     except Exception as e:
         print(f"[ERROR] Lỗi khi đăng ký Blueprint: {e}")
