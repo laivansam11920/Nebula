@@ -111,9 +111,9 @@ def register_routes(app):
                     app.register_blueprint(bp, subdomain='dashboard')
                 else:
                     if prefix == "":
-                        app.register_blueprint(bp)
+                        app.register_blueprint(bp,  subdomain='')
                     else:
-                        app.register_blueprint(bp, url_prefix=prefix)
+                        app.register_blueprint(bp, url_prefix=prefix,  subdomain='')
         print("[SUCCESS]: Đã đăng ký toàn bộ route thành công! :)")
     except Exception as e:
         print(f"[ERROR] Lỗi khi đăng ký Blueprint: {e}")
