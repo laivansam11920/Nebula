@@ -1,12 +1,12 @@
-from flask import session, Blueprint, request
+from flask import Blueprint, request
 from logs import logger
 from configs.duong_dan_thu_muc import duong_dan_hien_tai
+from os import getenv
 
 app_fac = Blueprint("face", __name__)
 
-MY_VERIFY_TOKEN = "samvasang1192011"
-PAGE_ACCESS_TOKEN = "EAAWQ4rWjGfoBQ6LqxaZAR643TLZBUQQCsQrkNQe0RZChhuVM9LfC6IoZB3rDKw8z75ZBm0NKM9jMnCxBWerZAolmnv7uJZAu9beVSTZBpf88nqy24NvVi4QJ54ZAgM6bEjGRcV2Ee9v7cMNUZAEC66S9idXwjddfyBOcloQOZCB0TSjnxUKT0ijH3nGHKZC6ZAjR0GQ8Gum6iPwZDZD"
-
+MY_VERIFY_TOKEN = str(getenv("MY_VERIFY_TOKEN"))
+PAGE_ACCESS_TOKEN = str(getenv("PAGE_ACCESS_TOKEN"))
 
 @app_fac.route("/mes", methods=["GET"])
 def verify():

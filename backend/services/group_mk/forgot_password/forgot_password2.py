@@ -9,7 +9,7 @@ def kiem_tra_xac_nhan(gmail, token_nguoi_dung_gui_len):
     thu_muc_can_kiem_tra = db["token"]
 
     try:
-        ban_ghi = thu_muc_can_kiem_tra.find_one({"gmail": gmail})
+        ban_ghi = thu_muc_can_kiem_tra.find_one({"gmail": str(gmail)})
 
         if ban_ghi is None:
             return {

@@ -13,7 +13,7 @@ def kiem_tra_dat_lai_mat_khau(gmail):
     cho_luu_token = db["token"]
     user = db["users"]
 
-    kiem_tra_ton_tai = user.find_one({"gmail": gmail})
+    kiem_tra_ton_tai = user.find_one({"gmail": str(gmail)})
 
     if kiem_tra_ton_tai is None:
         return {

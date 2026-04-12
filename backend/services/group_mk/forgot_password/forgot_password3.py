@@ -1,5 +1,5 @@
 from configs.db import db
-from utils.hash_password import hash_password, make_salt
+from utils.hash_password import hash_password_v2
 from logs import logger
 from configs.duong_dan_thu_muc import duong_dan_hien_tai
 
@@ -9,7 +9,7 @@ def kiem_tra_de_doi_mat_khau(token, gmail, new_password):
     thu_muc_nguoi_dung = db["users"]
     try:
         ket_qua = thu_muc_can_kiem_tra.find_one(
-            {"gmail": gmail},
+            {"gmail": str(gmail)},
             {"token_nguoi_dung": 1, "trang_thai1": 1, "trang_thai2": 1},
         )
         if not ket_qua:
@@ -28,11 +28,10 @@ def kiem_tra_de_doi_mat_khau(token, gmail, new_password):
         if trang_thai_token != "sap_su_dung":
             return {"success": False, "message": "Token không hợp lệ để đổi mật khẩu!"}
 
-        salt = make_salt()
-        new_hash_pass = hash_password(new_password, salt)
+        new_hash_pass = hash_password_v2(new_password)
 
         ket_qua_up_date = thu_muc_nguoi_dung.update_one(
-            {"gmail": gmail}, {"$set": {"password": new_hash_pass, "salt": salt}}
+            {"gmail": gmail}, {"$set": {"password": new_hash_pass}}
         )
         if ket_qua_up_date.modified_count > 0:
             thu_muc_can_kiem_tra.update_one(

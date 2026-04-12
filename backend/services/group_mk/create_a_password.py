@@ -12,7 +12,7 @@ def kiem_tra_mat_khau(user_name_input, gmail_input, password_input):
 
     luu_tru = db["users"]
 
-    if luu_tru.find_one({"gmail": gmail_input}, {"gmail": 1, "_id": 0}):
+    if luu_tru.find_one({"gmail": str(gmail_input)}, {"gmail": 1, "_id": 0}):
         logger.warring(f"Email {gmail_input} đã tồn tại.", duong_dan_hien_tai())
         return {
             "status": "error",

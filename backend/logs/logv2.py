@@ -287,7 +287,7 @@ class Log_system:
             collection = db["log_error_system"]
 
             raw_id = f"{level}{line}{path_system}{mes}{user}"
-            error_id = hashlib.md5(raw_id.encode()).hexdigest()[:10]
+            error_id = hashlib.md5(raw_id.encode(), usedforsecurity=False).hexdigest()[:10]
 
             try:
                 result = collection.find_one_and_update(
