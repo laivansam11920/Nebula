@@ -6,6 +6,7 @@ import newrelic.agent
 newrelic.agent.initialize()
 from flask import session, Flask, abort, request, send_from_directory
 from flask_cors import CORS
+from werkzeug.middleware.proxy_fix import ProxyFix
 import os
 import sys
 import io
@@ -38,6 +39,8 @@ sentry_sdk.init(
 sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding="utf-8")
 
 app = Flask(__name__)
+
+app.wsgi_app = ProxyFix(app.wsgi_app, x_for=1, x_proto=1, x_host=1, x_prefix=1)
 
 app.secret_key = str(os.getenv("SERVER_SECRET_KEY"))
 
