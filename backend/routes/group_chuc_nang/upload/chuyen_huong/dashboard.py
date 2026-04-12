@@ -9,7 +9,7 @@ from controllers.group_chuc_nang.kiem_tra_dang_nhap.upload_fist_login import (
 user_dashboard = Blueprint("user dashboard route", __name__)
 
 
-@user_dashboard.route("/dashboard", methods=["GET", "POST"])
+@user_dashboard.route("/", methods=["GET", "POST"])
 @limit_requests(max_requests=MAX_REQUESTS, period=PERIOD)
 def user_dashboard_user_route():
     res, ma_loi = kiem_tra_token()

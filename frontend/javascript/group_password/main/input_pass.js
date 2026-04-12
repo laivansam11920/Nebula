@@ -65,7 +65,7 @@ if (formDangNhap) {
     const API_URL =
       window.location.hostname === 'localhost' ||
       window.location.hostname === '127.0.0.1'
-        ? 'http://localhost:5000' //server test ở nhà:)
+        ? 'http://localhost:5000'
         : 'https://vault-storage.me/'; //
 
     fetch(`${API_URL}/auth/input-pass`, {
@@ -84,9 +84,9 @@ if (formDangNhap) {
             localStorage.setItem('user_email', lay_gia_tri_user);
             setTimeout(() => {
               if (isMobileDevice()) {
-                window.location.href = `https://vault-storage.me/frontend/view/upload/dashboard/dashboard-mobile.html?useraccount=${lay_gia_tri_user}`;
+                window.location.href = `https://vault-storage.me/frontend/view/upload/dashboard/dashboard-mobile.html`;
               } else {
-                window.location.href = `https://vault-storage.me/dashboard?useraccount=${lay_gia_tri_user}`;
+                window.location.href = `https://dashboard.vault-storage.me/`;
               }
             }, 2000);
           });

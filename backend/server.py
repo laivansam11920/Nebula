@@ -26,7 +26,7 @@ from __about__ import (
     __author__,
 )
 from logs import logger
-
+from routes.group_chuc_nang.upload.chuyen_huong.dashboard import user_dashboard
 os.environ["OAUTHLIB_INSECURE_TRANSPORT"] = "1"
 
 sentry_sdk.init(
@@ -42,6 +42,7 @@ app = Flask(__name__)
 app.secret_key = str(os.getenv("SERVER_SECRET_KEY"))
 
 app.config.update(
+    SESSION_COOKIE_DOMAIN='.vault-storage.me',
     SESSION_COOKIE_NAME="vault-storage-session",
     SESSION_COOKIE_SECURE=True,
     SESSION_COOKIE_SAMESITE="Lax",
@@ -58,8 +59,12 @@ CORS(
         "http://localhost:5500",
         "https://www.vault-storage.me",
         "https://vault-storage.me/",
+        "https://dashboard.vault-storage.me/"
     ],
 )
+
+app.config['SERVER_NAME'] = 'vault-storage.me'
+app.register_blueprint(user_dashboard, subdomain='dashboard')
 
 socketio = SocketIO(
     app,
