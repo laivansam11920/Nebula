@@ -31,4 +31,4 @@ if db is not None:
         db["users"].drop_index("key_1")
         logger.log("Đã xóa Index lỗi 'key_1' thành công!", duong_dan_file)
     except Exception as e:
-        pass
+        logger.error(f'{e}', duong_dan_hien_tai())

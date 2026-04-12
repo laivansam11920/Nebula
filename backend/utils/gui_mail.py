@@ -41,7 +41,7 @@ def gui_mail_reset(email_nguoi_nhan, token, thoi_gian, dia_chi_ip, thiet_bi):
             },
         }
         #
-        response = requests.post(url, json=data)
+        response = requests.post(url, json=data, timeout=20)
 
         if response.status_code == 200:
             logger.log(f"send for {email_nguoi_nhan}!", duong_dan_hien_tai())
