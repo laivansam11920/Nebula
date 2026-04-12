@@ -97,6 +97,8 @@ blueprint_groups = {
 }
 
 
+api_domain_route = ['login_route'] #919261242026 start
+
 def register_routes(app):
     try:
         app.config['SERVER_NAME'] = 'vault-storage.me'

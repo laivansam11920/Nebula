@@ -58,9 +58,9 @@ CORS(
         "http://127.0.0.1:5500",
         "http://localhost:5500",
         "https://www.vault-storage.me",
-        "https://vault-storage.me/",
-        "https://dashboard.vault-storage.me/",
-        "https://api.vault-storage.me/"
+        "https://vault-storage.me",
+        "https://dashboard.vault-storage.me",
+        "https://api.vault-storage.me"
     ],
 )
 
