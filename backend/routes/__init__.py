@@ -84,7 +84,6 @@ blueprint_groups = {
     "/fac": [app_route22],
     "/api": [app_route23],
     "": [
-        user_dashboard,
         e401,
         e403,
         e500,
