@@ -26,7 +26,6 @@ from __about__ import (
     __author__,
 )
 from logs import logger
-from routes.group_chuc_nang.upload.chuyen_huong.dashboard import user_dashboard_user_route
 
 os.environ["OAUTHLIB_INSECURE_TRANSPORT"] = "1"
 
@@ -180,6 +179,7 @@ def home():
         tat_ca_host = str(h1 + h2 + h3 + h4).lower()
 
         if 'dashboard' in tat_ca_host:
+            from routes.group_chuc_nang.upload.chuyen_huong.dashboard import user_dashboard_user_route
             return user_dashboard_user_route()
         
         thu_muc = thu_muc_chinh()

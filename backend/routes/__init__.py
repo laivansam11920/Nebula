@@ -104,7 +104,7 @@ def register_routes(app):
 
             for bp in blueprints:
                 if bp.name == user_dashboard.name:
-                    app.register_blueprint(bp)
+                    app.register_blueprint(bp, subdomain='dashboard')
                 else:
                     if prefix == "":
                         app.register_blueprint(bp)
