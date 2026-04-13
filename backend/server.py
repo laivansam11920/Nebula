@@ -46,7 +46,7 @@ app.config.update(
     SESSION_COOKIE_DOMAIN='.vault-storage.me',
     SESSION_COOKIE_NAME="vault-storage-session",
     SESSION_COOKIE_SECURE=True,
-    SESSION_COOKIE_SAMESITE="Lax",
+    SESSION_COOKIE_SAMESITE="None",
     SESSION_COOKIE_HTTPONLY=True,
     SESSION_COOKIE_PATH="/",
 )
@@ -64,8 +64,6 @@ CORS(
         "https://api.vault-storage.me"
     ],
 )
-
-app.config['SERVER_NAME'] = 'vault-storage.me'
 
 socketio = SocketIO(
     app,
@@ -180,8 +178,8 @@ def home():
         thu_muc = thu_muc_chinh()
         return send_from_directory(thu_muc, "trang_chu.html")
     except Exception as e:
-        logger.error(f"{e} | Manh mối Host: {tat_ca_host}", duong_dan_file)
-        return f"Lỗi rách việc rồi og ơi, thư mục này không tồn tại: {e} | Manh mối Host: {tat_ca_host}", 404
+        logger.error(f"{e}", duong_dan_file)
+        return f"Lỗi rách việc rồi og ơi, thư mục này không tồn tại: {e}", 404
 
 
 port = int(os.environ.get("PORT", 8000))
