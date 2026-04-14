@@ -71,6 +71,8 @@ CORS(
     ],
 )
 
+redis_url = os.environ.get('REDIS_URL', 'redis://localhost:6379/0')
+
 socketio = SocketIO(
     app,
     cors_allowed_origins="*",
@@ -78,6 +80,7 @@ socketio = SocketIO(
     engineio_logger=True,
     logger=True,
     always_connect=True,
+    message_queue=redis_url
 )
 
 oauth.init_app(app)
