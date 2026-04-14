@@ -43,3 +43,4 @@ flask-talisman
 resend
 argon2-cffi
 whitenoise
+unidecode

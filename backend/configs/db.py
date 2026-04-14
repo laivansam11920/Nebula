@@ -25,10 +25,10 @@ def get_database():
 
 
 db = get_database()
-
+    
 if db is not None:
     try:
         db["users"].drop_index("key_1")
         logger.log("Đã xóa Index lỗi 'key_1' thành công!", duong_dan_file)
     except Exception as e:
-        logger.log(f"{e}", duong_dan_hien_tai())
+        pass

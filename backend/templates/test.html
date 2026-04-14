@@ -4,6 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>VAULT — Upload Dashboard</title>
+    <title>VAULT — {{ username }}'s Drive</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link
       href="https://fonts.googleapis.com/css2?family=DM+Mono:ital,wght@0,300;0,400;0,500;1,300&family=Instrument+Serif:ital@0;1&family=Manrope:wght@300;400;500;600;700;800&display=swap"
@@ -46,7 +47,7 @@
     <div class="app" id="app">
       <!-- HEADER -->
       <header>
-        <div class="logo">{{name}} <span>files</span></div>
+        <div class="logo">{{logo_name}} <span>files</span></div>
         <div class="header-center" id="searchWrap">
           <svg
             width="14"
@@ -130,20 +131,20 @@
           </button>
           <div class="avatar-wrap">
             <div class="avatar" id="avatarBtn" onclick="toggleAvatarMenu()">
-              ?
+              {{ avatar_char }}
             </div>
             <div class="avatar-menu" id="avatarMenu">
               <!-- Profile -->
               <div class="am-profile">
-                <div class="am-avatar-big">?</div>
+                <div class="am-avatar-big">{{ avatar_char }}</div>
                 <div>
-                  <div class="am-name">{{name}}</div>
+                  <div class="am-name">{{ username }}</div>
                   <div class="am-email">
                     <a
                       href="/cdn-cgi/l/email-protection"
                       class="__cf_email__"
                       data-cfemail="80f4f5e1eec0f6e1f5ecf4aee9ef"
-                      >{{user_email}}</a
+                      >{{ user_email }}</a
                     >
                   </div>
                   <div class="am-badge-pro">
@@ -157,7 +158,7 @@
                         d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"
                       />
                     </svg>
-                    {{quyen_han}}
+                    {{ user_power | upper }}
                   </div>
                 </div>
               </div>
@@ -217,7 +218,7 @@
                   </div>
                   <div class="am-item-text">
                     <div class="am-item-label">Gói lưu trữ</div>
-                    <div class="am-item-sub" id="goi">10 GB — {{goi_luu_tru}} plan</div>
+                    <div class="am-item-sub" id="goi">{{user_storage}} GB — {{ user_power | capitalize }} plan</div>
                   </div>
                   <div class="am-item-right">Nâng cấp</div>
                 </div>
@@ -1615,6 +1616,10 @@
       data-cfasync="false"
       src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"
     ></script>
+    <script>
+      window.SERVER_FILES = {{ danh_sach_file | tojson | safe }};
+      window.SERVER_TRASH = {{ danh_sach_file_da_xoa | tojson | safe }};      
+    </script>
     <script src="https://cdn.statically.io/gh//gemini-dot/learnpythonserver-sm@main/frontend/js_dist/upload/dashboard/chuc_nang/get_location.js"></script>
     <script src="https://cdn.statically.io/gh//gemini-dot/learnpythonserver-sm@main/frontend/js_dist/upload/dashboard/effect/dat_lai_dung_luong.js"></script>
     <script src="https://cdn.statically.io/gh//gemini-dot/learnpythonserver-sm@main/frontend/js_dist/upload/dashboard/chuc_nang/storage-mag.js"></script>
@@ -1625,11 +1630,7 @@
     <script src="https://cdn.socket.io/4.7.2/socket.io.min.js"></script>
     <script src="https://cdn.statically.io/gh//gemini-dot/learnpythonserver-sm@main/frontend/js_dist/upload/dashboard/chuc_nang/setting_model.js"></script>
     <script src="https://cdn.statically.io/gh//gemini-dot/learnpythonserver-sm@main/frontend/js_dist/upload/dashboard/effect/thong_bao_xac_nhan_dang_xuat.js"></script>
-    <script>
-      window.SERVER_FILES = {{ danh_sach_file | tojson | safe }};
-      window.SERVER_TRASH = {{ danh_sach_file_da_xoa | tojson | safe }};      
-    </script>
-    <script src="https://cdn.statically.io/gh//gemini-dot/learnpythonserver-sm@main/frontend/javascript/upload/dashboard/main_dboard_v2.js"></script>
+    <script src="https://cdn.statically.io/gh//gemini-dot/learnpythonserver-sm@main/frontend/js_dist/upload/dashboard/main_dboard_v2.js"></script>
     <script src="https://cdn.statically.io/gh//gemini-dot/learnpythonserver-sm@main/frontend/js_dist/upload/dashboard/effect/sap_xep_file.js"></script>
     <script src="https://cdn.statically.io/gh//gemini-dot/learnpythonserver-sm@main/frontend/js_dist/upload/dashboard/effect/darkmode.js"></script>
     <script src="https://cdn.statically.io/gh//gemini-dot/learnpythonserver-sm@main/frontend/js_dist/upload/dashboard/effect/menu_ac.js"></script>
