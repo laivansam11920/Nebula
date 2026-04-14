@@ -9,8 +9,8 @@ def lay_tat_ca_file(user_gmail, collection, limit=40, skip=0):
                 "trang_thai": {"$ne": "xoa_vinh_vien"},
                 "loai_file": {"$ne": "avatar"},
             }
-        )
-    ).sort("_id", -1).skip(skip).limit(limit)
+        ).sort("_id", -1).skip(skip).limit(limit)
+    )
     if not user_data:
         return {"danh_sach_file": [], "danh_sach_file_da_xoa": []}
     res = {"danh_sach_file": [], "danh_sach_file_da_xoa": []}
