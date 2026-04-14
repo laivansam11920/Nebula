@@ -49,6 +49,7 @@ from routes.group_chuc_nang.upload.chuyen_huong.upload_site import user_upload_s
 from routes.chuyen_huong.robot.robot import robot_site
 from routes.chuyen_huong.robot.sitemap import sitemap_site
 from routes.group_chuc_nang.upload.chuc_nang.show_html_domain import show_html_domain
+from routes.check_test.dash_board import dash_board
 
 blueprint_groups = {
     "/auth": [
@@ -96,6 +97,7 @@ blueprint_groups = {
         show_html_domain,
     ],
     "/app": [user_upload_site],
+    '/test': [dash_board],
 }
 
 
