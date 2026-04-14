@@ -21,7 +21,7 @@ def lay_tat_ca_file(user_gmail, collection, limit=40, skip=0):
             doc["id"] = doc["_id"]
         t_thai = str(doc.get("trang_thai"))
         if t_thai == "da_xoa":
-            res["danh_sach_file_da_xoa"].append(doc)
+            res["danh_sach_file_da_xoa"].append(doc)#
         elif t_thai == "chua_xoa":
             res["danh_sach_file"].append(doc)
     return res
