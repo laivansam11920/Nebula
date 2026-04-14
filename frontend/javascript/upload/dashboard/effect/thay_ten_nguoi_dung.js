@@ -36,12 +36,10 @@ async function updateAdminName() {
     if (data.trang_thai && data.username) {
       if (!mainAvatar) {
         renderProfile(data.username);
-        console.log('[LOG] Profile updated & cached!');
       }
       const nameTarget = document.querySelector('.am-name');
       if (nameTarget) nameTarget.textContent = data.username;
       document.title = `VAULT — ${data.username}'s Drive`;
-      console.log('[LOG] Đã thay đổi tile thành' + data.username);
       localStorage.setItem('user_name', data.username);
     }
   } catch (err) {

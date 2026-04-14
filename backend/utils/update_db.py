@@ -5,8 +5,7 @@ from utils.hash256 import get_sha256_hash
 def update_config(thu_muc_goc):
     # 1. Chọn collection
     collection = db[str(thu_muc_goc)]
-
-    # 2. Tìm bản ghi cụ thể (dùng find_one thay vì get)
+    
     tim_kiem = collection.find_one({"lenh_thuc_thi_bat_buoc": "admin-root"})
 
     i = get_sha256_hash("samvasang1192011-0")

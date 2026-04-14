@@ -1,4 +1,4 @@
-from flask import session, Blueprint, send_from_directory
+from flask import session, Blueprint, send_from_directory, render_template
 from configs.duong_dan_thu_muc import thu_muc_chinh
 from configs.settings import MAX_REQUESTS, PERIOD
 from middleware.rate_limiting import limit_requests
@@ -23,6 +23,4 @@ def user_dashboard_user_route():
             send_from_directory(thu_muc_chinh("frontend/view/error"), "500.html"),
             500,
         )
-    return send_from_directory(
-        thu_muc_chinh("frontend/view/upload/dashboard"), "index.html"
-    )
+    return render_template('test.html', name='lvs', user_email=session.get("user_gmail", "User"))
