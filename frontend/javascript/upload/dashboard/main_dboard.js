@@ -47,6 +47,37 @@ function toiUuLinkCloudinary(url) {
   return url.replace('/upload/', '/upload/w_200,h_200,c_fill,q_auto,f_auto/');
 }
 
+function showLoadingState() {
+  const container = document.getElementById('fileContainer');
+  container.innerHTML = ''; // Xóa sạch
+
+  // Nếu đang ở chế độ Grid (Lưới)
+  if (typeof viewMode === 'undefined' || viewMode === 'grid') {
+    container.className = 'file-grid';
+    // Đẻ ra ngay 40 cái xương
+    for (let i = 0; i < 40; i++) {
+      container.innerHTML += `
+        <div class="file-card" style="border: none; box-shadow: none; pointer-events: none;">
+          <div class="skeleton-box skel-thumb"></div>
+          <div class="skeleton-box skel-title"></div>
+          <div class="skeleton-box skel-meta"></div>
+        </div>
+      `;
+    }
+  } else {
+    // Nếu đang ở chế độ List (Danh sách)
+    container.className = 'file-list';
+    for (let i = 0; i < 40; i++) {
+      container.innerHTML += `
+        <div class="file-row" style="pointer-events: none;">
+          <div class="skeleton-box" style="width: 40px; height: 40px; border-radius: 8px; margin-right: 16px;"></div>
+          <div class="skeleton-box" style="width: 30%; height: 16px;"></div>
+        </div>
+      `;
+    }
+  }
+}
+
 secretMaintenanceCheck();
 
 function updateMainAvatar(dataURL) {
@@ -955,29 +986,6 @@ async function loadFilesFromServer() {
 }
 
 // ─── HELPER FUNCTIONS ─────────────────────────────────────────────
-
-/**
- * Hiển thị loading spinner
- */
-function showLoadingState() {
-  const container = document.getElementById('fileContainer');
-  container.innerHTML = `
-    <div style="display:flex;flex-direction:column;align-items:center;justify-content:center;
-                gap:16px;padding:80px 24px;text-align:center;">
-      <div style="width:40px;height:40px;border:3px solid var(--border);
-                  border-top-color:var(--ink);border-radius:50%;
-                  animation:spin 0.8s linear infinite;"></div>
-      <div style="font-size:14px;color:var(--ink-3);font-weight:500;">
-        Đang tải danh sách file...
-      </div>
-    </div>
-    <style>
-      @keyframes spin {
-        to { transform: rotate(360deg); }
-      }
-    </style>
-  `;
-}
 
 /**
  * Hiển thị error state
