@@ -136,12 +136,25 @@ def handle_broadcast(data):
     emit("global_notification", {"message": data["msg"]}, broadcast=True)
 
 
+last_check_time = 0
+cached_maintenance_status = None
+
 @app.before_request
 def check_for_maintenance():
+    global last_check_time, cached_maintenance_status
+    import time
+    current_time = time.time()
     client_ip = request.remote_addr
-    IS_MAINTENANCE = get_maintenance_status()
+    if cached_maintenance_status is None or (current_time - last_check_time > 10):
+        try:
+            new_status = get_maintenance_status()
+            if new_status:
+                cached_maintenance_status = new_status
+                last_check_time = current_time
+        except Exception as e:
+            logger.error(f"{e}", duong_dan_file)
     allowed_routes = ["/unlock-server", "/check-status", "/lock-server"]
-    if IS_MAINTENANCE == "website_off" and request.path not in allowed_routes:
+    if cached_maintenance_status == "website_off" and request.path not in allowed_routes:
         if client_ip in ip_allow:
             return None
         else:
