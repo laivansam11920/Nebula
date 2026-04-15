@@ -115,12 +115,8 @@ async function loadFilesFromServer() {
   showLoadingState();
 
   try {
-    const response = await fetch('/api/lay_danh_sach_file_cua_ong'); 
-    const data = await response.json();
-    
-    // Gán dữ liệu lấy về vào biến raw (Hoặc lấy từ window.SERVER_FILES như cũ)
-    const rawFiles = data.danh_sach_file || window.SERVER_FILES || [];
-    const rawTrash = data.danh_sach_file_da_xoa || window.SERVER_TRASH || [];
+    const rawFiles = window.SERVER_FILES || [];
+    const rawTrash = window.SERVER_TRASH || [];
 
     // BƯỚC 3: Hàng đã về, bắt đầu nhào nặn data
     sampleFiles = rawFiles.map((f, i) => ({
