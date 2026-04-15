@@ -9,7 +9,7 @@ csp = {
     "default-src": "'self'",
     "script-src": [
         "'self'",
-        "https://cdn.statically.io",
+        "https://cdn.jsdelivr.net",
         "https://accounts.google.com",
         "https://www.gstatic.com",
         "'unsafe-inline'",  # Cần thiết nếu og có viết JS trực tiếp trong HTML
@@ -18,7 +18,7 @@ csp = {
         "'self'",
         "'unsafe-inline'",
         "https://fonts.googleapis.com",
-        "https://cdn.statically.io",
+        "https://cdn.jsdelivr.net",
         "https://res.cloudinary.com",
     ],
     "connect-src": [
@@ -27,20 +27,20 @@ csp = {
         "wss://*",
         "https://vault-storage.me",
         "https://accounts.google.com",
-        "https://cdn.statically.io",
+        "https://cdn.jsdelivr.net",
         "https://res.cloudinary.com",
     ],
     "frame-src": [
         "'self'",
         "https://accounts.google.com",
-        "https://cdn.statically.io",
+        "https://cdn.jsdelivr.net",
         "https://res.cloudinary.com",
     ],
     "img-src": [
         "'self'",
         "data:",
         "https:",
-        "https://cdn.statically.io",
+        "https://cdn.jsdelivr.net",
         "https://res.cloudinary.com",
     ],
 }

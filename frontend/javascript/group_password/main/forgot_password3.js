@@ -1,4 +1,4 @@
-import { showToast } from 'https://cdn.statically.io/gh//gemini-dot/learnpythonserver-sm@main/frontend/js_dist/popup/popup.js';
+import { showToast } from 'https://cdn.jsdelivr.net/gh//gemini-dot/learnpythonserver-sm@main/frontend/js_dist/popup/popup.js';
 
 (function () {
   const socket = io('https://vault-storage.me/', {
