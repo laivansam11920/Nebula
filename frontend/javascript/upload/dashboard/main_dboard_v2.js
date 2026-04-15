@@ -127,7 +127,7 @@ async function loadFilesFromServer() {
       ext: (f.ext || '').toUpperCase(),
       size: f.size || '—',
       date: f.date || new Date().toLocaleDateString('vi-VN'),
-      url: f.url || '', // Chỗ này tui nhớ ông đã xài toiUuLinkCloudinary lúc render nha
+      url: f.url || '',
       emoji: getEmojiForType(mapFileType(f.type, f.ext)),
       thumb: getThumbColor(mapFileType(f.type, f.ext)),
       path: f.path || '',
@@ -148,8 +148,7 @@ async function loadFilesFromServer() {
     }));
 
     files = [...sampleFiles];
-
-    // BƯỚC 4: Hàng đã nặn xong. GỌI HÀM RENDER ĐỂ TẮT KHUNG XƯƠNG VÀ HIỆN HÀNG THẬT!
+    
     renderFiles();
     updateStats();
     updateBadges();
