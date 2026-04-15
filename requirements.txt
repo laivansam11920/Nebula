@@ -44,3 +44,5 @@ resend
 argon2-cffi
 whitenoise
 unidecode
+Flask-Session
+redis

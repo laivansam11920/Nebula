@@ -28,6 +28,8 @@ from __about__ import (
 )
 from logs import logger
 from routes.render_subdomain import render_subdomain
+from flask_session import Session
+import redis
 
 os.environ["OAUTHLIB_INSECURE_TRANSPORT"] = "1"
 
@@ -82,6 +84,13 @@ socketio = SocketIO(
     always_connect=True,
     message_queue=redis_url
 )
+
+app.config['SESSION_TYPE'] = 'redis'
+app.config['SESSION_PERMANENT'] = True 
+app.config['SESSION_USE_SIGNER'] = True
+app.config['SESSION_REDIS'] = redis.from_url(redis_url)
+
+Session(app)
 
 oauth.init_app(app)
 
