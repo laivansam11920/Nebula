@@ -88,7 +88,7 @@ socketio = SocketIO(
 app.config['SESSION_TYPE'] = 'redis'
 app.config['SESSION_PERMANENT'] = True 
 app.config['SESSION_USE_SIGNER'] = True
-app.config['SESSION_REDIS'] = redis.from_url(redis_url)
+app.config['SESSION_REDIS'] = redis.from_url(redis_url, socket_connect_timeout=5, retry_on_timeout=True)
 
 Session(app)
 
