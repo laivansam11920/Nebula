@@ -11,7 +11,7 @@ dash_board = Blueprint('dash_board', __name__)
 
 def dash_board_test():
 
-    user_email = session.get("user_gmail", "")
+    user_email = session.get("user_gmail", "")#
     ver = int(time.time())
     du_lieu = lay_tat_ca_file(user_email, "file_info")
     user_info = get_du_lieu_dashboard(user_email)
