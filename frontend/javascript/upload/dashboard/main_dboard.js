@@ -1,6 +1,7 @@
 (function () {
   const socket = io('https://vault-storage.me/', {
-    transports: ['polling', 'websocket'], // Cho phép cả hai
+    transports: ['websocket'],
+    upgrade: false, // Cho phép cả hai
     withCredentials: true,
   });
 
