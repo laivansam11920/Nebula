@@ -108,45 +108,63 @@ let viewMode = 'grid';
 let searchQuery = '';
 let activeFilter = 'all';
 
-const rawFiles = window.SERVER_FILES ? window.SERVER_FILES : [];
-const rawTrash = window.SERVER_TRASH ? window.SERVER_TRASH : [];
+loadFilesFromServer()
 
-// Trang trí lại mảng file y như cách hàm cũ đã làm
-const sampleFiles = rawFiles.map((f, i) => ({
-  ma_dinh_danh: f.ma_dinh_danh_file || f.id || f._id,
-  id: f.id || f._id || `f_a_${i}`,
-  name: f.name || 'Unnamed',
-  type: mapFileType(f.type, f.ext),
-  ext: (f.ext || '').toUpperCase(),
-  size: f.size || '—',
-  date: f.date || new Date().toLocaleDateString('vi-VN'),
-  url: f.url || '',
-  emoji: getEmojiForType(mapFileType(f.type, f.ext)), // Gắn icon
-  thumb: getThumbColor(mapFileType(f.type, f.ext)),   // Gắn màu nền
-  path: f.path || '',
-}));
 
-const trashFiles = rawTrash.map((f, i) => ({
-  ma_dinh_danh: f.ma_dinh_danh_file || f.id || f._id,
-  id: f.id || f._id || `f_t_${i}`,
-  name: f.name || 'Unnamed',
-  type: mapFileType(f.type, f.ext),
-  ext: (f.ext || '').toUpperCase(),
-  size: f.size || '—',
-  date: f.date || new Date().toLocaleDateString('vi-VN'),
-  url: f.url || '',
-  emoji: getEmojiForType(mapFileType(f.type, f.ext)),
-  thumb: getThumbColor(mapFileType(f.type, f.ext)),
-  path: f.path || '',
-}));
+async function loadFilesFromServer() {
+  showLoadingState();
 
-let files = [...sampleFiles];
+  try {
+    const response = await fetch('/api/lay_danh_sach_file_cua_ong'); 
+    const data = await response.json();
+    
+    // Gán dữ liệu lấy về vào biến raw (Hoặc lấy từ window.SERVER_FILES như cũ)
+    const rawFiles = data.danh_sach_file || window.SERVER_FILES || [];
+    const rawTrash = data.danh_sach_file_da_xoa || window.SERVER_TRASH || [];
 
-renderFiles();
-updateStats();
-updateBadges();
+    // BƯỚC 3: Hàng đã về, bắt đầu nhào nặn data
+    sampleFiles = rawFiles.map((f, i) => ({
+      ma_dinh_danh: f.ma_dinh_danh_file || f.id || f._id,
+      id: f.id || f._id || `f_a_${i}`,
+      name: f.name || 'Unnamed',
+      type: mapFileType(f.type, f.ext),
+      ext: (f.ext || '').toUpperCase(),
+      size: f.size || '—',
+      date: f.date || new Date().toLocaleDateString('vi-VN'),
+      url: f.url || '', // Chỗ này tui nhớ ông đã xài toiUuLinkCloudinary lúc render nha
+      emoji: getEmojiForType(mapFileType(f.type, f.ext)),
+      thumb: getThumbColor(mapFileType(f.type, f.ext)),
+      path: f.path || '',
+    }));
 
- // filter từ nav: 'all','img','doc','vid','pdf','zip','today','fav','trash','shared'
+    const trashFiles = rawTrash.map((f, i) => ({
+      ma_dinh_danh: f.ma_dinh_danh_file || f.id || f._id,
+      id: f.id || f._id || `f_t_${i}`,
+      name: f.name || 'Unnamed',
+      type: mapFileType(f.type, f.ext),
+      ext: (f.ext || '').toUpperCase(),
+      size: f.size || '—',
+      date: f.date || new Date().toLocaleDateString('vi-VN'),
+      url: f.url || '',
+      emoji: getEmojiForType(mapFileType(f.type, f.ext)),
+      thumb: getThumbColor(mapFileType(f.type, f.ext)),
+      path: f.path || '',
+    }));
+
+    files = [...sampleFiles];
+
+    // BƯỚC 4: Hàng đã nặn xong. GỌI HÀM RENDER ĐỂ TẮT KHUNG XƯƠNG VÀ HIỆN HÀNG THẬT!
+    renderFiles();
+    updateStats();
+    updateBadges();
+
+  } catch (error) {
+    // Lỡ server sập thì hiện lỗi lên chứ đừng để màn hình trắng
+    showErrorState("Lỗi kết nối máy chủ Ubuntu rồi og ơi!");
+    console.error(error);
+  }
+}
+
 // ─── HÀM LỌC TRUNG TÂM ───────────────────────────────────────────
 // Luôn lọc từ sampleFiles gốc, kết hợp filter + search cùng lúc
 function getFilteredFiles() {
@@ -894,29 +912,35 @@ document.addEventListener('click', (e) => {
     closeAvatarMenu();
 });
 
-// ─── HELPER FUNCTIONS ─────────────────────────────────────────────
-
-/**
- * Hiển thị loading spinner
- */
 function showLoadingState() {
   const container = document.getElementById('fileContainer');
-  container.innerHTML = `
-    <div style="display:flex;flex-direction:column;align-items:center;justify-content:center;
-                gap:16px;padding:80px 24px;text-align:center;">
-      <div style="width:40px;height:40px;border:3px solid var(--border);
-                  border-top-color:var(--ink);border-radius:50%;
-                  animation:spin 0.8s linear infinite;"></div>
-      <div style="font-size:14px;color:var(--ink-3);font-weight:500;">
-        Đang tải danh sách file...
-      </div>
-    </div>
-    <style>
-      @keyframes spin {
-        to { transform: rotate(360deg); }
-      }
-    </style>
-  `;
+  container.innerHTML = ''; // Xóa sạch
+
+  // Nếu đang ở chế độ Grid (Lưới)
+  if (typeof viewMode === 'undefined' || viewMode === 'grid') {
+    container.className = 'file-grid';
+    // Đẻ ra ngay 40 cái xương
+    for (let i = 0; i < 40; i++) {
+      container.innerHTML += `
+        <div class="file-card" style="border: none; box-shadow: none; pointer-events: none;">
+          <div class="skeleton-box skel-thumb"></div>
+          <div class="skeleton-box skel-title"></div>
+          <div class="skeleton-box skel-meta"></div>
+        </div>
+      `;
+    }
+  } else {
+    // Nếu đang ở chế độ List (Danh sách)
+    container.className = 'file-list';
+    for (let i = 0; i < 40; i++) {
+      container.innerHTML += `
+        <div class="file-row" style="pointer-events: none;">
+          <div class="skeleton-box" style="width: 40px; height: 40px; border-radius: 8px; margin-right: 16px;"></div>
+          <div class="skeleton-box" style="width: 30%; height: 16px;"></div>
+        </div>
+      `;
+    }
+  }
 }
 
 /**
