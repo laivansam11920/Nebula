@@ -3,6 +3,7 @@ from utils.lay_du_lieu_thu_db import lay_tat_ca_file
 from utils.viet_hoa_ten_user import xu_ly_ten_cho_logo
 from services.group_chuc_nang.dashboard.get_du_lieu import get_du_lieu_dashboard
 from utils.xu_ly_ten_cho_logo import xu_ly_ten_cho_logo, xu_ly_avatar
+import time
 
 dash_board = Blueprint('dash_board', __name__)
 
@@ -11,7 +12,7 @@ dash_board = Blueprint('dash_board', __name__)
 def dash_board_test():
 
     user_email = session.get("user_gmail", "")
-
+    ver = int(time.time())
     du_lieu = lay_tat_ca_file(user_email, "file_info")
     user_info = get_du_lieu_dashboard(user_email)
     username = user_info.get('username', 'User')
@@ -25,10 +26,11 @@ def dash_board_test():
         'test.html', 
         username=username, 
         user_email=user_email, 
-        quyen_han=user_power, 
-        goi_luu_tru=storage_plan, 
+        user_power=user_power, 
+        user_storage=storage_plan, 
         danh_sach_file=du_lieu["danh_sach_file"], 
         danh_sach_file_da_xoa=du_lieu["danh_sach_file_da_xoa"],
         logo_name=logo_name,    
-        avatar_char=avatar_char    
+        avatar_char=avatar_char,
+        version=ver
     )
