@@ -87,7 +87,7 @@ if (formDangNhap) {
               if (isMobileDevice()) {
                 window.location.href = `https://vault-storage.me/frontend/view/upload/dashboard/dashboard-mobile.html`;
               } else {
-                window.location.href = `https://dashboard.vault-storage.me/`;
+                window.location.href = `https://dashboard.vault-storage.me/?useraccount=${encodeURIComponent(lay_gia_tri_user)}`;
               }
             }, 2000);
           });
