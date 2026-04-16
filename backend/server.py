@@ -226,6 +226,6 @@ port = int(os.environ.get("PORT", 8000))
 if __name__ == "__main__":
     try:
         db.command("ping")
-        socketio.run(app, host="0.0.0.0", port=port, threaded=True)
+        socketio.run(app, host="0.0.0.0", port=port, threaded=True, debug=True)
     except Exception as e:
         logger.critical(f"{e}", duong_dan_file)
