@@ -47,3 +47,4 @@ unidecode
 Flask-Session
 redis
 Flask-Compress
+zstandard
