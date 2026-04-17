@@ -1,16 +1,14 @@
-from flask import session, request, jsonify
+from flask import request, jsonify
 from functools import wraps
 import time
 import redis
 import uuid
 import os
-from dotenv import load_dotenv
 from configs.settings import ip_allow, MAX_REQUESTS, PERIOD
 from utils.tim_kiem_db import tim_kiem
 from utils.kiem_tra_het_han_toan_cuc import kiem_tra_het_han
 
-load_dotenv()
-url_tu_ket_sat = os.getenv("UPSTASH_URL")
+url_tu_ket_sat = str(os.getenv("REDIS_URL_LIMITING", "redis://localhost:6379/2"))
 redis_client = redis.from_url(url_tu_ket_sat)
 
 def limit_requests(max_requests=MAX_REQUESTS, period=PERIOD):
