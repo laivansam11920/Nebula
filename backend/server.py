@@ -66,7 +66,7 @@ CORS(
     ],
 )
 
-redis_url_socket = os.environ.get("REDIS_URL_SOCKET", "redis://localhost:6379/1")
+redis_url_socket = os.environ.get("REDIS_URL", "redis://localhost:6379/1")
 
 socketio = SocketIO(
     app,

@@ -10,7 +10,7 @@ from utils.kiem_tra_het_han_toan_cuc import kiem_tra_het_han
 from logs import logger
 
 try:
-    url_tu_ket_sat = str(os.getenv("REDIS_URL_LIMIT", "redis://localhost:6379/2"))
+    url_tu_ket_sat = str(os.getenv("REDIS_URL", "redis://localhost:6379"))
     redis_client = redis.from_url(url_tu_ket_sat)
 
     def limit_requests(max_requests=MAX_REQUESTS, period=PERIOD):
@@ -30,7 +30,7 @@ try:
                         if str(ket_qua_thoi_gian["trang_thai"]) == "chua_het_han":
                             return f(*args, **kwargs)
                 
-                redis_key = f"rate_limit:{ip}"
+                redis_key = f"backend:rate_limit:{ip}"
                 
                 pipe = redis_client.pipeline()
                 pipe.zremrangebyscore(redis_key, 0, now - period)
