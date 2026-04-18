@@ -55,7 +55,7 @@ def hien_thi_trang_ca_nhan(username, duong_dan_file):
                 logger.error(f"{e}", __file__)
             finally:
                 lay_file.close()
-        resp = Response(truyen_du_lieu(), mimetype=kieu_file), 200
+        resp = Response(truyen_du_lieu(), mimetype=kieu_file)
         resp.headers['Content-Security-Policy'] = (
             "sandbox allow-scripts; "
             "default-src 'none'; "
