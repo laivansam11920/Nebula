@@ -81,8 +81,8 @@ python3 server.py
 
 ## Star History
 
-[![Star History Chart](https://api.star-history.com/svg?repos=gemini-dot/learnpythonserver-sm&type=Date)](https://star-history.com/#gemini-dot/learnpythonserver-sm&Date)
+[![Star History Chart](https://api.star-history.com/svg?repos=laivansam11920/learnpythonserver-sm&type=Date)](https://star-history.com/#laivansam11920/learnpythonserver-sm&Date)
 
 ---
 
-_Created by [@gemini-dot](https://github.com/gemini-dot)_
+_Created by [@gemini-dot](https://github.com/laivansam11920)_
