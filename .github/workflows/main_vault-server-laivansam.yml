@@ -22,7 +22,7 @@ jobs:
       - name: Set up Python version
         uses: actions/setup-python@v5
         with:
-          python-version: '3.13'
+          python-version: '3.12'
 
       # 🛠️ Local Build Section (Optional)
       # The following section in your workflow is designed to catch build issues early on the client side, before deployment. This can be helpful for debugging and validation. However, if this step significantly increases deployment time and early detection is not critical for your workflow, you may remove this section to streamline the deployment process.
@@ -30,10 +30,9 @@ jobs:
         run: |
           python -m venv antenv
           source antenv/bin/activate
-          python -m pip install --upgrade pip
           pip install -r requirements.txt
-
-      # By default, when you enable GitHub CI/CD integration through the Azure portal, the platform automatically sets the SCM_DO_BUILD_DURING_DEPLOYMENT application setting to true. This triggers the use of Oryx, a build engine that handles application compilation and dependency installation (e.g., pip install) directly on the platform during deployment. Hence, we exclude the antenv virtual environment directory from the deployment artifact to reduce the payload size.
+                
+      # By default, when you enable GitHub CI/CD integration through the Azure portal, the platform automatically sets the SCM_DO_BUILD_DURING_DEPLOYMENT application setting to true. This triggers the use of Oryx, a build engine that handles application compilation and dependency installation (e.g., pip install) directly on the platform during deployment. Hence, we exclude the antenv virtual environment directory from the deployment artifact to reduce the payload size. 
       - name: Upload artifact for deployment jobs
         uses: actions/upload-artifact@v4
         with:
@@ -46,6 +45,7 @@ jobs:
       # If you prefer to disable the Oryx build process during deployment, follow these steps:
       # 1. Remove the SCM_DO_BUILD_DURING_DEPLOYMENT app setting from your Azure App Service Environment variables.
       # 2. Refer to sample workflows for alternative deployment strategies: https://github.com/Azure/actions-workflow-samples/tree/master/AppService
+      
 
   deploy:
     runs-on: ubuntu-latest
@@ -59,13 +59,13 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: python-app
-
+      
       - name: Login to Azure
         uses: azure/login@v2
         with:
-          client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_31157BF909144F77A8C83A8448D54EE7 }}
-          tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_3E77A7F9D5A849569E314C42928DCBCD }}
-          subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_98901C3F876840DAB5DA212F9A68A9CE }}
+          client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_8398BED34A1142AC99899D2E3E79E355 }}
+          tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_173B2CCF3AB341C08F40746757465D6B }}
+          subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_674EF712836D40AAA4A7D7368B278DE4 }}
 
       - name: 'Deploy to Azure Web App'
         uses: azure/webapps-deploy@v3
@@ -73,3 +73,4 @@ jobs:
         with:
           app-name: 'vault-server-laivansam'
           slot-name: 'Production'
+          
